@@ -1,0 +1,15 @@
+package com.gl
+
+class AcctgTransType {
+    String acctgTransCode
+    String acctgTransName
+    
+    static constraints = {
+        acctgTransCode (blank : false)
+        acctgTransName (blank : false)
+    }
+
+    String toString(){
+        return "${acctgTransCode}"
+    }
+}

@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="GLHistory" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="758" leftMargin="17" rightMargin="17" topMargin="17" bottomMargin="17">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CCCCCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="GL">
+		<parameter name="orgcode2" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="period2" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="gl_account2" class="java.lang.String" isForPrompting="false">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="from_date" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<parameter name="thru_date" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT gl_header.id, gl_header.voucher_no, entry_date, transaction_date, posted_date, gl_header.description as particulars, gl_items.gl_account, gl_items.account_name, gl_items.debit_amount, gl_items.credit_amount
+FROM
+  gl_accounting_transaction as gl_header
+INNER JOIN
+  (SELECT gl_accounting_transaction_id, gl.gl_account, gl_item.gl_account_id, gl.description as account_name, sequence_id,
+      CASE WHEN debit_credit_flag='DEBIT'
+        THEN amount
+      ELSE 0
+      END as debit_amount,
+      CASE WHEN debit_credit_flag='CREDIT'
+        THEN amount
+      ELSE 0
+      END as credit_amount
+    FROM
+      gl_accounting_transaction_details as gl_item
+    INNER JOIN
+      gl_account as gl
+    ON gl.id=gl_item.gl_account_id) as gl_items
+  ON gl_header.id=gl_items.gl_accounting_transaction_id
+WHERE organization_id = $P{orgcode2}  and transaction_date between $P{from_date} and $P{thru_date}
+and gl_account_id = $P{gl_account2}
+ORDER BY gl_header.id, gl_header.description, entry_date, transaction_date, sequence_id]]>
+		</queryString>
+		<field name="id" class="java.lang.Long"/>
+		<field name="voucher_no" class="java.lang.String"/>
+		<field name="entry_date" class="java.sql.Timestamp"/>
+		<field name="transaction_date" class="java.sql.Timestamp"/>
+		<field name="posted_date" class="java.sql.Timestamp"/>
+		<field name="particulars" class="java.lang.String"/>
+		<field name="gl_account" class="java.lang.String"/>
+		<field name="account_name" class="java.lang.String"/>
+		<field name="debit_amount" class="java.math.BigDecimal"/>
+		<field name="credit_amount" class="java.math.BigDecimal"/>
+		<variable name="DR_TOTAL" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{debit_amount}]]></variableExpression>
+		</variable>
+		<variable name="CR_TOTAL" class="java.lang.Double" calculation="Sum">
+			<variableExpression><![CDATA[$F{credit_amount}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="GLAccount">
+		<parameter name="gl_account" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     CONCAT('[', gl_account.`gl_account`, ' - ', gl_account.`description`, ']') AS gl_account_description
+FROM
+     `gl_account` gl_account INNER JOIN `gl_account_organization` gl_account_organization ON gl_account.`id` = gl_account_organization.`gl_account_id`
+     INNER JOIN `gl_account_type` gl_account_type ON gl_account.`gl_account_type_id` = gl_account_type.`id`
+WHERE gl_account_organization.gl_account_id=$P{gl_account}]]>
+		</queryString>
+		<field name="gl_account_description" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="logged_user" class="java.lang.String"/>
+	<parameter name="orgcode" class="java.lang.String"/>
+	<parameter name="period" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="gl_account" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="from_date" class="java.lang.String"/>
+	<parameter name="thru_date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM
+  (SELECT username, party.first_name, party.last_name
+  FROM party
+    INNER JOIN app_user as user
+  ON user.party_id = party.party_id
+  WHERE user.id = $P{logged_user}) as userinfo,
+  (SELECT organization_name, contact_info.*
+  FROM app_organization,
+    (SELECT address1, address2, pcm.party_id, country_code, area_code, contact_number
+    FROM party_contact_mech as pcm, postal_address as addr1, tele_info as tele
+    WHERE pcm.contact_mech_id=addr1.contact_mech_id or pcm.contact_mech_id=tele.contact_mech_id) as contact_info
+  WHERE app_organization.id = $P{orgcode}) as company_info]]>
+	</queryString>
+	<field name="username" class="java.lang.String"/>
+	<field name="first_name" class="java.lang.String"/>
+	<field name="last_name" class="java.lang.String"/>
+	<field name="organization_name" class="java.lang.String"/>
+	<field name="address1" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="party_id" class="java.lang.Long"/>
+	<field name="country_code" class="java.lang.String"/>
+	<field name="area_code" class="java.lang.String"/>
+	<field name="contact_number" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="63" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="758" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{organization_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="758" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GENERAL LEDGER HISTORY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="266" y="43" width="53" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Period:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="319" y="43" width="80" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{from_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="399" y="43" width="20" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[to]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="419" y="43" width="73" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{thru_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="26">
+			<componentElement>
+				<reportElement key="table 1" x="0" y="0" width="758" height="26" backcolor="#CCCCCC"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="GLAccount">
+						<datasetParameter name="gl_account">
+							<datasetParameterExpression><![CDATA[$P{gl_account}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="758">
+						<jr:detailCell height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="758" height="20"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_account_description}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="69">
+			<componentElement>
+				<reportElement key="table" style="table" x="0" y="0" width="758" height="69"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="GL">
+						<datasetParameter name="gl_account2">
+							<datasetParameterExpression><![CDATA[$P{gl_account}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="orgcode2">
+							<datasetParameterExpression><![CDATA[$P{orgcode}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="period2">
+							<datasetParameterExpression><![CDATA[$P{period}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="from_date">
+							<datasetParameterExpression><![CDATA[$P{from_date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="thru_date">
+							<datasetParameterExpression><![CDATA[$P{thru_date}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="89">
+						<jr:columnHeader style="table_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="89" height="28"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TRANS #]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<textField>
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="89" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{voucher_no}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79">
+						<jr:columnHeader style="table_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="79" height="28"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[ENTRY DATE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<textField pattern="MM/dd/yyyy">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="79" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.util.Date"><![CDATA[$F{entry_date}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="72">
+						<jr:columnHeader style="table_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="72" height="28"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TRANS DATE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<textField pattern="MM/dd/yyyy">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="72" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{transaction_date}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="76">
+						<jr:columnHeader style="table_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="76" height="28"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[POSTED DATE]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="15" rowSpan="1"/>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="76" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{posted_date}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="234">
+						<jr:columnHeader height="28" rowSpan="1">
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="234" height="28"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[PARTICULARS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter height="15" rowSpan="1">
+							<staticText>
+								<reportElement style="table_CH" x="0" y="0" width="234" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:columnFooter>
+						<jr:detailCell height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement style="table_TD" stretchType="RelativeToTallestObject" x="0" y="0" width="234" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{particulars}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="108">
+						<jr:columnHeader style="table_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="108" height="28"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[DEBIT AMOUNT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="15" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement x="0" y="0" width="108" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.Double"><![CDATA[$V{DR_TOTAL}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="108" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{debit_amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="102">
+						<jr:columnHeader style="table_CH" height="28" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="102" height="28"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[CREDIT AMOUNT]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:columnFooter style="table_CH" height="15" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement x="0" y="0" width="102" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.Double"><![CDATA[$V{CR_TOTAL}]]></textFieldExpression>
+							</textField>
+						</jr:columnFooter>
+						<jr:detailCell style="table_TD" height="15" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="102" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{credit_amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="368" height="10"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Printed by: " + $F{username} + " - " + $F{first_name} + "  " + $F{last_name}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="718" y="0" width="40" height="10"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="638" y="0" width="80" height="10"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm a">
+				<reportElement x="0" y="10" width="368" height="10"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

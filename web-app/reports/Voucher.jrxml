@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Voucher" language="groovy" pageWidth="612" pageHeight="396" whenNoDataType="AllSectionsNoDetail" columnWidth="582" leftMargin="15" rightMargin="15" topMargin="15" bottomMargin="15">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#CCCCCC">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<subDataset name="AcctgTrans">
+		<parameter name="trans_ref" class="java.lang.String"/>
+		<parameter name="org_code" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT
+     gl_accounting_transaction.`id` AS gl_accounting_transaction_id,
+     gl_accounting_transaction.`cdo_kg` AS gl_accounting_transaction_cdo_kg,
+     gl_accounting_transaction.`check_no` AS gl_accounting_transaction_check_no,
+     gl_accounting_transaction.`ck_si_date` AS gl_accounting_transaction_ck_si_date,
+     gl_accounting_transaction.`date_created` AS gl_accounting_transaction_date_created,
+     gl_accounting_transaction.`description` AS gl_accounting_transaction_description,
+     gl_accounting_transaction.`entry_date` AS gl_accounting_transaction_entry_date,
+     gl_accounting_transaction.`organization_id` AS gl_accounting_transaction_organization_id,
+     party.`name` AS gl_accounting_transaction_party_name,
+     gl_accounting_transaction.`posted_date` AS gl_accounting_transaction_posted_date,
+     gl_accounting_transaction.`ref_doc` AS gl_accounting_transaction_ref_doc,
+     gl_accounting_transaction.`status` AS gl_accounting_transaction_status,
+     gl_accounting_transaction.`terms` AS gl_accounting_transaction_terms,
+     party.`tin` AS gl_accounting_transaction_tin_no,
+     gl_accounting_transaction.`transaction_date` AS gl_accounting_transaction_transaction_date,
+     gl_accounting_transaction.`voucher_no` AS gl_accounting_transaction_voucher_no,
+     party.`name` AS party_name,
+     gl_accounting_transaction.`acctg_trans_type_id` AS gl_accounting_transaction_acctg_trans_type_id,
+     acctg_trans_type.`acctg_trans_name` AS acctg_trans_type_acctg_trans_name
+FROM
+     `gl_accounting_transaction` gl_accounting_transaction INNER JOIN `party` party ON gl_accounting_transaction.`party_id` = party.`party_id`
+     INNER JOIN `acctg_trans_type` acctg_trans_type ON gl_accounting_transaction.`acctg_trans_type_id` = acctg_trans_type.`id`
+WHERE
+     gl_accounting_transaction.id = $P{trans_ref}
+     and organization_id = $P{org_code}]]>
+		</queryString>
+		<field name="gl_accounting_transaction_id" class="java.lang.Long"/>
+		<field name="gl_accounting_transaction_cdo_kg" class="java.math.BigDecimal"/>
+		<field name="gl_accounting_transaction_check_no" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_ck_si_date" class="java.sql.Timestamp"/>
+		<field name="gl_accounting_transaction_date_created" class="java.sql.Timestamp"/>
+		<field name="gl_accounting_transaction_description" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_entry_date" class="java.sql.Timestamp"/>
+		<field name="gl_accounting_transaction_organization_id" class="java.lang.Long"/>
+		<field name="gl_accounting_transaction_party_name" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_posted_date" class="java.sql.Timestamp"/>
+		<field name="gl_accounting_transaction_ref_doc" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_status" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_terms" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_tin_no" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_transaction_date" class="java.sql.Timestamp"/>
+		<field name="gl_accounting_transaction_voucher_no" class="java.lang.String"/>
+		<field name="party_name" class="java.lang.String"/>
+		<field name="gl_accounting_transaction_acctg_trans_type_id" class="java.lang.Long"/>
+		<field name="acctg_trans_type_acctg_trans_name" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="AcctgTransDet">
+		<parameter name="trans_id" class="java.lang.String">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[SELECT gl_account, description,
+       CASE WHEN debit_credit_flag='Debit'
+        THEN amount
+        ELSE '0.00'
+        END as debit_amount,
+       CASE WHEN debit_credit_flag='Credit'
+        THEN amount
+        ELSE '0.00'
+        END as credit_amount
+FROM gl_accounting_transaction_details acctg_trans_det
+  INNER JOIN
+      gl_account
+ON gl_account.id=acctg_trans_det.gl_account_id
+WHERE gl_accounting_transaction_id = $P{trans_id}
+ORDER BY sequence_id]]>
+		</queryString>
+		<field name="gl_account" class="java.lang.String"/>
+		<field name="description" class="java.lang.String"/>
+		<field name="debit_amount" class="java.math.BigDecimal"/>
+		<field name="credit_amount" class="java.math.BigDecimal"/>
+		<variable name="DEBIT_TOTAL" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{debit_amount}]]></variableExpression>
+			<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+		</variable>
+		<variable name="CREDIT_TOTAL" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{credit_amount}]]></variableExpression>
+			<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+		</variable>
+	</subDataset>
+	<subDataset name="AcctgTransApproval">
+		<parameter name="trans_id" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT
+     approval_seq.`remarks` AS approval_seq_remarks,
+     acctg_trans_approval.`remarks` AS acctg_trans_approval_remarks,
+     IFNULL(party.`name`, '') AS party_name,
+     CONCAT_WS(' - ', employee.`department`, employee.`position`) AS employee_designation
+FROM
+     `approval_seq` approval_seq LEFT JOIN `acctg_trans_approval` acctg_trans_approval ON approval_seq.`id` = acctg_trans_approval.`approval_seq_id`
+     LEFT JOIN `app_user` app_user ON acctg_trans_approval.`user_id` = app_user.`id`
+     LEFT JOIN `party` party ON app_user.`party_id` = party.`party_id`
+     LEFT JOIN `employee` employee ON party.`party_id` = employee.`party_id`
+WHERE acctg_trans_id=$P{trans_id}
+ORDER BY sequence ASC]]>
+		</queryString>
+		<field name="approval_seq_remarks" class="java.lang.String"/>
+		<field name="acctg_trans_approval_remarks" class="java.lang.String"/>
+		<field name="party_name" class="java.lang.String"/>
+		<field name="employee_designation" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="logged_user" class="java.lang.String"/>
+	<parameter name="orgcode" class="java.lang.String"/>
+	<parameter name="trans_id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM
+  (SELECT username, person.first_name, person.last_name
+  FROM person
+    INNER JOIN app_user as user
+  ON user.id = person.id
+  WHERE user.id = $P{logged_user}) as userinfo,
+  (SELECT organization_name, contact_info.*
+  FROM app_organization,
+    (SELECT address1, address2, pcm.party_id, country_code, area_code, contact_number
+    FROM party_contact_mech as pcm, postal_address as addr1, tele_info as tele
+    WHERE pcm.contact_mech_id=addr1.contact_mech_id or pcm.contact_mech_id=tele.contact_mech_id) as contact_info
+  WHERE app_organization.id = $P{orgcode}) as company_info]]>
+	</queryString>
+	<field name="username" class="java.lang.String"/>
+	<field name="first_name" class="java.lang.String"/>
+	<field name="last_name" class="java.lang.String"/>
+	<field name="organization_name" class="java.lang.String"/>
+	<field name="address1" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="party_id" class="java.lang.Long"/>
+	<field name="country_code" class="java.lang.String"/>
+	<field name="area_code" class="java.lang.String"/>
+	<field name="contact_number" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="582" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{organization_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="23">
+			<componentElement>
+				<reportElement key="table 1" x="0" y="0" width="582" height="20"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="AcctgTrans">
+						<datasetParameter name="org_code">
+							<datasetParameterExpression><![CDATA[$P{orgcode}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="trans_ref">
+							<datasetParameterExpression><![CDATA[$P{trans_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="482">
+						<jr:detailCell height="20" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="482" height="20"/>
+								<box topPadding="2" leftPadding="5" bottomPadding="2" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" size="12" isBold="true"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{acctg_trans_type_acctg_trans_name}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="85">
+			<componentElement>
+				<reportElement key="table 1" stretchType="RelativeToBandHeight" x="0" y="0" width="582" height="78" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="AcctgTrans">
+						<datasetParameter name="trans_ref">
+							<datasetParameterExpression><![CDATA[$P{trans_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<datasetParameter name="org_code">
+							<datasetParameterExpression><![CDATA[$P{orgcode}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="90">
+						<jr:detailCell height="71" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="90" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Voucher No.]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="14" width="90" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Payee]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="28" width="90" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TIN]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="42" width="90" height="29"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Particulars]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="182">
+						<jr:detailCell height="71" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="182" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_accounting_transaction_voucher_no}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="14" width="182" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_accounting_transaction_party_name}]]></textFieldExpression>
+							</textField>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="28" width="182" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_accounting_transaction_tin_no}]]></textFieldExpression>
+							</textField>
+							<textField isStretchWithOverflow="true">
+								<reportElement x="0" y="42" width="182" height="29"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_accounting_transaction_description}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="94">
+						<jr:detailCell height="71" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="94" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Entry Date]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="14" width="94" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Transaction Date]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="28" width="94" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Approved Date]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="42" width="94" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Status]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="56" width="94" height="15"/>
+								<box topPadding="0" leftPadding="5" bottomPadding="0"/>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Reference #]]></text>
+							</staticText>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="112">
+						<jr:detailCell height="71" rowSpan="1">
+							<textField pattern="MMMMM dd, yyyy">
+								<reportElement x="0" y="0" width="112" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{gl_accounting_transaction_date_created}]]></textFieldExpression>
+							</textField>
+							<textField pattern="MMMMM dd, yyyy">
+								<reportElement x="0" y="14" width="112" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{gl_accounting_transaction_transaction_date}]]></textFieldExpression>
+							</textField>
+							<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+								<reportElement x="0" y="28" width="112" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.sql.Timestamp"><![CDATA[$F{gl_accounting_transaction_posted_date}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="42" width="112" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_accounting_transaction_status}]]></textFieldExpression>
+							</textField>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="56" width="112" height="15"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_accounting_transaction_ref_doc}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="44">
+			<componentElement>
+				<reportElement key="table 1" style="table" x="0" y="0" width="436" height="44"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="AcctgTransDet">
+						<datasetParameter name="trans_id">
+							<datasetParameterExpression><![CDATA[$P{trans_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="74">
+						<jr:tableFooter height="15" rowSpan="1"/>
+						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="74" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[GL Account Code]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="15" rowSpan="1">
+							<box>
+								<topPen lineStyle="Solid"/>
+								<leftPen lineStyle="Solid"/>
+								<bottomPen lineStyle="Solid"/>
+								<rightPen lineStyle="Solid"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="0" width="74" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{gl_account}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="147">
+						<jr:tableFooter height="15" rowSpan="1">
+							<staticText>
+								<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="0" width="147" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[TOTAL]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="147" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Account Name]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="15" rowSpan="1">
+							<box>
+								<topPen lineStyle="Solid"/>
+								<leftPen lineStyle="Solid"/>
+								<bottomPen lineStyle="Solid"/>
+								<rightPen lineStyle="Solid"/>
+							</box>
+							<textField isStretchWithOverflow="true">
+								<reportElement style="table_TD" x="0" y="0" width="147" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{description}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="109">
+						<jr:tableFooter height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="0" width="109" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{DEBIT_TOTAL}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="109" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Debit]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="15" rowSpan="1">
+							<box>
+								<topPen lineStyle="Solid"/>
+								<leftPen lineStyle="Solid"/>
+								<bottomPen lineStyle="Solid"/>
+								<rightPen lineStyle="Solid"/>
+							</box>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="0" width="109" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{debit_amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="105">
+						<jr:tableFooter height="15" rowSpan="1">
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement style="table_TD" stretchType="RelativeToBandHeight" x="0" y="0" width="105" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{CREDIT_TOTAL}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table_CH" height="15" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="105" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<text><![CDATA[Credit]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell height="15" rowSpan="1">
+							<box>
+								<topPen lineStyle="Solid"/>
+								<leftPen lineStyle="Solid"/>
+								<bottomPen lineStyle="Solid"/>
+								<rightPen lineStyle="Solid"/>
+							</box>
+							<textField isStretchWithOverflow="true" pattern="#,##0.00">
+								<reportElement style="table_TD" stretchType="RelativeToBandHeight" mode="Opaque" x="0" y="0" width="105" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{credit_amount}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 1" x="474" y="0" width="97" height="44"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="AcctgTransApproval">
+						<datasetParameter name="trans_id">
+							<datasetParameterExpression><![CDATA[$P{trans_id}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="92">
+						<jr:detailCell height="61" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="92" height="31"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{approval_seq_remarks}]]></textFieldExpression>
+							</textField>
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="31" width="92" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5">
+									<topPen lineWidth="0.5"/>
+								</box>
+								<textElement>
+									<font fontName="Arial" isBold="true"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{party_name}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="46" width="92" height="15"/>
+								<box topPadding="1" leftPadding="5" bottomPadding="1" rightPadding="5"/>
+								<textElement>
+									<font fontName="Arial"/>
+								</textElement>
+								<textFieldExpression class="java.lang.String"><![CDATA[$F{employee_designation}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="582" height="20"/>
+				<textField>
+					<reportElement x="0" y="0" width="368" height="10"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Printed by: " + $F{username} + " - " + $F{first_name} + "  " + $F{last_name}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Report">
+					<reportElement x="542" y="10" width="40" height="10"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="462" y="10" width="80" height="10"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="dd/MM/yyyy hh:mm a">
+					<reportElement x="0" y="10" width="368" height="10"/>
+					<textElement>
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>
