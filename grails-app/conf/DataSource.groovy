@@ -25,10 +25,12 @@ environments {
         dataSource {
             pooled = true
             driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            username = "Server"
-            password = "deftones"
+            dialect = "org.hibernate.dialect.SQLServerDialect"
+            username = "sa"
+            password = "admin"
             dbCreate = "update"
-            url = "jdbc:sqlserver://locahost:3306;databaseName=jrlsystem_dev"
+            //url = "jdbc:sqlserver://locahost:3306;databaseName=jrlsystem_dev"
+            url = "jdbc:sqlserver://192.168.101.51:1433;instanceName=FDS;databaseName=jrlsystem_dev"
         }
     }
 }
