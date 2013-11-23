@@ -12,14 +12,14 @@ class GlAccountType {
         glAccountType (blank: false, unique: true)
         description (blank: false)
         glAccountClass (blank: false, inList: ['Asset', 'Liability', 'Equity', 'Income', 'Expense'])
-        id (display: false)
+        //id (display: false)
     }
     
-    static mapping = {
-        glAccountType type: 'text'
-        description type : 'text'
-        sort "glAccountType"
-    }
+    //static mapping = {
+    //    glAccountType sqlType : "varchar", length : 30
+    //    description sqlType : "varchar", length : 50
+        //sort "glAccountType"
+    //}
     
     String toString(){
         return "${description}"

@@ -19,10 +19,10 @@ class GlAccount implements Serializable{
         parentGlAccount(blank:true, nullable:true)
     }
     
-    static mapping = {
-        glAccount type: 'text'
-        description type : 'text'
-    }
+    //static mapping = {
+    //    glAccount sqlType : "varchar", length : 30
+    //    description sqlType : "varchar", length : 50
+    //}
     
     
     String toString(){
