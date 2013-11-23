@@ -51,6 +51,7 @@ class AppUserController {
                 def employee = Employee.findByParty(party)
                 def organization = AppOrganization.get(params.organization.id);
                 if (user.password == params.password.encodeAsSHA()){
+                    user.password = params.password
                     session.user = user
                     session.organization = organization
                     session.employee = employee
