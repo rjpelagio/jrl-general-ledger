@@ -207,6 +207,7 @@ class BootStrap {
         def assets = new GlAccountType(glAccountType:"ASSETS",
                     description:"Assets",
                     glAccountClass : "Asset")
+        //def query = "from GlAccountType where glAccountType = 'ASSETS'"
         if(!GlAccountType.find(assets)){
             assets.save()
             if(assets.hasErrors()){
@@ -278,7 +279,18 @@ class BootStrap {
                 println glAcctOrg3.errors
             }
         }
-        
+
+        def acctgTransType = new AcctgTransType(
+                acctgTransCode : 'JV',
+                acctgTransName : 'Journal Voucher'
+            )
+        if(!AcctgTransType.find(acctgTransType)){
+            acctgTransType.save();
+            if(acctgTransType.hasErrors()){
+                println acctgTransType.errors
+            }
+        }
+
         def acctgTran = new GlAccountingTransaction(description : "Sample GL Entries",
                     organization : AppOrganization.find(organization),
                     entryDate : "12/24/2011",
@@ -286,7 +298,8 @@ class BootStrap {
                     postedDate : "12/25/2011",
                     party : Party.find(jrl),
                     status: "Active",
-                    voucherNo: "JV-00001")
+                    voucherNo: "JV-00001",
+                    acctgTransType: AcctgTransType.find(acctgTransType))
         if(!GlAccountingTransaction.find(acctgTran) && AppOrganization.find(organization) && Party.find(jrl)) {
             acctgTran.save()
             if(acctgTran.hasErrors()){
@@ -330,6 +343,7 @@ class BootStrap {
            }
         }
 
+
         def admin = new AppRole(roleCode:"ADM",
                         roleName:"Administrator")
         if(!AppRole.find(admin)){
@@ -339,7 +353,7 @@ class BootStrap {
             }
         }
         
-        def user = new Party(name:"The JRL Administrator", firstName: "--", middleName: "--", lastName: "--")
+       def user = new Party(name:"The JRL Administrator", firstName: "--", middleName: "--", lastName: "--")
         if(!Party.find(user)){
             user.save()
             if(user.hasErrors()){

@@ -17,7 +17,7 @@ class Party {
         firstName (blank : false)
         middleName (blank : false)
         lastName (blank : false)
-        tin (blank : true, nullable : true, unique : true)
+        tin (blank : true, nullable : true)
     }
 
     String toString() {
