@@ -25,7 +25,7 @@ environments {
         dataSource {
             pooled = true
             driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-            dialect = "org.hibernate.dialect.SQLServerDialect"
+            //dialect = "org.hibernate.dialect.SQLServerDialect"
             username = "sa"
             password = "admin"
             dbCreate = "update"
