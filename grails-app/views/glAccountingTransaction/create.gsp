@@ -121,7 +121,29 @@
                   $("tbody#dataTable tr#totals").before(<g:render template="/glAccountingTransaction/transItem"/>);
                   return false;
                 });
+
+                $("#glAccountAuto").autocomplete({
+                    source: function(request, response){
+                        $.ajax({
+                            url: "/jrl/glAccountingTransaction/lookup", // remote datasource
+                            data: request,
+                            success: function(data){
+                                response(data); // set the response
+                            },
+                            error: function(){ // handle server errors
+                                //alert("Error on retrieving GL Accounts") ;  
+                            }
+                        });
+                    },
+                    minLength: 2, // triggered only after minimum 2 characters have been entered.
+                    select: function(event, ui) { // event handler when user selects a company from the list.
+                        $("#glAccount\\.id").val(ui.item.id); // update the hidden field.
+                    }
+                });
             });
+
+
+
         </script>
     </head>
     <body>
@@ -141,14 +163,18 @@
             </g:hasErrors>
             <g:form action="save" id="createAcctgTrans">
                 <div class="dialog">
-                    <table>
+                    <table >
                         <tbody>
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="Voucher No"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'voucherNo', 'errors')}">
-                                    <g:textField name="voucherNo" value="${glAccountingTransactionInstance?.voucherNo}" />
+                                    <g:textField name="voucherNo" value="${glAccountingTransactionInstance?.voucherNo}" style="display:none" />
+
+
+                                    <g:hiddenField name="glAccount.id"></g:hiddenField> 
+                                    <g:textField name="glAccountAuto" style="width: 300px;"> </g:textField>
                                 </td>
                                 <td valign="top" class="name">
                                     <label for="Transaction Date"><g:message code="glAccountingTransaction.transactionDate.label" default="Transaction Date" /></label>
