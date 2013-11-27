@@ -224,16 +224,17 @@ th.desc a {
 }
 
 .prop {
-    padding: 5px;
+    padding: 0px;
 }
 .prop .name {
     text-align: left;
-    width: 15%;
-    white-space: nowrap;
+    width: 10%;
+    /*white-space: nowrap;*/
+    padding-left: 20px;
 }
 .prop .value {
     text-align: left;
-    width: 85%;
+    width: 35%;
 }
 
 /* ACTION BUTTONS */

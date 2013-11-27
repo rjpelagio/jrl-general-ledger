@@ -72,8 +72,9 @@
     </g:if>
     
     <g:if test="${session.user.role}"> 
-        <g:render template="/layouts/dashBoard" />
+        
     </g:if>
+    
   </g:if>
 </body>
 </html>
