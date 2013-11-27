@@ -8,11 +8,12 @@ environments {
     development {
         dataSource {
             pooled = true
-            driverClassName = "com.sql.jdbc.Driver"
-            username = "grails"
-            password = "server"
+            driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
+            username = "sa"
+            password = "admin"
             dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:mysql://localhost:3306/jrlsystem_dev?autoreconnect=true"
+            //url = "jdbc:mysql://localhost:3306/jrlsystem_dev?autoreconnect=true"
+            url = "jdbc:sqlserver://192.168.101.51:1433;instanceName=FDS;databaseName=jrlsystem_dev"
         }
     }
     test {
