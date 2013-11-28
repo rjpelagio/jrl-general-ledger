@@ -18,15 +18,10 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${partyInstance}">
+            <g:hasErrors bean="${employeeData}">
             <div class="errors">
-                <g:renderErrors bean="${partyInstance}" as="list" />
+                <g:renderErrors bean="${employeeData}" as="list" />
             </div>
-            <g:hasErrors bean="${employeeInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${employeeInstance}" as="list" />
-            </div>
-            </g:hasErrors>
             </g:hasErrors>
             <g:form action="save" >
                 <div class="dialog">
@@ -37,44 +32,95 @@
                                 <td valign="top" class="name">
                                     <label for="party"><g:message code="employee.party.label" default="Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'name', 'errors')}">
-                                    <g:textField name="name" value="${partyInstance?.name}"/>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'fullName', 'errors')}">
+                                    <g:textField name="name" value="${employeeData?.fullName}"/>
                                 </td>
                             </tr>
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="firstName"><g:message code="party.firstName.label" default="First Name" /></label>
+                                    <label for="personalTitle"><g:message code="employee.personalTitle.label" default="First Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'firstName', 'errors')}">
-                                    <g:textField name="firstName" value="${partyInstance?.firstName}" />
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'personalTitle', 'errors')}">
+                                    <select id="personalTitle" name="personalTitle">
+                                        <option value="Ms">Ms</option>
+                                        <option value="Mr">Mr</option>
+                                        <option value="Mrs">Mrs</option>
+                                        <option value="Dr">Dr</option>
+                                        <option value="Eng">Eng</option>
+                                    </select>
+                                </td>
+                            </tr>                            
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="firstName"><g:message code="employee.firstName.label" default="First Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'firstName', 'errors')}">
+                                    <g:textField name="firstName" value="${employeeData?.firstName}" />
                                 </td>
                             </tr>
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="middleName"><g:message code="party.middleName.label" default="Middle Name" /></label>
+                                    <label for="middleName"><g:message code="employee.middleName.label" default="Middle Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'middleName', 'errors')}">
-                                    <g:textField name="middleName" value="${partyInstance?.middleName}" />
-                                </td>
-                            </tr>
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="lastName"><g:message code="party.lastName.label" default="Last Name" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'lastName', 'errors')}">
-                                    <g:textField name="lastName" value="${partyInstance?.lastName}" />
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'middleName', 'errors')}">
+                                    <g:textField name="middleName" value="${employeeData?.middleName}" />
                                 </td>
                             </tr>
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="tin"><g:message code="party.tin.label" default="TIN" /></label>
+                                    <label for="lastName"><g:message code="employee.lastName.label" default="Last Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'tin', 'errors')}">
-                                    <g:textField name="tin" value="${partyInstance?.tin}" />
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'lastName', 'errors')}">
+                                    <g:textField name="lastName" value="${employeeData?.lastName}" />
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="Birthdate"><g:message code="employee.birthdate.label" default="Birthdate" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'birthdate', 'errors')}">
+                                    <calendar:datePicker name="birthdate" precision="day" value="${employeeData?.birthdate}"  />
+                                </td>
+                            </tr>                            
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="gender"><g:message code="employee.gender.label" default="First Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'gender', 'errors')}">
+                                    <select name="gender" id="gender" value="${employeeData?.gender}">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
+                                </td>
+                            </tr>   
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="maritalStatus"><g:message code="employee.maritalStatus.label" default="First Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'maritalStatus', 'errors')}">
+                                    <select id="maritalStatus" name="maritalStatus">
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Divorced">Divorced</option>
+                                        <option value="Separated">Separated</option>
+                                        <option value="Widowed">Widowed</option>
+                                    </select>
+                                </td>
+                            </tr>   
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="tin"><g:message code="employee.tin.label" default="TIN" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'tin', 'errors')}">
+                                    <g:textField name="tin" value="${employeeData?.tin}" />
                                 </td>
                             </tr>
                             
@@ -82,8 +128,8 @@
                                 <td valign="top" class="name">
                                     <label for="department"><g:message code="employee.department.label" default="Department" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'department', 'errors')}">
-                                    <g:select name="department" from="${employeeInstance.constraints.department.inList}" value="${employeeInstance?.department}" valueMessagePrefix="employee.department"  />
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'department', 'errors')}">
+                                    <g:select name="department" from="${employeeData.constraints.department.inList}" value="${employeeInstance?.department}" valueMessagePrefix="employee.department"  />
                                 </td>
                             </tr>
                         
@@ -91,8 +137,8 @@
                                 <td valign="top" class="name">
                                     <label for="position"><g:message code="employee.position.label" default="Position" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'position', 'errors')}">
-                                    <g:select name="position" from="${employeeInstance.constraints.position.inList}" value="${employeeInstance?.position}" valueMessagePrefix="employee.position"  />
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'position', 'errors')}">
+                                    <g:select name="position" from="${employeeData.constraints.position.inList}" value="${employeeInstance?.position}" valueMessagePrefix="employee.position"  />
                                 </td>
                             </tr>
                         

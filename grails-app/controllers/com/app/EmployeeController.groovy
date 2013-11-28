@@ -45,35 +45,61 @@ class EmployeeController {
     def create = {
         def employeeInstance = new Employee()
         def partyInstance = new Party()
+        def personInstance = new Person()
         partyInstance.properties = params
         employeeInstance.properties = params
+        personInstance.properties = params
         return [employeeInstance: employeeInstance, partyInstance: partyInstance]
     }
 
-    def save = {
+    def save(EmployeeData data) {
         def employeeInstance = new Employee(params)
         def partyInstance = new Party()
-        
+        def personInstance = new Person(params)
+
+        if (data.hasErrors()) {
+            render(view: "create", model: [employeeData: data])
+            return
+        }
+
         partyInstance.name = params.name
         partyInstance.lastName = params.lastName
         partyInstance.firstName = params.firstName
         partyInstance.middleName = params.middleName
         partyInstance.tin = params.tin
-        if (employeeInstance && partyInstance) {
-            if (!partyInstance.hasErrors() && partyInstance.save(flush: true)) {
-                employeeInstance.party = Party.get(partyInstance.id)
-                println "Party: " + partyInstance.id
-                if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
-                    flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
-                    redirect(action: "show", id: employeeInstance.id)
-                }
+
+        personInstance.lastName = params.lastName
+        personInstance.firstName = params.firstName
+        personInstance.middleName = params.middleName
+        personInstance.gender = params.gender
+        personInstance.nickname = params.firstName
+        personInstance.personalTitle = params.personalTitle
+        personInstance.maritalStatus = params.maritalStatus
+
+        println '0#'
+        if(!partyInstance.hasErrors()){
+            println '1A'
+            partyInstance.save()
+            employeeInstance.party = Party.get(partyInstance.id)
+            personInstance.party = Party.get(partyInstance.id)
+            employeeInstance.validate()
+            personInstance.validate()
+            if(!employeeInstance.hasErrors() && !personInstance.hasErrors()){
+                println '2B'
+                employeeInstance.save(flush:true);
+                personInstance.save(flush:true);
+                flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
+                redirect(action: "show", id: employeeInstance.id)
+            } else {
+                println '3C'
+                def partyContainer = new Party();
+                partyContainer = partyInstance
+                partyInstance.delete();
+                render(view: "create", model: [employeeInstance: employeeInstance, partyInstance: partyContainer, personInstance : personInstance])
             }
-            else {
-                render(view: "create", model: [employeeInstance: employeeInstance, partyInstance: partyInstance])
-            }
-        }
-        else {
-            render(view: "create", model: [employeeInstance: employeeInstance, , partyInstance: partyInstance])
+        } else {
+            println '4D'
+            render(view: "create", model: [employeeInstance: employeeInstance, partyInstance: partyInstance, personInstance : personInstance])
         }
     }
 

@@ -19,7 +19,7 @@ class Person {
         firstName (blank : false)
         lastName (blank : false)
         middleName (blank : true, nullable : true)
-        nickname (blank : false)
+        nickname (blank : true)
         suffix (blank : true, nullable : true)
         gender (inList : ["Male", "Female"])
         birthdate()
