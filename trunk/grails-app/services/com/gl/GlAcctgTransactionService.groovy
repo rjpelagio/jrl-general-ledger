@@ -368,7 +368,7 @@ class GlAcctgTransactionService {
         System.out.println("Item Id : " + result.get(i).getProperty('id'));
 
         glAccountMap.put("id", result.get(i).getProperty('id'))
-        glAccountMap.put("label", result.get(i).getProperty('description'))
+        glAccountMap.put("label", result.get(i).getProperty('glAccount') + " : " + result.get(i).getProperty('description'))
         glAccountMap.put("value", result.get(i).getProperty('glAccount') + " : " + result.get(i).getProperty('description'))
 
 
