@@ -1,5 +1,5 @@
 
-<%@ page import="com.app.Employee" %>
+<%@ page import="com.app.EmployeeData" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -21,46 +21,44 @@
             <div class="dialog">
                 <table>
                     <tbody>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="employee.party.label" default="Name" /></td>
-                            
-                            <td valign="top" class="value" colspan="3"><g:link controller="party" action="show" id="${employeeInstance?.party?.id}">${employeeInstance?.party?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
                         <tr class="prop">
                             <td valign="top" class="name">Personal Information</td>
-                            <td valign="top" class="value">${employeeInstance?.party?.lastName}</td>
-                            <td valign="top" class="value">${employeeInstance?.party?.firstName}</td>
-                            <td valign="top" class="value">${employeeInstance?.party?.middleName}</td>
-
+                            <td class="value"/>
                         </tr>
-
                         <tr class="prop">
-                            <td valign="top" class="name"></td>
-                            <td valign="top" class="value"><g:message code="party.lastName.label" default="Last Name" /></td>
-                            <td valign="top" class="value"><g:message code="party.firstName.label" default="First Name" /></td>
-                            <td valign="top" class="value"><g:message code="party.middleName.label" default="Middle Name" /></td>
+                            <td valign="top" class="name"><g:message code="employeeData.fullName.label" default="Name" /></td>
+                            <td valign="top" class="value">${employeeData?.lastName}, ${employeeData?.firstName} ${employeeData?.middleName}</td>
                         </tr>
-                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="employeeData.gender.label" default="Gender" /></td>
+                            <td valign="top" class="value">${employeeData?.gender}</td>
+                        </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="employeeData.birthdate.label" default="Date" /></td>
+                            <td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${employeeData?.birthdate}" /></td>
+                        </tr>
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="employeeData.maritalStatus.label" default="Date" /></td>
+                            <td valign="top" class="value">${employeeData?.maritalStatus}</td>
+                        </tr>
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="party.tin.label" default="TIN" /></td>
 
-                            <td valign="top" class="value" colspan="3">${employeeInstance?.party?.tin}</td>
+                            <td valign="top" class="value" colspan="3">${employeeData?.tin}</td>
 
                         </tr>
 
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="employee.department.label" default="Department" /></td>
                             
-                            <td valign="top" class="value" colspan="3">${fieldValue(bean: employeeInstance, field: "department")}</td>
+                            <td valign="top" class="value" colspan="3">${fieldValue(bean: employeeData, field: "department")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="employee.position.label" default="Position" /></td>
                             
-                            <td valign="top" class="value" colspan="3">${fieldValue(bean: employeeInstance, field: "position")}</td>
+                            <td valign="top" class="value" colspan="3">${fieldValue(bean: employeeData, field: "position")}</td>
                             
                         </tr>
                     
@@ -69,7 +67,7 @@
             </div>
             <div class="buttons">
                 <g:form>
-                    <g:hiddenField name="id" value="${employeeInstance?.id}" />
+                    <g:hiddenField name="id" value="${employeeData?.empId}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </g:form>

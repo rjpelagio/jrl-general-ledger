@@ -25,16 +25,6 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="name"><g:message code="party.name.label" default="Name" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'name', 'errors')}">
-                                    <g:textField name="name" value="${partyInstance?.name}" />
-                                </td>
-                            </tr>
-
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="firstName"><g:message code="party.firstName.label" default="First Name" /></label>
@@ -102,8 +92,6 @@
                 <table>
                     <thead>
                         <tr>
-                        
-                            <g:sortableColumn property="id" title="${message(code: 'employee.party.label', default: 'Name')}" />
 
                             <th>Last Name</th>
 
@@ -113,9 +101,11 @@
                             
                             <th>TIN</th>
 
-                            <g:sortableColumn property="department" title="${message(code: 'employee.department.label', default: 'Department')}" />
-                        
-                            <g:sortableColumn property="position" title="${message(code: 'employee.position.label', default: 'Position')}" />
+                            <th>Department</th>
+
+                            <th>Position</th>
+                            
+                            <th>Status</th>
                         
                             <th></th>
                         </tr>
@@ -123,8 +113,6 @@
                     <tbody>
                     <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${employeeInstance.id}">${employeeInstance.name}</g:link></td>
 
                             <td>${employeeInstance?.last_name}</td>
                             <td>${employeeInstance?.first_name}</td>
@@ -134,6 +122,8 @@
                             <td>${employeeInstance?.department}</td>
                         
                             <td>${employeeInstance?.position}</td>
+
+                            <td>${employeeInstance?.status}</td>
                         
                             <td>
                                 <g:link action="edit" id="${employeeInstance.id}">

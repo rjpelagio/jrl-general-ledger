@@ -20,14 +20,15 @@
             </g:if>
             <div class="dialog">
                 <table>
-                    <tbody>
-                    
-                        <tr class="prop">
+                    <tr class="prop">
                             <td valign="top" class="name"><g:message code="appUser.party.label" default="Party" /></td>
                             
-                            <td valign="top" class="value">${appUserInstance?.party?.encodeAsHTML()}</td>
+                            <td valign="top">${appUserInstance?.party?.encodeAsHTML()}</td>
                             
                         </tr>
+                    <tbody>
+                    
+                        
                         
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="appUser.username.label" default="Username" /></td>
