@@ -1,7 +1,7 @@
 package com.app
 
 class PartyRole {
-    String partyRole
+    String role
     Date fromDate = new Date()
     Date thruDate
     String status

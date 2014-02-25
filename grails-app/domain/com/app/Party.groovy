@@ -1,6 +1,6 @@
 package com.app
 
-class Party {
+class Party implements Serializable{
     String name
     String firstName
     String middleName
