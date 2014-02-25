@@ -90,10 +90,11 @@ class AppUserController {
 
         def employeeDropDown = db.rows("SELECT *\
             FROM Party\
-            WHERE party_id IN (SELECT party_id FROM app_user)"
+            WHERE party_id NOT IN (SELECT party_id FROM app_user)\
+            AND party_id IN (SELECT party_id FROM employee)"
         )
         
-        println "drop down values: " + employeeDropDown
+        //println "drop down values: " + employeeDropDown
 
         def offset = 0 + params.int('max')
         if(params.offset){
@@ -103,7 +104,6 @@ class AppUserController {
         if(offset>result.size()){
             offset = result.size()
         }
-
         
         [appUserInstanceList: result, appUserInstanceTotal: result.size(), appUserInstance: appUserInstance, employeeDropDown : employeeDropDown, recordCount : offset]
     }

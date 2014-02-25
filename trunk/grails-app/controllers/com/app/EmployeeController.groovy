@@ -5,6 +5,7 @@ class EmployeeController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def appSearchService
+    def appUtilityService
 
     def beforeInterceptor = [action:this.&auth]
 
@@ -43,122 +44,131 @@ class EmployeeController {
     }
 
     def create = {
-        def employeeInstance = new Employee()
-        def partyInstance = new Party()
-        def personInstance = new Person()
-        partyInstance.properties = params
-        employeeInstance.properties = params
-        personInstance.properties = params
-        return [employeeInstance: employeeInstance, partyInstance: partyInstance]
+        def employeeData = new EmployeeData()
+        return [employeeData: employeeData]
     }
 
-    def save(EmployeeData data) {
+    def save = { EmployeeData data ->
         def employeeInstance = new Employee(params)
         def partyInstance = new Party()
         def personInstance = new Person(params)
+        def partyRole = new PartyRole(params)
 
-        if (data.hasErrors()) {
-            render(view: "create", model: [employeeData: data])
-            return
-        }
+        bindData(data, params)
+        data.status = 'Active'
+        data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
+        if(data.validate()){
 
-        partyInstance.name = params.name
-        partyInstance.lastName = params.lastName
-        partyInstance.firstName = params.firstName
-        partyInstance.middleName = params.middleName
-        partyInstance.tin = params.tin
+            partyInstance.name = data.fullName
+            partyInstance.lastName = data.lastName
+            partyInstance.firstName = data.firstName
+            partyInstance.middleName = data.middleName
+            partyInstance.tin = data.tin
+            partyInstance.save(flush:true)
 
-        personInstance.lastName = params.lastName
-        personInstance.firstName = params.firstName
-        personInstance.middleName = params.middleName
-        personInstance.gender = params.gender
-        personInstance.nickname = params.firstName
-        personInstance.personalTitle = params.personalTitle
-        personInstance.maritalStatus = params.maritalStatus
-
-        println '0#'
-        if(!partyInstance.hasErrors()){
-            println '1A'
-            partyInstance.save()
-            employeeInstance.party = Party.get(partyInstance.id)
             personInstance.party = Party.get(partyInstance.id)
-            employeeInstance.validate()
-            personInstance.validate()
-            if(!employeeInstance.hasErrors() && !personInstance.hasErrors()){
-                println '2B'
-                employeeInstance.save(flush:true);
-                personInstance.save(flush:true);
-                flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
-                redirect(action: "show", id: employeeInstance.id)
-            } else {
-                println '3C'
-                def partyContainer = new Party();
-                partyContainer = partyInstance
-                partyInstance.delete();
-                render(view: "create", model: [employeeInstance: employeeInstance, partyInstance: partyContainer, personInstance : personInstance])
-            }
+            personInstance.lastName = data.lastName
+            personInstance.firstName = data.firstName
+            personInstance.middleName = data.middleName
+            personInstance.gender = data.gender
+            personInstance.nickname = data.firstName
+            personInstance.personalTitle = data.personalTitle
+            personInstance.maritalStatus = data.maritalStatus
+            personInstance.save(flush:true)
+
+            employeeInstance.party = Party.get(partyInstance.id)
+            employeeInstance.department = data.department
+            employeeInstance.position = data.position
+            employeeInstance.status = 'Active'
+            employeeInstance.save(flush:true)
+
+            partyRole.party = Party.get(partyInstance.id)
+            partyRole.fromDate = new Date()
+            partyRole.status = 'Active'
+            partyRole.role = 'EMPLOYEE'
+            partyRole.save(flush:true)
+
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
+            redirect(action: "show", id: employeeInstance.id)
         } else {
-            println '4D'
-            render(view: "create", model: [employeeInstance: employeeInstance, partyInstance: partyInstance, personInstance : personInstance])
+            render(view: "create", model : [employeeData: data])
+            return 
         }
     }
 
     def show = {
         def employeeInstance = Employee.get(params.id)
+
+        def employeeData = appUtilityService.prepareEmployeeData(employeeInstance)
+
         if (!employeeInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
             redirect(action: "list")
         }
         else {
-            [employeeInstance: employeeInstance]
+            [employeeData: employeeData]
         }
     }
 
     def edit = {
         def employeeInstance = Employee.get(params.id)
-        if (!employeeInstance) {
+
+        def employeeData = appUtilityService.prepareEmployeeData(employeeInstance)
+
+        if (!employeeData) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
             redirect(action: "list")
         }
         else {
-            return [employeeInstance: employeeInstance]
+            return [employeeData: employeeData]
         }
     }
 
-    def update = {
-        def employeeInstance = Employee.get(params.id)
-        def party = employeeInstance.party
-        def partyInstance = Party.find(party)
-        
-        if (employeeInstance && partyInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (employeeInstance.version > version) {
-                    
-                    employeeInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'employee.label', default: 'Employee')] as Object[], "Another user has updated this Employee while you were editing")
-                    render(view: "edit", model: [employeeInstance: employeeInstance])
-                    return
+    def update = { EmployeeData data ->
+
+        bindData(data, params)
+        data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
+
+        if(data.validate()){
+
+            def partyInstance = Party.get(data.partyId);
+            partyInstance.name = data.fullName
+            partyInstance.lastName = data.lastName
+            partyInstance.firstName = data.firstName
+            partyInstance.middleName = data.middleName
+            partyInstance.tin = data.tin
+            partyInstance.save(flush:true)
+
+            def personInstance = Person.get(data.personId)
+            personInstance.lastName = data.lastName
+            personInstance.firstName = data.firstName
+            personInstance.middleName = data.middleName
+            personInstance.gender = data.gender
+            personInstance.nickname = data.firstName
+            personInstance.personalTitle = data.personalTitle
+            personInstance.maritalStatus = data.maritalStatus
+            personInstance.save(flush:true)
+
+            def employeeInstance = Employee.get(data.empId)
+            employeeInstance.department = data.department
+            employeeInstance.position = data.position
+            employeeInstance.status = data.status
+            employeeInstance.save(flush:true)
+
+            if(data.status == 'Inactive'){
+                def partyRole = PartyRole.findByParty(partyInstance)
+                if (partyRole != null) {
+                    partyRole.status = 'Inactive'
+                    partyRole.thruDate = new Date()
                 }
             }
-            partyInstance.name = params.name
-            partyInstance.lastName = params.lastName
-            partyInstance.firstName = params.firstName
-            partyInstance.middleName = params.middleName
-            partyInstance.tin = params.tin
-            if (!partyInstance.hasErrors() && partyInstance.save(flush: true)) {
-                employeeInstance.properties = params
-                if (!employeeInstance.hasErrors() && employeeInstance.save(flush: true)) {
-                    flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), employeeInstance.id])}"
-                    redirect(action: "show", id: employeeInstance.id)
-                }
-            }
-            else {
-                render(view: "edit", model: [employeeInstance: employeeInstance])
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
+
+            flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
+            redirect(action: "show", id: employeeInstance.id)
+
+        } else {
+            render(view: "edit", model : [employeeData: data])
+            return 
         }
     }
 
