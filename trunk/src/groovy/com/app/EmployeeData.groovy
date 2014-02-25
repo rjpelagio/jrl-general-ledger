@@ -1,7 +1,11 @@
 package com.app
 
-class EmployeeData {
+class EmployeeData implements Serializable {
 	
+	Integer empId;
+	Integer version
+	Integer partyId
+	Integer personId
 	String fullName
 	String personalTitle
 	String firstName
@@ -13,19 +17,25 @@ class EmployeeData {
     String tin
     String department
     String position
+    String status
 
     static constraints = {
-    	fullName(blank: false)
-		personalTitle(blank: false)
-		firstName(blank: false)
-		middleName(blank: false)
-	    lastName(blank: false)
-	    birthdate(blank: false)
-	    gender (blank: false)
-	    maritalStatus (blank: false)
-	    tin(blank: false)
-	    department (blank: false, nullable: false, inList : ['Administration', 'Finance', 'HR', 'Sales'])
-        position (blank: false, nullable: false, inList : ['Clerk', 'Supervisor', 'Manager'])
+    	empId(blank : true, nullable : true, bindable : true)
+    	version(blank : true, nullable : true, bindable : true)
+    	partyId(blank: true, nullable : true, bindable : true)
+    	personId(blank: true, nullable : true, bindable : true)
+    	fullName(blank: false, nullable : false, bindable: true)
+		personalTitle(blank: false, bindable: true, inList : ["Mr", "Ms", "Mrs", "Dr", "Eng"])
+		firstName(blank: false, bindable: true)
+		middleName(blank: false, bindable: true)
+	    lastName(blank: false, bindable: true)
+	    birthdate(blank: false, nullable : false, bindable: true)
+	    gender (blank: false, bindable: true, inList : ["Male", "Female"])
+	    maritalStatus (blank: false, bindable: true, inList : ["Married", "Divorced", "Separated", "Widowed"])
+	    tin(blank: false, bindable: true)
+	    department (blank: false, nullable: false, bindable: true, inList : ["Administration", "Finance", "HR", "Sales"])
+        position (blank: false, nullable: false, bindable: true, inList : ['Clerk', 'Supervisor', 'Manager'])
+        status (blank: false, nullable : false, bindable : true,  inList : ['Active', 'Inactive'])
     }
     
     
