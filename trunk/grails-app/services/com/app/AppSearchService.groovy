@@ -128,6 +128,8 @@ class AppSearchService {
         String newMiddleName = "%%"
         String newLastName = "%%"
         String newTin = "%%"
+        String newDepartment = "%%"
+        String newPosition = "%%"
 
         if(name){
             newName = "%"+ name +"%"
@@ -149,90 +151,27 @@ class AppSearchService {
             newTin = "%"+ tin +"%"
         }
 
-        def result = db.rows("SELECT *\
-            FROM employee\
-            WHERE party_id IN\
-            (SELECT party_id\
-            FROM party\
-            WHERE name LIKE ?\
-            AND first_name LIKE ?\
-            AND last_name LIKE ?\
-            AND middle_name LIKE ?\
-            AND tin LIKE ?)", [newName, newFirstName, newLastName, newMiddleName, newTin]
-        )
-
-        result = db.rows("SELECT *\
-            FROM employee\
-            JOIN party ON employee.party_id = party.party_id\
-            WHERE name LIKE '"+ newName +"'\
-           AND first_name LIKE '"+ newFirstName +"'\
-            AND last_name LIKE '"+ newLastName +"'\
-            AND middle_name LIKE '"+ newMiddleName +"'\
-            AND tin LIKE '"+ newTin +"'\
-            ")
-
-
-        //def sample = ("SELECT *\
-        //    FROM employee\
-        //    WHERE party_id IN\
-        //    (SELECT party_id\
-        //    FROM party\
-        //    WHERE name LIKE '"+ newName + "'\
-        //    AND first_name LIKE '"+ newFirstName + "'\
-        //    AND last_name LIKE '"+ newLastName + "'\
-        //    AND middle_name LIKE '"+ newMiddleName + "'\
-        //    AND tin LIKE '"+ newTin + "'")
-        //println "1: " + position + ", " + department
-
-        if(department || position){
-            if(department!='null' && position!='null'){
-                result = db.rows("SELECT *\
-                    FROM employee\
-                    WHERE department = ?\
-                    AND position = ?\
-                    AND party_id IN\
-                    (SELECT party_id\
-                    FROM party\
-                    WHERE name LIKE ?\
-                    AND first_name LIKE ?\
-                    AND last_name LIKE ?\
-                    AND middle_name LIKE ?\
-                    AND tin LIKE ?)", [department, position, newName, newFirstName, newLastName, newMiddleName, newTin]
-                )
-                //println "2"
-            }
-            else if(department!='null' && position=='null'){
-                result = db.rows("SELECT *\
-                    FROM employee\
-                    WHERE department = ?\
-                    AND party_id IN\
-                    (SELECT party_id\
-                    FROM party\
-                    WHERE name LIKE ?\
-                    AND first_name LIKE ?\
-                    AND last_name LIKE ?\
-                    AND middle_name LIKE ?\
-                    AND tin LIKE ?)", [department, newName, newFirstName, newLastName, newMiddleName, newTin]
-                )
-                //println "3"
-            }
-            else if (department=='null' && position!='null'){
-                result = db.rows("SELECT *\
-                    FROM employee\
-                    WHERE position = ?\
-                    AND party_id IN\
-                    (SELECT party_id\
-                    FROM party\
-                    WHERE name LIKE ?\
-                    AND first_name LIKE ?\
-                    AND last_name LIKE ?\
-                    AND middle_name LIKE ?\
-                    AND tin LIKE ?)", [position, newName, newFirstName, newLastName, newMiddleName, newTin]
-                )
-                //println "4"
-            }
+        if(department){
+            newDepartment = "%"+ department +"%"
         }
 
+        if(position){
+            newPosition = "%"+ position +"%"
+        }
+
+        println 'department ' + department
+
+        def result = db.rows("SELECT employee.id, party.last_name, party.first_name, party.middle_name, party.tin, employee.department, employee.position, employee.status\
+            FROM party\
+            JOIN employee ON employee.party_id = party.party_id\
+            WHERE (party.last_name LIKE ?\
+            AND party.first_name LIKE ?\
+            AND party.middle_name LIKE ?\
+            AND party.tin LIKE ?)\
+            AND (employee.department LIKE ?\
+            OR employee.position LIKE ?)", [newLastName, newFirstName, newMiddleName, newTin, newDepartment, newPosition]
+        )
+        
         return result
     }
 }
