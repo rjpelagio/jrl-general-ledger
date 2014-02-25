@@ -26,4 +26,8 @@ class Person {
         maritalStatus (inList : ["Single", "Married", "Divorced", "Separated", "Widowed"])
         comment (blank : true, nullable : true, display : "false")
     }
+
+    String toString() {
+        return "${firstName} " + " " + "${lastName}"
+    }
 }
