@@ -68,15 +68,7 @@
                                     <g:select name="department" from="${employeeInstance.constraints.department.inList}" value="${employeeInstance?.department}" valueMessagePrefix="employee.department" noSelection="['null':'']" />
                                 </td>
                             </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="position"><g:message code="employee.position.label" default="Position" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'position', 'errors')}">
-                                    <g:select name="position" from="${employeeInstance.constraints.position.inList}" value="${employeeInstance?.position}" valueMessagePrefix="employee.position" noSelection="['null':'']" />
-                                </td>
-                            </tr>
+                    
                         
                             <tr>
                                 <td></td>
