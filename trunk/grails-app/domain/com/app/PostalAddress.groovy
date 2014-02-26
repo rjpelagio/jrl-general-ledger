@@ -1,14 +1,20 @@
 package com.app
 
 class PostalAddress {
-    String address1
-    String address2
+    String addressLine1
+    String addressLine2
+    String city
+    String province
+    String postalCode
 
     static belongsTo = [contactMech : ContactMech]
     //static belongsTo = [geo : Geo]
 
     static constraints = {
-        address1 (blank : false)
-        address2 (blank : true, nullable : true)
+        addressLine1 (blank : false)
+        addressLine2 (blank : true, nullable : true)
+        city (blank : false)
+        province (blank : false)
+        postalCode (blank : false)
     }
 }
