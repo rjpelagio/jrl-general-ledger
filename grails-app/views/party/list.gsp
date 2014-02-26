@@ -11,10 +11,10 @@
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+            <span class="menuButton"><g:link class="create" action="create"><g:message code="party.newButton.label"/></g:link></span>
         </div>
         <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+            <h1>Payee List</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -28,7 +28,7 @@
 
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="name"><g:message code="party.name.label" default="Name" /></label>
+                                    <label for="name"><g:message code="party.name.label" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'name', 'errors')}">
                                     <g:textField name="name" value="${partyInstance?.name}" />
@@ -37,7 +37,7 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="firstName"><g:message code="party.firstName.label" default="First Name" /></label>
+                                    <label for="firstName"><g:message code="party.firstName.label" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'firstName', 'errors')}">
                                     <g:textField name="firstName" value="${partyInstance?.firstName}" />
@@ -124,7 +124,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-              <g:paginate total="${partyInstanceTotal}" /> Record ${recordCount} of ${partyInstanceTotal} <g:link action="list"> Show All </g:link>
+              <g:paginate total="${partyInstanceTotal}" /> Record ${recordCount} of ${partyInstanceTotal}
             </div>
             <g:jasperReport jasper="ChartOfAccounts" format="PDF, XLS" name="List of Payee"></g:jasperReport>
         </div>
