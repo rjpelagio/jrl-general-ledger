@@ -151,7 +151,7 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">${currentOrg}<g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
-        <div class="body">
+        <div class="body" style="width:70%">
             <h1><g:message code="default.create.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -268,9 +268,9 @@
                         <table>
                             <thead>
                                 <tr>
-                                  <th>GL Account</th>
-                                  <th>Debit</th>
-                                  <th>Credit</th>
+                                  <th style="width:65%">GL Account</th>
+                                  <th style="text-align:right" >Debit</th>
+                                  <th style="text-align:right" >Credit</th>
                                   <th></th>
                                 </tr>
                             </thead>
@@ -278,8 +278,8 @@
                                 <g:if test="${glAccounts.size() > 0}">
                                 <g:each status="i" in="${glAccounts}" var="acct">
                                     <tr id="row_${i}">
-                                        <td><g:select name="glAccounts" from="${glAccountList}" optionKey="id" value="${acct}" id="glAccount_${i}"/></td>
-                                        <td><g:textField id="debit_${i}"
+                                        <td><g:select name="glAccounts" from="${glAccountList}" optionKey="id" value="${acct}" id="glAccount_${i}" style="width:200px"/></td>
+                                        <td style="text-align:right"><g:textField id="debit_${i}"
                                                          name="debits"
                                                          value="${debits[i]}"
                                                          onchange="this.value=validateInteger(this.value);recomputeDebit(${i})"
@@ -297,9 +297,9 @@
                                 </g:if>
                                 <g:else>
                                     <tr id="row_0">
-                                        <td><g:select name="glAccounts" from="${glAccountList}" optionKey="id" value="${glAccount?.glAccount}" id="glAccount_0"/></td>
-                                        <td><g:textField id="amount_0" name="debits" onchange="this.value=validateInteger(this.value);recomputeDebit(0)" style="text-align:right" value="0.00"/></td>
-                                        <td><g:textField id="credit_0" name="credits" onchange="this.value=validateInteger(this.value);recomputeCredit(0)" style="text-align:right" value="0.00"/></td>
+                                        <td><g:select name="glAccounts" from="${glAccountList}" optionKey="id" value="${glAccount?.glAccount}" id="glAccount_0" style="width:500px"/></td>
+                                        <td style="text-align:right" ><g:textField id="amount_0" name="debits" onchange="this.value=validateInteger(this.value);recomputeDebit(0)" style="text-align:right" value="0.00" /></td>
+                                        <td style="text-align:right" ><g:textField id="credit_0" name="credits" onchange="this.value=validateInteger(this.value);recomputeCredit(0)" style="text-align:right" value="0.00"/></td>
                                         <td>
                                             <input type="button" id="delete_0" value="Delete" onClick="deleteRow(0);addToTotal()"/>
                                         </td>
@@ -322,9 +322,15 @@
                 </div>
                 <br/>
                 <div class="buttons">
-                    <a href="#" id="addRow">Add Item</a>
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
-                    <span class="button"><g:submitButton name="create" class="submit" value="${message(code: 'default.button.submit.label', default: 'Submit')}" /></span>
+                        <span >
+                            <input type="button" id="addRow" class="add" value="Add Item"></input>
+                        </span>
+                        <span style="float:right">
+                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
+                        </span>
+                        <span style="float:right">
+                            <g:submitButton name="create" class="submit" value="${message(code: 'default.button.submit.label', default: 'Submit')}" />
+                        </span>
                 </div>
             </g:form>
         </div>
