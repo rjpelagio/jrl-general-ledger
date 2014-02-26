@@ -19,6 +19,31 @@ class EmployeeData implements Serializable {
     String position
     String status
 
+    //Contact Mech Fields
+    Integer contactMechId;
+    Integer postalAddressId;
+    Integer elecAddressId;
+    Integer telInfoId;
+
+    //Postal Address
+    String addressLine1;
+    String addressLine2;
+    String city;
+    String province;
+    String postalCode;
+
+    //Email Address
+    String emailAddress;
+
+    //Telephone Info
+    String areaCode;
+    String contactNumber;
+    String contactPerson;
+    String mobileNumber;
+
+    String testField;
+
+
     static constraints = {
     	empId(blank : true, nullable : true, bindable : true)
     	version(blank : true, nullable : true, bindable : true)
@@ -36,9 +61,26 @@ class EmployeeData implements Serializable {
 	    department (blank: false, nullable: false, bindable: true, inList : ["Administration", "Finance", "HR", "Sales"])
         position (blank: false, nullable: false, bindable: true, inList : ['Clerk', 'Supervisor', 'Manager'])
         status (blank: false, nullable : false, bindable : true,  inList : ['Active', 'Inactive'])
+
+        contactMechId(blank : true, nullable : true, bindable : true)
+        postalAddressId(blank : true, nullable : true, bindable : true)
+        elecAddressId(blank : true, nullable : true, bindable : true)
+        telInfoId(blank : true, nullable : true, bindable : true)
+
+        addressLine1(blank: false, bindable: true)
+        addressLine2(blank: true, bindable: true)
+        city(blank: false, bindable: true)
+        province(blank: false, bindable: true)
+        postalCode(blank: false, bindable: true, matches : '^[0-9]*$')
+
+        emailAddress(blank: false, email : true, bindable : true)
+
+        areaCode (blank : false, bindable : true, matches : '^[0-9]*$')
+        contactNumber (blank : false, bindable : true, matches : '^[0-9]*$')
+        contactPerson (blank : true, bindable : true)
+        mobileNumber (blank: false, bindable : true, matches : '^[0-9]*$')
     }
     
     
-
-
 }
+
