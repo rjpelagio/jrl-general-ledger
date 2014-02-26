@@ -295,6 +295,16 @@ th.desc a {
     padding-left: 28px;
 }
 
+.buttons input.add {
+    background: transparent url(../images/skin/add_button.png)  5px 50% no-repeat;
+    padding-left: 28px;
+}
+
+.buttons input.submit {
+    background: transparent url(../images/skin/database_add.png)  5px 50% no-repeat;
+    padding-left: 28px;
+}
+
 .buttons a {
     padding: 2px 6px;
     padding-left: 25px;
@@ -303,9 +313,13 @@ th.desc a {
     cursor: pointer;
     font-size: 10px;
     font-weight: bold;
-    margin-left: 3px;
-    background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;
+    margin-left: 3px;0;
+   
+
 }
+
+
+
 
 
 #header {
