@@ -88,6 +88,8 @@ class EmployeeController {
             partyRole.role = 'EMPLOYEE'
             partyRole.save(flush:true)
 
+            appUtilityService.createContactEntries(data, Party.get(partyInstance.id))
+
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
             redirect(action: "show", id: employeeInstance.id)
         } else {
@@ -162,6 +164,8 @@ class EmployeeController {
                     partyRole.thruDate = new Date()
                 }
             }
+            
+            appUtilityService.updateContactEntries(data)
 
             flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
             redirect(action: "show", id: employeeInstance.id)
