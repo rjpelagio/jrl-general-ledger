@@ -129,7 +129,6 @@ class AppSearchService {
         String newLastName = "%%"
         String newTin = "%%"
         String newDepartment = "%%"
-        String newPosition = "%%"
 
         if(name){
             newName = "%"+ name +"%"
@@ -155,12 +154,6 @@ class AppSearchService {
             newDepartment = "%"+ department +"%"
         }
 
-        if(position){
-            newPosition = "%"+ position +"%"
-        }
-
-        println 'department ' + department
-
         def result = db.rows("SELECT employee.id, party.last_name, party.first_name, party.middle_name, party.tin, employee.department, employee.position, employee.status\
             FROM party\
             JOIN employee ON employee.party_id = party.party_id\
@@ -168,8 +161,8 @@ class AppSearchService {
             AND party.first_name LIKE ?\
             AND party.middle_name LIKE ?\
             AND party.tin LIKE ?)\
-            AND (employee.department LIKE ?\
-            OR employee.position LIKE ?)", [newLastName, newFirstName, newMiddleName, newTin, newDepartment, newPosition]
+            AND employee.department LIKE ?\
+            ", [newLastName, newFirstName, newMiddleName, newTin, newDepartment]
         )
         
         return result
