@@ -56,6 +56,7 @@ class EmployeeController {
 
         bindData(data, params)
         data.status = 'Active'
+        data.role = 'Customer' /*placeholder for payee related field */
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
         if(data.validate()){
 
@@ -85,7 +86,7 @@ class EmployeeController {
             partyRole.party = Party.get(partyInstance.id)
             partyRole.fromDate = new Date()
             partyRole.status = 'Active'
-            partyRole.role = 'EMPLOYEE'
+            partyRole.role = 'Employee'
             partyRole.save(flush:true)
 
             appUtilityService.createContactEntries(data, Party.get(partyInstance.id))
@@ -130,6 +131,7 @@ class EmployeeController {
 
         bindData(data, params)
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
+        data.role = 'Customer' /*placeholder for payee related field */
 
         if(data.validate()){
 
@@ -162,6 +164,7 @@ class EmployeeController {
                 if (partyRole != null) {
                     partyRole.status = 'Inactive'
                     partyRole.thruDate = new Date()
+                    partyROle.save(flush:true)
                 }
             }
             
