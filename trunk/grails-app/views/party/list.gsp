@@ -13,7 +13,7 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="party.newButton.label"/></g:link></span>
         </div>
-        <div class="body">
+        <div class="body" style="width:60%">
             <h1>Payee List</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -37,37 +37,15 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="firstName"><g:message code="party.firstName.label" /></label>
+                                    <label for="status"><g:message code="employeeData.role.label" default="role" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'firstName', 'errors')}">
-                                    <g:textField name="firstName" value="${partyInstance?.firstName}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="middleName"><g:message code="party.middleName.label" default="Middle Name" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'middleName', 'errors')}">
-                                    <g:textField name="middleName" value="${partyInstance?.middleName}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="lastName"><g:message code="party.lastName.label" default="Last Name" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'lastName', 'errors')}">
-                                    <g:textField name="lastName" value="${partyInstance?.lastName}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="tin"><g:message code="party.tin.label" default="TIN" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'tin', 'errors')}">
-                                    <g:textField name="tin" value="${partyInstance?.tin}" />
+                                <td valign="top">
+                                    <select name="role">
+                                        <option value="Employee">Employee</option>
+                                        <option value="Customer">Customer</option>
+                                        <option value="Supplier">Supplier</option>
+                                        <option value="Organization">Organization</option>
+                                    </select>                                    
                                 </td>
                             </tr>
                         
@@ -88,13 +66,17 @@
                         
                             <g:sortableColumn property="name" title="${message(code: 'party.name.label', default: 'Name')}" />
                         
-                            <g:sortableColumn property="firstName" title="${message(code: 'party.firstName.label', default: 'First Name')}" />
-                        
-                            <g:sortableColumn property="middleName" title="${message(code: 'party.middleName.label', default: 'Middle Name')}" />
-                        
-                            <g:sortableColumn property="lastName" title="${message(code: 'party.lastName.label', default: 'Last Name')}" />
-                        
-                            <g:sortableColumn property="tin" title="${message(code: 'party.tin.label', default: 'TIN')}" />
+                            <th><g:message code="employeeData.tin.label" default="TIN" /></th>
+
+                            <th><g:message code="employeeData.role.label" default="Role" /></th>
+
+                            <th><g:message code="employeeData.city.label" default="City" /></th>
+
+                            <th><g:message code="employeeData.contactNumber.label" default="Contact Number" /></th>
+
+                            <th><g:message code="employeeData.mobileNumber.label" default="Mobile Number" /></th>
+
+                            <th><g:message code="employeeData.status.label" default="Status" /></th>
                         
                             <th></th>
                         </tr>
@@ -103,15 +85,19 @@
                     <g:each in="${partyInstanceList}" status="i" var="partyInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${partyInstance.id}">${fieldValue(bean: partyInstance, field: "name")}</g:link></td>
+                            <td><g:link action="show" id="${partyInstance.id}">${partyInstance?.name}</g:link></td>
                         
-                            <td>${fieldValue(bean: partyInstance, field: "firstName")}</td>
-                        
-                            <td>${fieldValue(bean: partyInstance, field: "middleName")}</td>
-                        
-                            <td>${fieldValue(bean: partyInstance, field: "lastName")}</td>
-                        
-                            <td>${fieldValue(bean: partyInstance, field: "tin")}</td>
+                            <td>${partyInstance?.tin}</td>
+
+                            <td>${partyInstance?.role}</td>
+
+                            <td>${partyInstance?.city}</td>
+
+                            <td>${partyInstance?.contactNumber}</td>
+
+                            <td>+63${partyInstance?.mobileNumber}</td>
+
+                            <td>${partyInstance?.status}</td>
                         
                             <td>
                                 <g:link action="edit" id="${partyInstance.id}">
@@ -126,7 +112,6 @@
             <div class="paginateButtons">
               <g:paginate total="${partyInstanceTotal}" /> Record ${recordCount} of ${partyInstanceTotal}
             </div>
-            <g:jasperReport jasper="ChartOfAccounts" format="PDF, XLS" name="List of Payee"></g:jasperReport>
         </div>
     </body>
 </html>

@@ -13,10 +13,6 @@
             <li><g:link controller="employee" action="list">Employee</g:link></li>
             <li><g:link controller="appUser" action="list">Users</g:link></li>
           </g:if>
-          <g:if test="${session.user.role.roleCode=='ADM'}">
-            <li><g:link controller="appRole" action="list">Roles</g:link></li>
-            <li><g:link controller="appOrganization" action="list">Organization</g:link></li>
-          </g:if>
       </ul>
     </li>
     
