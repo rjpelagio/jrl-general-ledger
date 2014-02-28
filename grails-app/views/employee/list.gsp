@@ -106,7 +106,7 @@
                     <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                            <td>${employeeInstance?.last_name}</td>
+                            <td><g:link action="show" id="${employeeInstance.id}">${employeeInstance?.last_name}</g:link></td>
                             <td>${employeeInstance?.first_name}</td>
                             <td>${employeeInstance?.middle_name}</td>
                             <td>${employeeInstance?.tin}</td>

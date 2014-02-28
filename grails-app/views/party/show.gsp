@@ -13,7 +13,7 @@
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
-        <div class="body">
+        <div class="body" style="width:75%">
             <h1><g:message code="default.show.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -21,50 +21,117 @@
             <div class="dialog">
                 <table>
                     <tbody>
-                    
+
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="party.name.label" default="Name" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: partyInstance, field: "name")}</td>
-                            
+                            <td class="name" colspan="2">Personal Information</td>
+                            <td class="name" colspan="2">Contact Information</td>
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="party.firstName.label" default="First Name" /></td>
+                            <td valign="top" class="sub"><g:message code="party.name.label"  /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: partyInstance, field: "firstName")}</td>
+                            <td valign="top" class="value">${payeeData?.fullName}</td>
+
+                            <td class="sub" valign="top"><g:message code="employeeData.addressLine1.label"/></td>
+                            
+                            <td valign="top" class="value">${payeeData?.addressLine1}</td>
                             
                         </tr>
-                    
+
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="party.middleName.label" default="Middle Name" /></td>
+                            <td valign="top" class="sub"><g:message code="employeeData.firstName.label"  /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: partyInstance, field: "middleName")}</td>
+                            <td valign="top" class="value">${payeeData?.firstName}</td>
+
+                            <td class="sub" valign="top"><g:message code="employeeData.addressLine2.label"/></td>
+                            
+                            <td valign="top" class="value">${payeeData?.addressLine2}</td>
                             
                         </tr>
-                    
+
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="party.lastName.label" default="Last Name" /></td>
+                            <td valign="top" class="sub"><g:message code="employeeData.middleName.label"  /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: partyInstance, field: "lastName")}</td>
+                            <td valign="top" class="value">${payeeData?.middleName}</td>
+
+                            <td class="sub" valign="top"><g:message code="employeeData.city.label"/></td>
+                            
+                            <td valign="top" class="value">${payeeData?.city}</td>
                             
                         </tr>
-                    
+
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="party.tin.label" default="TIN" /></td>
+                            <td valign="top" class="sub"><g:message code="employeeData.lastName.label"  /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: partyInstance, field: "tin")}</td>
+                            <td valign="top" class="value">${payeeData?.lastName}</td>
+                            
+                            <td valign="top" class="sub"><g:message code="employeeData.province.label" /></td>
+                            
+                            <td valign="top" class="value">${payeeData?.province}, ${payeeData?.postalCode}</td>
                             
                         </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="sub"><g:message code="employeeData.birthdate.label"  /></td>
+                            
+                            <td valign="top" class="value">
+                                <g:formatDate format="yyyy-MM-dd" date="${payeeData?.birthdate}" />
+                            </td>
+
+                            <td class="sub" valign="top"><g:message code="employeeData.contactNumber.label"/></td>
+                            
+                            <td valign="top" class="value">(${payeeData?.areaCode}) ${payeeData?.contactNumber}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="sub"><g:message code="employeeData.gender.label"  /></td>
+                            
+                            <td valign="top" class="value">${payeeData?.gender}</td>
+
+                            <td class="sub" valign="top"><g:message code="employeeData.mobileNumber.label"/></td>
+                            
+                            <td valign="top" class="value">(+63)${payeeData?.mobileNumber}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="sub"><g:message code="employeeData.maritalStatus.label"  /></td>
+                            
+                            <td valign="top" class="value">${payeeData?.maritalStatus}</td>
+
+                            <td class="sub" valign="top"><g:message code="employeeData.emailAddress.label"/></td>
+                            
+                            <td valign="top" class="value">${payeeData?.emailAddress}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="sub"><g:message code="employeeData.tin.label"  /></td>
+                            
+                            <td valign="top" class="value">${payeeData?.tin}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="sub"><g:message code="employeeData.role.label" /></td>
+                            
+                            <td valign="top" class="value">${payeeData?.role}</td>
+
+                            <td class="sub" valign="top"><g:message code="employeeData.status.label"/></td>
+                            
+                            <td valign="top" class="value">${payeeData?.status}</td>
+                            
+                        </tr>
+                
                     
                     </tbody>
                 </table>
             </div>
             <div class="buttons">
                 <g:form>
-                    <g:hiddenField name="id" value="${partyInstance?.id}" />
+                    <g:hiddenField name="id" value="${payeeData?.partyId}" />
                     <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </g:form>
             </div>
         </div>
