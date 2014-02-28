@@ -9,7 +9,7 @@ class PartyRole {
     static belongsTo = [party : Party]
     
     static constraints = {
-        role (inList : ["EMPLOYEE", "ORGANIZATION", "CUSTOMER", "INTERNAL ORGANIZATION"])
+        role (inList : ["Employee", "Customer", "Supplier", "Organization"])
         fromDate(blank : false)
         thruDate (blank : true, nullable : true)
         status (inList : ["Active", "Inactive"])
