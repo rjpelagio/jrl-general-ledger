@@ -21,6 +21,7 @@ class AppUtilityService {
     	employeeData.department = employeeInstance.department
        	employeeData.position = employeeInstance.position
         employeeData.status = employeeInstance.status
+        employeeData.role = 'Employee'
 
     	def partyInstance = Party.get(employeeInstance.party.id);
 
@@ -86,6 +87,85 @@ class AppUtilityService {
         }
 
         return employeeData
+
+    }
+
+    def preparePayeeData(Party partyInstance){
+
+        def payeeData = new EmployeeData();
+
+        payeeData.empId = 0
+        payeeData.version = 0
+        payeeData.department = 'Adminstrator'
+        payeeData.position = 'Clerk'
+
+        payeeData.partyId = partyInstance.id
+        payeeData.fullName = partyInstance.name
+        payeeData.lastName = partyInstance.lastName
+        payeeData.firstName = partyInstance.firstName
+        payeeData.middleName = partyInstance.middleName
+        payeeData.tin = partyInstance.tin
+
+        def personInstance = Person.findByParty(partyInstance);
+
+        payeeData.personId = personInstance.id
+        payeeData.lastName = personInstance.lastName
+        payeeData.firstName = personInstance.firstName
+        payeeData.middleName = personInstance.middleName
+        payeeData.gender = personInstance.gender
+        payeeData.birthdate = personInstance.birthdate
+        payeeData.personalTitle = personInstance.personalTitle
+        payeeData.maritalStatus = personInstance.maritalStatus
+
+        def partyRoleInstance = PartyRole.findByParty(partyInstance);
+
+        payeeData.status = partyRoleInstance.status
+        payeeData.role = partyRoleInstance.role
+
+        def postalPartyContactMech = PartyContactMech.findByPartyAndContactMechType(partyInstance, "POSTAL_ADDRESS")
+
+        def contactMechInstance = ContactMech.get(postalPartyContactMech.contactMechId)
+        def postalAddressInstance = PostalAddress.findByContactMech(contactMechInstance)
+
+        if (postalAddressInstance != null) {
+            payeeData.contactMechId = postalPartyContactMech.contactMechId
+
+            payeeData.postalAddressId = postalAddressInstance.id
+            payeeData.addressLine1 = postalAddressInstance.addressLine1
+            payeeData.addressLine2 = postalAddressInstance.addressLine2
+            payeeData.city = postalAddressInstance.city
+            payeeData.postalCode = postalAddressInstance.postalCode
+            payeeData.province = postalAddressInstance.province
+        }
+
+        def phonePartyContactMech = PartyContactMech.findByPartyAndContactMechType(partyInstance, "PHONE_INFO")
+
+        contactMechInstance = ContactMech.get(phonePartyContactMech.contactMechId)
+        def phoneInfoInstance = TeleInfo.findByContactMech(contactMechInstance)
+
+        if (phoneInfoInstance != null) {
+
+            payeeData.telInfoId = phoneInfoInstance.id
+            payeeData.areaCode = phoneInfoInstance.areaCode
+            payeeData.contactNumber = phoneInfoInstance.contactNumber
+            payeeData.contactPerson = phoneInfoInstance.contactPerson
+            payeeData.mobileNumber = phoneInfoInstance.mobileNumber
+
+        }
+
+        def emailPartyContactMech = PartyContactMech.findByPartyAndContactMechType(partyInstance, "EMAIL_ADDRESS")
+
+        contactMechInstance = ContactMech.get(emailPartyContactMech.contactMechId)
+        def emailInfoInstance = ElecAddress.findByContactMech(contactMechInstance)
+
+        if (emailInfoInstance != null) {
+
+            payeeData.elecAddressId = emailInfoInstance.id
+            payeeData.emailAddress = emailInfoInstance.emailString
+
+        }
+
+        return payeeData
 
     }
 
@@ -164,7 +244,6 @@ class AppUtilityService {
     
     def updateContactEntries(EmployeeData data) {
 
-        println 'Data : ' + data.postalAddressId
  
         def postalAddress = PostalAddress.get(data.postalAddressId)
         if (postalAddress != null) {
