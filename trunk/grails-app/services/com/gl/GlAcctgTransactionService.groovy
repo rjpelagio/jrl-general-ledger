@@ -342,60 +342,7 @@ class GlAcctgTransactionService {
     }
 
 
-    def lookupGlAccounts(params, organization){
-      def db = new Sql(dataSource)  
-
-      def glAccountList = [] // to add each company details
-
-      System.out.println("Organization : " + organization);
-
-      def nwquery = "SELECT glAcct.id as id, glAcct.gl_account as glAccount, glAcct.description as description " +
-        "FROM gl_account glAcct " +
-        "INNER JOIN gl_account_organization org " +
-        "ON org.gl_account_id = glAcct.id " + 
-        "WHERE org.organization_id = " + organization + " " +
-        "AND (glAcct.gl_account LIKE '%" + params.term + "%' " +
-        "OR glAcct.description LIKE '%" + params.term + "%')"
-
-      def result = db.rows(nwquery);
-      System.out.println("result : " + result);
-      System.out.println("nwquery : " + nwquery);
-
-      for (int i = 0; i < result.size() ; i++) {
-        def glAccountMap = [:]
-
-        System.out.println("Item  : " + result.get(i));
-        System.out.println("Item Id : " + result.get(i).getProperty('id'));
-
-        glAccountMap.put("id", result.get(i).getProperty('id'))
-        glAccountMap.put("label", result.get(i).getProperty('glAccount') + " : " + result.get(i).getProperty('description'))
-        glAccountMap.put("value", result.get(i).getProperty('glAccount') + " : " + result.get(i).getProperty('description'))
-
-
-        glAccountList.add(glAccountMap) // add to the arraylist
-      }
-
-      return glAccountList
-        
-      //  System.out.println("0 " + item.getProperty('id'));
-      //  glAccountMap.put("id", item.getProperty('id'))
-      ////  glAccountMap.put("label", item.getProperty('description'))
-      //  glAccountMap.put("value", item.getProperty('glAccount') + " : " + item.geProperty('description'))  
-      //  glAccountList.add(glAccountMap) // add to the arraylist
-     // }
-      
-      //result.each {
-      //  def glAccountMap = [:] // add to map. jQuery autocomplete expects the JSON object to be with id/label/value.
-      //  System.out.println("0 " + result.get('id'));
-      //  System.out.println("1 " + result.get('glAccount'));
-      //  System.out.println("2 " + result.get('description'));
-      //  glAccountMap.put("id", result.getInt('id'))
-      //  glAccountMap.put("label", result.getString('description'))
-      //  glAccountMap.put("value", result.getString('glAccount') + " : " + result.getString('description'))
-      //  glAccountList.add(glAccountMap) // add to the arraylist
-      //}
-      
-    }    
+     
 
     
 }
