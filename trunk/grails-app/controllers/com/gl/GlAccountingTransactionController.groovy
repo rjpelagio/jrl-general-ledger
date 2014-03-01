@@ -432,7 +432,7 @@ class GlAccountingTransactionController {
 
 
     def lookup  = {
-        System.out.println("lookup");
+        System.out.println("lookup3");
         render glAcctgTransactionService.lookupGlAccounts(params, session.organization.id) as JSON
     }
 }
