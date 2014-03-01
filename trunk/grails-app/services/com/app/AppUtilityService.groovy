@@ -279,8 +279,7 @@ class AppUtilityService {
             email.save(flush:true)
 
         }
-
-
+        
     }
 
 
