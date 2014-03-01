@@ -92,12 +92,24 @@ p
 	margin:5px;
 }
 
+.leftnav{    
+  width: 150px;
+  height:500px;
+  float: left;
+  display: inline;
+  background-color: #019328;
+  margin: 0;
+  padding: 0;
+  margin-right: 10px;
+}
+
 #mainwrapper
 {
 	margin:10px;
 	border:1px solid #cacaca;
 	background:#fafafa url(../images/wrapper_bg.jpg) no-repeat;
 	min-width:770px;
+	display: inline;
 }
 
 #mainwrapper2
@@ -255,11 +267,11 @@ ul#menu li a:hover
 /* BREADCRUMBS */
 
 .nav {
-    margin:0px 0px 0px 0px;
+    margin-left:150px;
     padding:10px 5px 10px 5px;
     font: 70%/100% Arial, Helvetica, sans-serif;
     color:#666666;
-    background:#fbffd3;
+    background:#6DC8FD;
     border-bottom:1px solid #e2e89d;
 }
 
