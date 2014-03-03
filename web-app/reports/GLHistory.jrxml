@@ -119,7 +119,7 @@ FROM
   WHERE user.id = $P{logged_user}) as userinfo,
   (SELECT organization_name, contact_info.*
   FROM app_organization,
-    (SELECT address1, address2, pcm.party_id, country_code, area_code, contact_number
+    (SELECT addressLine1, addressLine2, pcm.party_id, country_code, area_code, contact_number
     FROM party_contact_mech as pcm, postal_address as addr1, tele_info as tele
     WHERE pcm.contact_mech_id=addr1.contact_mech_id or pcm.contact_mech_id=tele.contact_mech_id) as contact_info
   WHERE app_organization.id = $P{orgcode}) as company_info]]>
@@ -128,8 +128,8 @@ FROM
 	<field name="first_name" class="java.lang.String"/>
 	<field name="last_name" class="java.lang.String"/>
 	<field name="organization_name" class="java.lang.String"/>
-	<field name="address1" class="java.lang.String"/>
-	<field name="address2" class="java.lang.String"/>
+	<field name="addressLine1" class="java.lang.String"/>
+	<field name="addressLine2" class="java.lang.String"/>
 	<field name="party_id" class="java.lang.Long"/>
 	<field name="country_code" class="java.lang.String"/>
 	<field name="area_code" class="java.lang.String"/>
