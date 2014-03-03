@@ -80,7 +80,7 @@ class AppSearchService {
         )
     }
 
-    def getParty(String name, String firstName, String middleName, String lastName, String tin, String role) {
+    def getParty(String name, Integer role) {
 
         def db = new Sql(dataSource)
         String newName = "%%"
@@ -90,32 +90,60 @@ class AppSearchService {
             newName = "%"+ name +"%"
         }
 
-        if(role){
-            newRole = "%" + role + "%"
+        def result = [:];
+
+        if (role) {
+            result = db.rows("SELECT party.party_id as id, party.name, \
+                party.tin as tin, \
+                party_role.role_id as role_id, \
+                party_role.status as status, \
+                app_role.role_name as role, \
+                tele_info.area_code as areaCode, \
+                tele_info.contact_number as contactNumber, \
+                tele_info.mobile_number as mobileNumber, \
+                postal_address.city as city, \
+                postal_address.province as province \
+                FROM party \
+                JOIN party_role ON party_role.party_id = party.party_id \
+                JOIN app_role ON party_role.role_id = app_role.id \
+                JOIN party_contact_mech AS a \
+                    ON a.party_id = party.party_id \
+                    AND a.contact_mech_type = 'PHONE_INFO' \
+                JOIN tele_info ON tele_info.contact_mech_id = a.contact_mech_id \
+                JOIN party_contact_mech AS b \
+                    ON b.party_id = party.party_id \
+                    AND b.contact_mech_type = 'POSTAL_ADDRESS' \
+                JOIN postal_address ON postal_address.contact_mech_id = b.contact_mech_id \
+                WHERE party.name LIKE ? \
+                AND party_role.role_id = ?", [newName, role]
+            )
+        } else {
+            result = db.rows("SELECT party.party_id as id, party.name, \
+                party.tin as tin, \
+                party_role.role_id as role_id, \
+                party_role.status as status, \
+                app_role.role_name as role, \
+                tele_info.area_code as areaCode, \
+                tele_info.contact_number as contactNumber, \
+                tele_info.mobile_number as mobileNumber, \
+                postal_address.city as city, \
+                postal_address.province as province \
+                FROM party \
+                JOIN party_role ON party_role.party_id = party.party_id \
+                JOIN app_role ON party_role.role_id = app_role.id \
+                JOIN party_contact_mech AS a \
+                    ON a.party_id = party.party_id \
+                    AND a.contact_mech_type = 'PHONE_INFO' \
+                JOIN tele_info ON tele_info.contact_mech_id = a.contact_mech_id \
+                JOIN party_contact_mech AS b \
+                    ON b.party_id = party.party_id \
+                    AND b.contact_mech_type = 'POSTAL_ADDRESS' \
+                JOIN postal_address ON postal_address.contact_mech_id = b.contact_mech_id \
+                WHERE party.name LIKE ? ", [newName]
+            )
         }
 
-        def result = db.rows("SELECT party.party_id as id, party.name, \
-            party.tin as tin, \
-            party_role.role as role, \
-            party_role.status as status, \
-            tele_info.area_code as areaCode, \
-            tele_info.contact_number as contactNumber, \
-            tele_info.mobile_number as mobileNumber, \
-            postal_address.city as city, \
-            postal_address.province as province \
-            FROM party \
-            JOIN party_role ON party_role.party_id = party.party_id \
-            JOIN party_contact_mech AS a \
-                ON a.party_id = party.party_id \
-                AND a.contact_mech_type = 'PHONE_INFO' \
-            JOIN tele_info ON tele_info.contact_mech_id = a.contact_mech_id \
-            JOIN party_contact_mech AS b \
-                ON b.party_id = party.party_id \
-                AND b.contact_mech_type = 'POSTAL_ADDRESS' \
-            JOIN postal_address ON postal_address.contact_mech_id = b.contact_mech_id \
-            WHERE party.name LIKE ? \
-            AND party_role.role LIKE ?", [newName, newRole]
-        )
+
 
         return result
     }

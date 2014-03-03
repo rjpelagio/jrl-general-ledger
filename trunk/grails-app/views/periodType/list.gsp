@@ -25,7 +25,7 @@
                         
                             <g:sortableColumn property="periodTypeId" title="${message(code: 'periodType.periodTypeId.label', default: 'Period Type Id')}" />
                         
-                            <g:sortableColumn property="periodName" title="${message(code: 'periodType.periodName.label', default: 'Period Name')}" />
+                            <th>Period Name</th>
 
                             <th></th>
                         </tr>
@@ -58,7 +58,7 @@
             <div class="paginateButtons">
                 <g:paginate total="${periodTypeInstanceTotal}" />
                 <g:if test = "${glAccountInstanceTotal!=0}">
-                    [Record ${recordCount} of ${periodTypeInstanceTotal}]
+                    Record ${recordCount} of ${periodTypeInstanceTotal}
                 </g:if>
                   
             </div>

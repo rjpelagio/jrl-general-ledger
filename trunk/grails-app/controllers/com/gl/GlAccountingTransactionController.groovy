@@ -55,27 +55,13 @@ class GlAccountingTransactionController {
         def glAccountingTransactionInstance = new GlAccountingTransaction()
         glAccountingTransactionInstance.properties = params
         def glAccounts = [:];
-        def glAccountList = [:];
         def debit = 0.00;
         def credit = 0.00;
-        
-        //Initialize lookup results 
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        def glAccountInstanceList = [:]
-        def glAccountInstanceTotal = 0
-        //End
-        
-        glAccountList = GlAccountOrganization.executeQuery("\
-            FROM GlAccountOrganization org\
-            WHERE org.organization = ?\
-            ", [session.organization]);
+         
         return [glAccountingTransactionInstance: glAccountingTransactionInstance, 
-            glAccountList : glAccountList, 
             glAccounts : glAccounts,
             debit : debit,
-            credit : credit,
-            glAccountInstanceList : glAccountInstanceList,
-            glAccountInstanceTotal : glAccountInstanceTotal]
+            credit : credit]
     }
 
     def submit = {
@@ -97,10 +83,12 @@ class GlAccountingTransactionController {
         }
         //Parameters
         def glAccounts = params.glAccounts;
+        def glAccountIds = params.glAccountIds;
         def debits = params.debits;
         def credits = params.credits;
         def debit = params.debit;
         def credit = params.credit;
+
         def approvalStatus = glAcctgTransactionService.checkApproval('Voucher', session.employee.department)
 
         if(Double.parseDouble(debit)<=0 || Double.parseDouble(credit)<=0 || Double.parseDouble(credit)!=Double.parseDouble(debit) || approvalStatus==0) {
@@ -290,7 +278,6 @@ class GlAccountingTransactionController {
                 }else{
                     glAccountingTransactionInstance.status = "Active"
                 }
-                println "Params: " + params
                 glAccountingTransactionInstance.properties = params
                 glAcctgTransactionService.updateAcctgTrans(
                     glAccountingTransactionInstance,
@@ -430,9 +417,4 @@ class GlAccountingTransactionController {
         redirect(action: "consol")
     }
 
-
-    def lookup  = {
-        System.out.println("lookup3");
-        render glAcctgTransactionService.lookupGlAccounts(params, session.organization.id) as JSON
-    }
 }

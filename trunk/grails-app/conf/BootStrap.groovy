@@ -44,52 +44,24 @@ class BootStrap {
             }
         }
 
-        def postalAddress = new ContactMechType(contactMechType : "POSTAL_ADDRESS",
-                            description : "Postal Address")
-
-        if(!ContactMechType.find(postalAddress)){
-            postalAddress.save()
-            if(postalAddress.hasErrors()){
-                println postalAddress.errors
-            }
-        }
-
-        def phoneNumber = new ContactMechType(contactMechType : "TELECOM_NUMBER",
-                            description : "Phone Number")
-        if(!ContactMechType.find(phoneNumber)){
-            phoneNumber.save()
-            if(phoneNumber.hasErrors()){
-                println phoneNumber.errors
-            }
-        }
-
-        def emailAddress = new ContactMechType(contactMechType : "ELECTRONIC_ADDRESS",
-                            description : "Electronic Address")
-        if(!ContactMechType.find(emailAddress)){
-            emailAddress.save()
-            if(emailAddress.hasErrors()){
-                println emailAddress.errors
-            }
-        }
-
-        def contactMech1 = new ContactMech(contactMechType : ContactMechType.find(postalAddress))
-        if(!ContactMech.find(contactMech1) && ContactMechType.find(postalAddress)){
+        def contactMech1 = new ContactMech(contactMechType : "POSTAL_ADDRESS")
+        if(!ContactMech.find(contactMech1)){
             contactMech1.save()
             if(contactMech1.hasErrors()){
                 println contactMech1.errors
             }
         }
 
-        def contactMech2 = new ContactMech(contactMechType : ContactMechType.find(phoneNumber))
-        if(!ContactMech.find(contactMech2) && ContactMechType.find(phoneNumber)){
+        def contactMech2 = new ContactMech(contactMechType : "PHONE_INFO")
+        if(!ContactMech.find(contactMech2)){
             contactMech2.save()
             if(contactMech2.hasErrors()){
                 println contactMech2.errors
             }
         }
 
-        def contactMech3 = new ContactMech(contactMechType : ContactMechType.find(emailAddress))
-        if(!ContactMech.find(contactMech3) && ContactMechType.find(emailAddress)){
+        def contactMech3 = new ContactMech(contactMechType : "EMAIL_ADDRESS")
+        if(!ContactMech.find(contactMech3)){
             contactMech3.save()
             if(contactMech3.hasErrors()){
                 println contactMech3.errors
@@ -99,7 +71,8 @@ class BootStrap {
         def partyContact = new PartyContactMech(contactMech : ContactMech.find(contactMech1),
                                         party : Party.find(jrl),
                                         fromDate : "11/01/2011",
-                                        purpose : "Contact Detail")
+                                        purpose : "Contact Detail",
+                                        contactMechType: "POSTAL_ADDRESS")
         if(!PartyContactMech.find(partyContact) && ContactMech.find(contactMech1)){
             partyContact.save()
             if(partyContact.hasErrors()){
@@ -107,24 +80,28 @@ class BootStrap {
             }
         }
 
-        def address1 = new PostalAddress(address1 : "Cabuyao Central, Cabuyao, Laguna",
+        def addressLine1 = new PostalAddress(addressLine1 : "Cabuyao Central",
+                                        addressLine2 : "Pulo",
+                                        city : "Cabuyao",
+                                        province : "Laguna",
+                                        postalCode : "4027",
                                         contactMech : contactMech1)
-        if(!PostalAddress.find(address1) && ContactMech.find(contactMech1)){
-            address1.save()
-            if(address1.hasErrors()){
-                println address1.errors
+        if(!PostalAddress.find(addressLine1) && ContactMech.find(contactMech1)){
+            addressLine1.save()
+            if(addressLine1.hasErrors()){
+                println addressLine1.errors
             }
         }
 
-        def address2 = new TeleInfo(countryCode : "63",
-                                    areaCode: "049",
+        def addressLine2 = new TeleInfo(areaCode: "049",
                                     contactNumber : "531-1696",
                                     contactMech : contactMech1,
-                                    contactPerson : "Rhodalyn Rolle")
-        if(!TeleInfo.find(address2) && ContactMech.find(contactMech1)){
-            address2.save()
-            if(address2.hasErrors()){
-                println address2.errors
+                                    contactPerson : "Rhodalyn Rolle",
+                                    mobileNumber : "9174460283")
+        if(!TeleInfo.find(addressLine2) && ContactMech.find(contactMech1)){
+            addressLine2.save()
+            if(addressLine2.hasErrors()){
+                println addressLine2.errors
             }
         }
 

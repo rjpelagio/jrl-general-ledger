@@ -9,7 +9,6 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
-        <resource:autoComplete skin="default" />
         <g:javascript library="gl/acctgTrans"/>
         <script>
         $(document).ready(function () {
@@ -137,7 +136,7 @@
                                     <label for="Description"><g:message code="glAccountingTransaction.description.label" default="Description" /></label>
                                 </td>
                                 <td colspan="3" valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'description', 'errors')}">
-                                    <g:textArea name="description" value="${glAccountingTransactionInstance?.description}" rows="3" cols="150"/>
+                                    <g:textArea name="description" value="${glAccountingTransactionInstance?.description}" rows="3" cols="150" style="resize:none"/>
                                 </td>
                             </tr>
                         </tbody>
@@ -165,7 +164,7 @@
                                 <g:each status="i" in="${glAccounts}" var="acct">
                                     <tr id="row_${i}">
                                         <td>
-                                            <g:textField name="glAccounts" value="${acct}" id="glAccount_${i}" style="width:500px;background-color:#FFFF71" onclick="setSelectedIndex(0)"/>
+                                            <g:textField name="glAccounts" value="${acct}" id="glAccount_${i}" style="width:500px;background-color:#FFFF71" onkeypress="setSelectedIndex(0)"/>
                                             <input type="hidden" id="glAccountId_${i}" name="glAccountIds" value="${acct}"/>
                                         </td>
                                         <td style="text-align:right"><g:textField id="debit_${i}"
@@ -187,7 +186,7 @@
                                 <g:else>
                                     <tr id="row_0">
                                         <td>
-                                            <g:textField name="glAccounts" id="glAccount_0"  style="width:500px;background-color:#FFFF71" onclick="setSelectedIndex(0)"/>
+                                            <g:textField name="glAccounts" id="glAccount_0"  style="width:500px;background-color:#FFFF71" onkeypress="setSelectedIndex(0)"/>
                                             <input type="hidden" id="glAccountId_0" name="glAccountIds"/>
                                         </td>
                                         <td style="text-align:right" ><g:textField id="amount_0" name="debits" onchange="this.value=validateInteger(this.value);recomputeDebit(0)" style="text-align:right" value="0.00" /></td>
@@ -198,7 +197,7 @@
                                     </tr>
                                 </g:else>
                                 <tr id="totals">
-                                    <td>Total Amount</td>
+                                    <td style="text-align:right">Total : </td>
                                     <td style="text-align:right" width="100%">
                                       <input type="hidden" id="debit" name="debit" value="${debit}"/>
                                       <span id="debitDisplay" style="font-size:16px;">${debit}</span>

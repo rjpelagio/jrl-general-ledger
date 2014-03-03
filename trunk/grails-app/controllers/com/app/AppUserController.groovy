@@ -55,10 +55,17 @@ class AppUserController {
                     session.user = user
                     session.organization = organization
                     session.employee = employee
+
+                    session.party = Party.get(session.user.partyId)
+
+                    def userRole = AppRole.get(user.roleId)
+                    session.roleCode = userRole.roleCode
+
+
                     user.lastLogin = new Date();
                     user.save()
                     flash.message = "Hello ${party.name}!"
-                    redirect(uri:"/")
+                    redirect(uri:"/glAccountingTransaction/list")
                 } else {
                     flash.message =
                     "Sorry, ${params.username}. Password is incorrect."
@@ -90,9 +97,13 @@ class AppUserController {
 
         def employeeDropDown = db.rows("SELECT *\
             FROM Party\
-            WHERE party_id NOT IN (SELECT party_id FROM app_user)\
+            WHERE party_id IN (SELECT party_id FROM app_user)\
             AND party_id IN (SELECT party_id FROM employee)"
         )
+
+        def userRole = AppRole.findByRoleCode('USR')
+        def roleList = AppRole.findAllByParent(userRole)
+
         
         //println "drop down values: " + employeeDropDown
 
@@ -105,7 +116,8 @@ class AppUserController {
             offset = result.size()
         }
         
-        [appUserInstanceList: result, appUserInstanceTotal: result.size(), appUserInstance: appUserInstance, employeeDropDown : employeeDropDown, recordCount : offset]
+        [appUserInstanceList: result, appUserInstanceTotal: result.size(), appUserInstance: appUserInstance, 
+            employeeDropDown : employeeDropDown, recordCount : offset, roleList : roleList]
     }
     
     def create = {
@@ -118,7 +130,11 @@ class AppUserController {
             WHERE party_id NOT IN (SELECT party_id FROM app_user)\
             AND party_id IN (SELECT party_id FROM employee)"
         )
-        return [appUserInstance: appUserInstance, employeeDropDown: employeeDropDown]
+
+        def userRole = AppRole.findByRoleCode('USR')
+        def roleList = AppRole.findAllByParent(userRole)
+
+        return [appUserInstance: appUserInstance, employeeDropDown: employeeDropDown, roleList : roleList]
     }
 
     def save = {
@@ -127,8 +143,20 @@ class AppUserController {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'appUser.label', default: 'AppUser'), appUserInstance.username])}"
             redirect(action: "show", id: appUserInstance.id)
         }
+
         else {
-            render(view: "create", model: [appUserInstance: appUserInstance])
+
+
+            def employeeDropDown = db.rows("SELECT *\
+                FROM Party\
+                WHERE party_id NOT IN (SELECT party_id FROM app_user)\
+                AND party_id IN (SELECT party_id FROM employee)"
+            )
+
+            def userRole = AppRole.findByRoleCode('USR')
+            def roleList = AppRole.findAllByParent(userRole)
+
+            render(view: "create", model: [appUserInstance: appUserInstance, roleList : roleList])
         }
     }
 
@@ -145,44 +173,35 @@ class AppUserController {
 
     def edit = {
         def appUserInstance = AppUser.get(params.id)
-        def db = new Sql(dataSource)
-        def employeeDropDown = db.rows("SELECT *\
-            FROM Party\
-            WHERE party_id IN (SELECT party_id FROM employee)\
-            AND (party_id NOT IN (SELECT party_id FROM app_user)\
-            OR party_id = "+ appUserInstance.party.id +")"
-        )
+
         if (!appUserInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'appUser.label', default: 'AppUser'), params.username])}"
             redirect(action: "list")
         }
+
         else {
-            return [appUserInstance: appUserInstance, employeeDropDown: employeeDropDown]
+            def userRole = AppRole.findByRoleCode('USR')
+            def roleList = AppRole.findAllByParent(userRole)
+            
+            return [appUserInstance: appUserInstance, roleList : roleList]
         }
     }
 
     def update = {
         def appUserInstance = AppUser.get(params.id)
+
         if (appUserInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (appUserInstance.version > version) {
-                    
-                    appUserInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'appUser.label', default: 'AppUser')] as Object[], "Another user has updated this AppUser while you were editing")
-                    render(view: "edit", model: [appUserInstance: appUserInstance])
-                    return
-                }
-            }
-            appUserInstance.properties = params
+        
+            def newRole = AppRole.get(params.role)
+            appUserInstance.role = newRole
+
             if (!appUserInstance.hasErrors() && appUserInstance.save(flush: true)) {
                 flash.message = "${message(code: 'default.updated.message', args: [message(code: 'appUser.label', default: 'AppUser'), appUserInstance.username])}"
                 redirect(action: "show", id: appUserInstance.id)
-            }
-            else {
+            } else {
                 render(view: "edit", model: [appUserInstance: appUserInstance])
             }
-        }
-        else {
+        } else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'appUser.label', default: 'AppUser'), params.username])}"
             redirect(action: "list")
         }
@@ -193,7 +212,7 @@ class AppUserController {
         if (appUserInstance) {
             try {
                 appUserInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'appUser.label', default: 'AppUser'), params.username])}"
+                flash.message = "User successfully removed."
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {

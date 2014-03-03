@@ -81,12 +81,13 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>
                         <tr>
 
-                            <th>Last Name</th>
+                            <g:sortableColumn property="name" title="${message(code: 'employeeData.lastName.label', default: 'Name')}" />
 
                             <th>First Name</th>
 

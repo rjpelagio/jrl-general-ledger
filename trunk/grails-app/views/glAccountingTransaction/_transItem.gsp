@@ -1,6 +1,6 @@
 '<tr id="row_'+index+'">\n\
     <td>\n\
-    	<g:textField name="glAccounts" id="glAccount_'+index+'"  style="width:500px;background-color:#FFFF71" onclick="setSelectedIndex('+index+')"/>\n\
+    	<g:textField name="glAccounts" id="glAccount_'+index+'"  style="width:500px;background-color:#FFFF71" onkeypress="setSelectedIndex('+index+')"/>\n\
     	<input type="hidden" id="glAccountId_'+index+'" name="glAccountIds"/>\n\
     </td>\n\
     <td style="text-align:right"><g:textField id="credit_'+index+'" name="debits" onchange="this.value=validateInteger(this.value);recomputeDebit('+index+')"  value="0.00" style="text-align:right"/></td>\n\

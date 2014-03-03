@@ -193,8 +193,8 @@
                                     <label for="role"><g:message code="employeeData.role.label" default="Department" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'role', 'errors')}">
-                                    <g:select name="role" from="${payeeData.constraints.role.inList}" 
-                                        value="${payeeData?.role}"  />
+                                    <g:select from="${roleList}" name="roleId" optionValue="roleName" optionKey="id" 
+                                        value="${payeeData.roleId}"/>
                                 </td>
 
                             </tr>

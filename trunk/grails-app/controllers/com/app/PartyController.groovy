@@ -1,5 +1,7 @@
 package com.app
 
+import java.lang.String;
+
 class PartyController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -25,10 +27,15 @@ class PartyController {
         def offset = 0
         def party = new Party()
         party.properties = params.properties;
+
+        Integer roleId = params.int('role')
         
         def result = appSearchService.getParty(
-            party.name, party.firstName, party.middleName, party.lastName, party.tin, params.role
+            params.name, roleId
         )
+
+        def userRole = AppRole.findByRoleCode('GRP')
+        def roleList = AppRole.findAllByParent(userRole)
 
         if(params.offset){
             offset = Math.min(params.offset ? params.int('offset') : 0, result.size())
@@ -39,12 +46,20 @@ class PartyController {
             recordCount = result.size()
         }
         
-        [partyInstanceList: result.subList(offset, recordCount), partyInstanceTotal: result.size(), partyInstance: party, recordCount : recordCount]
+        [partyInstanceList: result.subList(offset, recordCount), partyInstanceTotal: result.size(), partyInstance: party, recordCount : recordCount, roleList : roleList]
     }
 
     def create = {
         def employeeData = new EmployeeData()
-        return [payeeData : employeeData]
+
+        def user = AppRole.findByRoleCode('GRP')
+        def roleList = [:]
+
+        if (user != null) {
+            roleList = AppRole.findAllByParent(user)
+        }
+
+        return [payeeData : employeeData, roleList : roleList]
     }
 
     def save = {EmployeeData data ->
@@ -58,6 +73,9 @@ class PartyController {
         data.status = 'Active'
         data.department = 'Administration'
         data.position = 'Clerk'
+
+        def role = AppRole.get(data.roleId)
+        data.role = role.roleName
 
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
         if (data.fullName.trim().size() <= 0) {
@@ -86,7 +104,7 @@ class PartyController {
             partyRole.party = Party.get(partyInstance.id)
             partyRole.fromDate = new Date()
             partyRole.status = 'Active'
-            partyRole.role = data.role
+            partyRole.role = role
             partyRole.save(flush:true)
 
             appUtilityService.createContactEntries(data, Party.get(partyInstance.id))
@@ -95,7 +113,14 @@ class PartyController {
             redirect(action: "show", id: partyInstance.id)
 
         } else {
-            render(view: "create", model : [payeeData: data])
+            def user = AppRole.findByRoleCode('GRP')
+            def roleList = [:]
+
+            if (user != null) {
+                roleList = AppRole.findAllByParent(user)
+            }
+
+            render(view: "create", model : [payeeData: data, roleList : roleList])
             return
         }
     }
@@ -121,12 +146,19 @@ class PartyController {
 
         def payeeData = appUtilityService.preparePayeeData(partyInstance)
 
+        def user = AppRole.findByRoleCode('GRP')
+        def roleList = [:]
+
+        if (user != null) {
+            roleList = AppRole.findAllByParent(user)
+        }
+
         if (!payeeData) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'party.label', default: 'Payee'), params.id])}"
             redirect(action: "list")
         }
         else {
-            return [payeeData: payeeData]
+            return [payeeData: payeeData, roleList : roleList]
         }
     }
 
@@ -136,6 +168,9 @@ class PartyController {
 
         data.department = 'Administration'
         data.position = 'Clerk'
+
+        def role = AppRole.get(data.roleId)
+        data.role = role.roleName
 
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
         if (data.fullName.trim().size() <= 0) {
@@ -163,7 +198,7 @@ class PartyController {
             personInstance.save(flush:true)
 
             def partyRole = PartyRole.findByParty(partyInstance)
-            partyRole.role = data.role
+            partyRole.role = role
             if(data.status == 'Inactive'){
                 if (partyRole != null) {
                     partyRole.status = 'Inactive'

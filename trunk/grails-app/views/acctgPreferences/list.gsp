@@ -90,6 +90,7 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>

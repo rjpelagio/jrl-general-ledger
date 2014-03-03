@@ -35,9 +35,7 @@
                                 <td valign="top" class="name">
                                   <label for="party"><g:message code="appUser.party.label" default="Employee" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'party', 'errors')}">
-                                    <g:select name="party.id" from="${employeeDropDown}" optionKey="party_id" optionValue="name" value="${appUserInstance?.party?.id}"/>
-                                </td>
+                                <td>${appUserInstance.party.name}</td>
                             </tr>
                             
                             <tr class="prop">
@@ -45,7 +43,7 @@
                                   <label for="username"><g:message code="appUser.username.label" default="Username" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'username', 'errors')}">
-                                    <g:textField name="username" value="${appUserInstance?.username}" />
+                                    ${appUserInstance.username}
                                 </td>
                             </tr>
                         
@@ -54,7 +52,8 @@
                                   <label for="role"><g:message code="appUser.role.label" default="Role" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">
-                                    <g:select name="role.id" from="${com.app.AppRole.list()}" optionKey="id" value="${appUserInstance?.role?.id}"  />
+                                    <g:select name="role" from="${roleList}" optionKey="id" 
+                                        optionValue="roleName" value="${appUserInstance?.role?.id}"  />
                                 </td>
                             </tr>
                         
@@ -63,7 +62,6 @@
                 </div>
                 <div class="buttons">
                     <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
                 </div>
             </g:form>
         </div>

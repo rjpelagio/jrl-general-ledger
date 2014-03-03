@@ -58,7 +58,7 @@ class LookupService {
 
         def result = db.rows("SELECT party.party_id as id, party.name, \
             party.tin as tin, \
-            party_role.role as role, \
+            party_role.role_id as role, \
             party_role.status as status \
             FROM party \
             JOIN party_role ON party_role.party_id = party.party_id \

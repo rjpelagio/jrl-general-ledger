@@ -40,12 +40,7 @@
                                     <label for="status"><g:message code="employeeData.role.label" default="role" /></label>
                                 </td>
                                 <td valign="top">
-                                    <select name="role">
-                                        <option value="Employee">Employee</option>
-                                        <option value="Customer">Customer</option>
-                                        <option value="Supplier">Supplier</option>
-                                        <option value="Organization">Organization</option>
-                                    </select>                                    
+                                    <g:select from="${roleList}" name="role" optionValue="roleName" optionKey="id"/>             
                                 </td>
                             </tr>
                         
@@ -59,6 +54,7 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>

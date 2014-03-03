@@ -1,6 +1,6 @@
 package com.app
 
-class Approval {
+class Approval implements Serializable {
 
     String description
     String department
@@ -9,7 +9,8 @@ class Approval {
 
     static constraints = {
         description (blank: false)
-        department (blank: false, nullable: false, inList : ['Administration', 'Finance', 'HR', 'Sales'])
-        approvalFeature (inList : ['Voucher Approval', 'Leave'])
+        department (blank: false, nullable: false, inList : ["Administration", "Finance", "HR", "Sales"])
+        approvalFeature (inList : ["Voucher Approval", "Leave"])
+        active(inList : ["Yes", "No"])
     }
 }
