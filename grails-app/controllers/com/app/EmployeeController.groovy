@@ -56,7 +56,8 @@ class EmployeeController {
 
         bindData(data, params)
         data.status = 'Active'
-        data.role = 'Customer' /*placeholder for payee related field */
+        def empRole = AppRole.findByRoleCode('EMP')
+        data.roleId = empRole.id
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
         if(data.validate()){
 
@@ -86,7 +87,8 @@ class EmployeeController {
             partyRole.party = Party.get(partyInstance.id)
             partyRole.fromDate = new Date()
             partyRole.status = 'Active'
-            partyRole.role = 'Employee'
+            
+            partyRole.role = empRole
             partyRole.save(flush:true)
 
             appUtilityService.createContactEntries(data, Party.get(partyInstance.id))
@@ -131,7 +133,9 @@ class EmployeeController {
 
         bindData(data, params)
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
-        data.role = 'Customer' /*placeholder for payee related field */
+        
+        def empRole = AppRole.findByRoleCode('EMP')
+        data.roleId = empRole.id
 
         if(data.validate()){
 

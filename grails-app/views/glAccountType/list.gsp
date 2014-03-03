@@ -26,9 +26,9 @@
                         
                             <g:sortableColumn property="glAccountType" title="${message(code: 'glAccountType.glAccountType.label', default: 'Account Type')}" />
                         
-                            <g:sortableColumn property="description" title="${message(code: 'glAccountType.description.label', default: 'Description')}" />
+                            <th>Description</th>
                         
-                            <g:sortableColumn property="glAccountClass" title="${message(code: 'glAccountType.glAccountClass.label', default: 'GL Account Class')}" />
+                            <th>Account Class</th>
                         
                             <th></th>
                         </tr>
@@ -63,7 +63,7 @@
             <div class="paginateButtons">
                 <g:paginate total="${glAccountTypeInstanceTotal}" />
                 <g:if test="${glAccountTypeInstanceTotal!=0}">
-                    [Record ${recordCount} out of ${glAccountTypeInstanceTotal}]
+                    Record ${recordCount} of ${glAccountTypeInstanceTotal}
                 </g:if>
             </div>
         </div>

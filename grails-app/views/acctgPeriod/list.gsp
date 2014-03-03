@@ -108,6 +108,7 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>
@@ -115,16 +116,16 @@
                         
                             <g:sortableColumn property="id" title="${message(code: 'acctgPeriod.id.label', default: 'Id')}" />
                         
-                            <g:sortableColumn property="acctgPeriodNum" title="${message(code: 'acctgPeriod.acctgPeriodNum.label', default: 'Acctg Period Num')}" />
+                            <th>Period Number</th>
                         
-                            <g:sortableColumn property="month" title="${message(code: 'acctgPeriod.month.label', default: 'Month')}" />
+                            <th>Month</th>
                         
-                            <g:sortableColumn property="status" title="${message(code: 'acctgPeriod.status.label', default: 'Status')}" />
+                            <th>Status</th>
                         
-                            <g:sortableColumn property="fromDate" title="${message(code: 'acctgPeriod.fromDate.label', default: 'From Date')}" />
+                            <th>From Date</th>
                         
-                            <g:sortableColumn property="thruDate" title="${message(code: 'acctgPeriod.thruDate.label', default: 'Thru Date')}" />
-                        
+                            <th>Thru Date</th>
+                            
                             <th></th>
                         </tr>
                     </thead>
@@ -155,7 +156,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${acctgPeriodInstanceTotal}" />
+                <g:paginate total="${acctgPeriodInstanceTotal}" /> Record ${acctgPeriodInstanceList.size()} of ${acctgPeriodInstanceTotal}
             </div>
         </div>
     </body>

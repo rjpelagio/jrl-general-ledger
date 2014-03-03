@@ -13,7 +13,7 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
-        <div class="body">
+        <div class="body" style="width:65%">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -34,22 +34,13 @@
                                     <g:select name="party.id" from="${employeeDropDown}" optionKey="party_id" optionValue="name" value="${appUserInstance?.party?.id}" noSelection="['null':'']" />
                                 </td>
                             </tr>
-                            
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="username"><g:message code="appUser.username.label" default="Username" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'username', 'errors')}">
-                                    <g:textField name="username" value="${appUserInstance?.username}" />
-                                </td>
-                            </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="role"><g:message code="appUser.role.label" default="Role" /></label>
+                                    <label for="role">Access Type</label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">
-                                    <g:select name="role.id" from="${com.app.AppRole.list()}" optionKey="id" value="${appUserInstance?.role?.id}" noSelection="['null':'']" />
+                                    <g:select name="role.id" from="${roleList}" optionKey="id" optionValue="roleName" value="${appUserInstance?.role?.id}"  />
                                 </td>
                             </tr>
                         
@@ -63,20 +54,18 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>
                         <tr>
+                            <g:sortableColumn property="name" title="${message(code: 'employeeData.firstName.label', default: 'Name')}" />
+
+                            <th>Last Name</th>
                         
-                            <g:sortableColumn property="username" title="${message(code: 'appUser.username.label', default: 'Username')}" />
+                            <th>User Name</th>
                         
-                            <g:sortableColumn property="password" title="${message(code: 'appUser.password.label', default: 'Password')}" />
-                        
-                            <g:sortableColumn property="firstName" title="${message(code: 'appUser.firstName.label', default: 'First Name')}" />
-                        
-                            <g:sortableColumn property="lastName" title="${message(code: 'appUser.lastName.label', default: 'Last Name')}" />
-                        
-                            <th><g:message code="appUser.role.label" default="Role" /></th>
+                            <th>Access Type</th>
                         
                             <th></th>
                         </tr>
@@ -86,9 +75,7 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td><g:link action="show" id="${appUserInstance.id}">${fieldValue(bean: appUserInstance, field: "username")}</g:link></td>
-                        
-                            <td>${fieldValue(bean: appUserInstance, field: "password")}</td>
-                        
+                    
                             <td>${appUserInstance?.party?.firstName}</td>
                         
                             <td>${appUserInstance?.party?.lastName}</td>

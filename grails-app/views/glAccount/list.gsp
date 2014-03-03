@@ -63,6 +63,7 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>
@@ -72,7 +73,7 @@
                         
                             <g:sortableColumn property="glAccount" title="${message(code: 'glAccount.glAccount.label', default: 'GL Account')}" />
                         
-                            <g:sortableColumn property="description" title="${message(code: 'glAccount.description.label', default: 'Description')}" />
+                            <th>GL Account Name</th>
                         
                             <th><g:message code="glAccount.glAccountType.label" default="Account Type" /></th>
                         
@@ -109,7 +110,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${glAccountInstanceTotal}" /> ${offset} of ${glAccountInstanceTotal}
+                <g:paginate total="${glAccountInstanceTotal}" /> Record ${offset} of ${glAccountInstanceTotal} 
             </div>
             <g:jasperReport jasper="ChartOfAccounts" format="PDF, XLS" name="Chart of Accounts">
               <input type="hidden" name="USER" value="${session.user.id}"/>

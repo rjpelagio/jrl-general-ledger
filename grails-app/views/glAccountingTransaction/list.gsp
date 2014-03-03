@@ -103,6 +103,7 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>
@@ -110,17 +111,18 @@
                         
                             <g:sortableColumn property="voucherNo" title="${message(code: 'glAccountingTransaction.voucherNo.label', default: 'Voucher No.')}" />
                         
-                            <g:sortableColumn property="acctgTransType" title="${message(code: 'glAccountingTransaction.acctgTransType.label', default: 'Voucher Type')}" />
+                            <th>Voucher Type</th>
 
-                            <g:sortableColumn property="description" title="${message(code: 'glAccountingTransaction.description.label', default: 'Description')}" />
+                            <th>Particulars</th>
                         
                             <th>Status</th>
-                            <g:sortableColumn property="transactionDate" title="${message(code: 'glAccountingTransaction.transactionDate.label', default: 'Transaction Date')}" />
+                            
+                            <th>Transaction Date</th>
                         
-                            <g:sortableColumn property="postedDate" title="${message(code: 'glAccountingTransaction.postedDate.label', default: 'Posted Date')}" />
+                            <th>Posted Date</th>
                         
-                            <g:sortableColumn property="entryDate" title="${message(code: 'glAccountingTransaction.entryDate.label', default: 'Entry Date')}" />
-                        
+                            <th>Entry Date</th>
+                            
                             <th></th>
                         </tr>
                     </thead>
@@ -162,7 +164,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${glAccountingTransactionInstanceTotal}" />Record ${recordCount} of ${glAccountingTransactionInstanceTotal}
+                <g:paginate total="${glAccountingTransactionInstanceTotal}" />Record ${glAccountingTransactionInstanceList.size()} of ${glAccountingTransactionInstanceTotal}
             </div>
         </div>
     </body>

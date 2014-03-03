@@ -17,7 +17,7 @@ class AppRole {
     }
     
     String toString(){
-        return "${roleCode} -- ${roleName}"
+        return "${roleName}"
     }
     
 }

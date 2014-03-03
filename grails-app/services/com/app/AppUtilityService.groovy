@@ -119,8 +119,10 @@ class AppUtilityService {
 
         def partyRoleInstance = PartyRole.findByParty(partyInstance);
 
+        def appRoleInstance = AppRole.get(partyRoleInstance.role.id)
         payeeData.status = partyRoleInstance.status
-        payeeData.role = partyRoleInstance.role
+        payeeData.role = appRoleInstance.roleName
+        payeeData.roleId = partyRoleInstance.role.id
 
         def postalPartyContactMech = PartyContactMech.findByPartyAndContactMechType(partyInstance, "POSTAL_ADDRESS")
 

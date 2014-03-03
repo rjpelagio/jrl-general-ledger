@@ -60,7 +60,7 @@
                                     <label for="role"><g:message code="appUser.role.label" default="Role" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">
-                                    <g:select name="role.id" from="${com.app.AppRole.list()}" optionKey="id" value="${appUserInstance?.role?.id}"  />
+                                    <g:select name="role.id" from="${roleList}" optionKey="id" optionValue="roleName" value="${appUserInstance?.role?.id}"  />
                                 </td>
                             </tr>
                         
