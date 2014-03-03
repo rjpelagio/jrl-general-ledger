@@ -18,7 +18,8 @@ class EmployeeData implements Serializable {
     String department
     String position
     String status
-    String role
+    Integer roleId;
+    String role;
 
     //Contact Mech Fields
     Integer contactMechId;
@@ -63,7 +64,7 @@ class EmployeeData implements Serializable {
 	    department (blank: false, nullable: false, bindable: true, inList : ["Administration", "Finance", "HR", "Sales"])
         position (blank: false, nullable: false, bindable: true, inList : ['Clerk', 'Supervisor', 'Manager'])
         status (blank: false, nullable : false, bindable : true,  inList : ['Active', 'Inactive'])
-        role (blank: false, nullable : false, bindable: true, inList : ["Customer", "Supplier","Organization"])
+        roleId (blank: false, nullable : false, bindable: true)
 
         contactMechId(blank : true, nullable : true, bindable : true)
         postalAddressId(blank : true, nullable : true, bindable : true)
