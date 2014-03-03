@@ -211,6 +211,7 @@ th.desc a {
     font-size: 10px;
     overflow: hidden;
     padding: 10px 3px;
+    font-family: Calibri;
 }
 .paginateButtons a {
     background: #fff;
@@ -405,4 +406,5 @@ a.header-main:link, a.header-main:visited {
     overflow: hidden;
     padding: 4px 3px;
     font-weight: bold;
+    font-family : Calibri;
 }
