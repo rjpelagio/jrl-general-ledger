@@ -76,7 +76,13 @@
         <li><g:link controller="receivables" action="collection">Sales and Collection History</g:link></li>
         <li><g:link controller="receivables" action="remittance">Salemen's Remittance</g:link></li>
         <li><g:link controller="receivables" action="violation">Receivables Violation</g:link></li>  
-        <li><g:link controller="receivables" action="summary">Summary of Sales and Invoices</g:link></li>  
+        <li>
+          <g:link controller="receivables" action="summary">Summary of Sales and Invoices</g:link>
+          <ul>
+            <li><a href="#">SCIDE</a></li>
+            <li><a href="#">SID</a></li>
+          </ul>
+        </li>  
       </ul>
     </li>
 

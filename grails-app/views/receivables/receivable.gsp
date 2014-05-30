@@ -6,16 +6,16 @@
         <g:set var="entityName" value="${message(code: 'glAccount.label', default: 'GlAccount')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
     </head>
-    <body>
+    <body >
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
         </div>
-        <div class="body">
+        <div class="body" style="width:45%">
             <h1>Receivables</h1>
             <g:form action="#" >
                 <div class="dialog">
-                    <table>
-                        <tbody>
+                    <table >
+                        <tbody >
                             <tr class="prop">
                                 <td>Start Date</td>
                                 <td>
