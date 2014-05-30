@@ -1,4 +1,4 @@
-<!--
+<!-- 
   To change this template, choose Tools | Templates
   and open the template in the editor.
 -->
@@ -14,6 +14,9 @@
           <li><g:link controller="employee" action="list">Employee</g:link></li>
           <li><g:link controller="appUser" action="list">Users</g:link></li>
           <li><g:link controller="approval" action="list">Approval Setup</g:link></li>
+          <li><g:link controller="customer" action="list">Customer</g:link></li>
+          <li><g:link controller="area" action="list">Area</g:link></li>
+          <li><g:link controller="salesman" action="list">Salesman</g:link></li>
       </ul>
     </li>
     </g:if>
@@ -64,6 +67,16 @@
             <li><a href="#">Replenishment</a></li>
           </ul>
         </li>  
+      </ul>
+    </li>
+
+    <li><a href="#">AR</a>
+      <ul>
+        <li><g:link controller="receivables" action="receivable">Receivables</g:link></li>
+        <li><g:link controller="receivables" action="collection">Sales and Collection History</g:link></li>
+        <li><g:link controller="receivables" action="remittance">Salemen's Remittance</g:link></li>
+        <li><g:link controller="receivables" action="violation">Receivables Violation</g:link></li>  
+        <li><g:link controller="receivables" action="summary">Summary of Sales and Invoices</g:link></li>  
       </ul>
     </li>
 

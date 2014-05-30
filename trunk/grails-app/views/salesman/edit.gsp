@@ -1,11 +1,11 @@
 
 
-<%@ page import="com.app.Approval" %>
+<%@ page import="com.ar.Salesman" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'approval.label', default: 'Approval')}" />
+        <g:set var="entityName" value="${message(code: 'salesman.label', default: 'Salesman')}" />
         <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -19,51 +19,58 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            <g:hasErrors bean="${approvalInstance}">
+            <g:hasErrors bean="${salesmanInstance}">
             <div class="errors">
-                <g:renderErrors bean="${approvalInstance}" as="list" />
+                <g:renderErrors bean="${salesmanInstance}" as="list" />
             </div>
             </g:hasErrors>
             <g:form method="post" >
-                <g:hiddenField name="id" value="${approvalInstance?.id}" />
-                <g:hiddenField name="version" value="${approvalInstance?.version}" />
+                <g:hiddenField name="id" value="${salesmanInstance?.id}" />
+                <g:hiddenField name="version" value="${salesmanInstance?.version}" />
                 <div class="dialog">
                     <table>
                         <tbody>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="description"><g:message code="approval.description.label" default="Description" /></label>
+                                  <label for="agentCode"><g:message code="salesman.agentCode.label" default="Agent Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'description', 'errors')}">
-                                    <g:textField name="description" value="${approvalInstance?.description}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="department"><g:message code="approval.department.label" default="Department" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'department', 'errors')}">
-                                    <g:select name="department" from="${approvalInstance.constraints.department.inList}" value="${approvalInstance?.department}" valueMessagePrefix="approval.department"  />
+                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'agentCode', 'errors')}">
+                                    <g:textField name="agentCode" value="${salesmanInstance?.agentCode}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="approvalFeature"><g:message code="approval.approvalFeature.label" default="Approval Feature" /></label>
+                                  <label for="lastName"><g:message code="salesman.lastName.label" default="Last Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'approvalFeature', 'errors')}">
-                                    <g:select name="approvalFeature" from="${approvalInstance.constraints.approvalFeature.inList}" value="${approvalInstance?.approvalFeature}" valueMessagePrefix="approval.approvalFeature"  />
+                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'lastName', 'errors')}">
+                                    <g:textField name="lastName" maxlength="50" value="${salesmanInstance?.lastName}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="active"><g:message code="approval.active.label" default="Active" /></label>
+                                  <label for="firstName"><g:message code="salesman.firstName.label" default="First Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'active', 'errors')}">
-                                    <g:select name="active" from="${approvalInstance.constraints.active.inList}" value="${approvalInstance?.active}" valueMessagePrefix="approval.active"  />
+                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'firstName', 'errors')}">
+                                    <g:textField name="firstName" maxlength="50" value="${salesmanInstance?.firstName}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="area"><g:message code="salesman.area.label" default="Area" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'area', 'errors')}">
+                                    
+<ul>
+<g:each in="${salesmanInstance?.area?}" var="a">
+    <li><g:link controller="area" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
+</g:each>
+</ul>
+<g:link controller="area" action="create" params="['salesman.id': salesmanInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'area.label', default: 'Area')])}</g:link>
+
                                 </td>
                             </tr>
                         

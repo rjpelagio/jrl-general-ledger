@@ -7,13 +7,38 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'approval.label', default: 'Approval')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <g:javascript library="app/approval"/>
+        <script>
+        $(document).ready(function () {
+               $("#addRow").click(
+                    function() {
+                        var index = $("#rowCount").val();
+                        index++;
+                        $("input[name='rowCount']").val(index);
+                        var rowIndex = $("#rowIndex").val();
+                        rowIndex++;
+                        $("input[name='rowIndex']").val(rowIndex);
+                        $("tbody#dataTable").append(<g:render template="/approval/approvalItem"/>);
+                        
+                        
+                        var $content = $('#leftnav');
+                        $content.height($(document).height() - 155);
+
+                        //checkDuplicate();
+                        
+                        return false;
+                    }
+                );
+        });
+        </script>
+
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
-        <div class="body">
+        <div class="body" style="width:55%">
             <h1><g:message code="default.create.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -55,20 +80,60 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="active"><g:message code="approval.active.label" default="Active" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'active', 'errors')}">
-                                    <g:textField name="active" value="${approvalInstance?.active}" />
-                                </td>
-                            </tr>
-                        
                         </tbody>
                     </table>
                 </div>
+                <br/>
+                <div class="table-header">
+                    <g:message code="default.button.details.label" args="[entityName]" />
+                    <input type="hidden" id="rowIndex" name="rowIndex" value="1"/>
+                    <input type="hidden" id="rowCount" name="rowCount" value="0"/>
+                </div>
+
+                <div class="list">
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                              <th style="width:50%">Position</th>
+                              <th  >Remarks</th>
+                              <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTable">
+                            <tr id="row_0">
+                                <td>
+                                    <select id="position_0" name="positions" style="width:300px;background-color:#FFFF71">
+                                        <option value="Clerk">Clerk</option>
+                                        <option value="Supervisor">Supervisor</option>
+                                        <option value="Manager">Manager</option>
+                                    </select>
+                                </td>
+                                <td >
+                                    <select id="remark_0" name="remarks" style="width:300px;background-color:#FFFF71">
+                                        <option value="Noted By">Noted By</option>
+                                        <option value="Approved By">Approved By</option>
+                                        <option value="Reviewed By">Reviewed By</option>
+                                    </select>
+                                </td> 
+                                <td>
+                                    <input type="button" id="delete_0" value="Delete" onClick="deleteRow(0);"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                        <span >
+                            <input type="button" id="addRow" class="add" value="Add Item"></input>
+                        </span>
+                        <span style="float:right">
+                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
+                        </span>
+                        <span style="float:right">
+                            <g:submitButton name="create" class="submit" value="${message(code: 'default.button.submit.label', default: 'Submit')}" />
+                        </span>
                 </div>
             </g:form>
         </div>

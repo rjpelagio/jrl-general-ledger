@@ -1,11 +1,11 @@
 
 
-<%@ page import="com.app.Approval" %>
+<%@ page import="com.ar.Area" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'approval.label', default: 'Approval')}" />
+        <g:set var="entityName" value="${message(code: 'area.label', default: 'Area')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -28,28 +28,37 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="description"><g:message code="approval.description.label" default="Description" /></label>
+                                    <label for="code"><g:message code="area.code.label" default="Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'description', 'errors')}">
-                                    <g:textField name="description" value="${approvalInstance?.description}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="department"><g:message code="approval.department.label" default="Department" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'department', 'errors')}">
-                                    <g:select name="department" from="${approvalInstance.constraints.department.inList}" value="${approvalInstance?.department}" valueMessagePrefix="approval.department"  />
+                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'code', 'errors')}">
+                                    <g:textField name="code" value="${areaInstance?.code}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="approvalFeature"><g:message code="approval.approvalFeature.label" default="Approval Feature" /></label>
+                                    <label for="customer"><g:message code="area.customer.label" default="Customer" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'approvalFeature', 'errors')}">
-                                    <g:select name="approvalFeature" from="${approvalInstance.constraints.approvalFeature.inList}" value="${approvalInstance?.approvalFeature}" valueMessagePrefix="approval.approvalFeature"  />
+                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'customer', 'errors')}">
+                                    <g:select name="customer.id" from="${com.ar.Customer.list()}" optionKey="id" value="${areaInstance?.customer?.id}"  />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="description"><g:message code="area.description.label" default="Description" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'description', 'errors')}">
+                                    <g:textField name="description" value="${areaInstance?.description}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="salesman"><g:message code="area.salesman.label" default="Salesman" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'salesman', 'errors')}">
+                                    <g:select name="salesman.id" from="${com.ar.Salesman.list()}" optionKey="id" value="${areaInstance?.salesman?.id}"  />
                                 </td>
                             </tr>
                         
@@ -68,35 +77,35 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'approval.id.label', default: 'Id')}" />
+                            <g:sortableColumn property="id" title="${message(code: 'area.id.label', default: 'Id')}" />
                         
-                            <g:sortableColumn property="description" title="${message(code: 'approval.description.label', default: 'Description')}" />
+                            <g:sortableColumn property="code" title="${message(code: 'area.code.label', default: 'Code')}" />
                         
-                            <g:sortableColumn property="department" title="${message(code: 'approval.department.label', default: 'Department')}" />
+                            <th><g:message code="area.customer.label" default="Customer" /></th>
                         
-                            <g:sortableColumn property="approvalFeature" title="${message(code: 'approval.approvalFeature.label', default: 'Approval Feature')}" />
+                            <g:sortableColumn property="description" title="${message(code: 'area.description.label', default: 'Description')}" />
                         
-                            <g:sortableColumn property="active" title="${message(code: 'approval.active.label', default: 'Active')}" />
+                            <th><g:message code="area.salesman.label" default="Salesman" /></th>
                         
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    <g:each in="${approvalInstanceList}" status="i" var="approvalInstance">
+                    <g:each in="${areaInstanceList}" status="i" var="areaInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${approvalInstance.id}">${fieldValue(bean: approvalInstance, field: "id")}</g:link></td>
+                            <td><g:link action="show" id="${areaInstance.id}">${fieldValue(bean: areaInstance, field: "id")}</g:link></td>
                         
-                            <td>${fieldValue(bean: approvalInstance, field: "description")}</td>
+                            <td>${fieldValue(bean: areaInstance, field: "code")}</td>
                         
-                            <td>${fieldValue(bean: approvalInstance, field: "department")}</td>
+                            <td>${fieldValue(bean: areaInstance, field: "customer")}</td>
                         
-                            <td>${fieldValue(bean: approvalInstance, field: "approvalFeature")}</td>
+                            <td>${fieldValue(bean: areaInstance, field: "description")}</td>
                         
-                            <td>${fieldValue(bean: approvalInstance, field: "active")}</td>
+                            <td>${fieldValue(bean: areaInstance, field: "salesman")}</td>
                         
                             <td>
-                                <g:link action="edit" id="${approvalInstance.id}">
+                                <g:link action="edit" id="${areaInstance.id}">
                                     Edit
                                 </g:link>
                             </td>
@@ -106,7 +115,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${approvalInstanceTotal}" />
+                <g:paginate total="${areaInstanceTotal}" />
             </div>
         </div>
     </body>
