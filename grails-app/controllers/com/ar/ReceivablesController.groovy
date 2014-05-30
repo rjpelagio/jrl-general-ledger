@@ -30,4 +30,8 @@ class ReceivablesController {
     def summary = {
     	render(view: "summary")
     }
+
+    def test = {
+        
+    }
 }
