@@ -10,7 +10,7 @@
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
         </div>
-        <div class="body">
+        <div class="body" style="width:45%">
             <h1>Summary of Sales and Invoices</h1>
             <g:form action="#" >
                 <div class="dialog">
