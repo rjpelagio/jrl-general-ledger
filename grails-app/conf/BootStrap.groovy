@@ -180,8 +180,8 @@ class BootStrap {
                 println acctgpd4.errors
             }
         }
-        
-        def assets = new GlAccountType(glAccountType:"ASSETS",
+
+                def assets = new GlAccountType(glAccountType:"ASSETS",
                     description:"Assets",
                     glAccountClass : "Asset")
         //def query = "from GlAccountType where glAccountType = 'ASSETS'"
@@ -195,16 +195,16 @@ class BootStrap {
 
         def glAccount1 = new GlAccount(glAccount : "1010-000",
             description : "Cash and Cash in Banks",
-            glAccountType : GlAccountType.find(assets))
-        if(!GlAccount.find(glAccount1) && GlAccountType.find(assets)){
+            glAccountType : GlAccountType.get(1))
+        if(!GlAccount.find(glAccount1)){
             glAccount1.save()
             if(glAccount1.hasErrors()){
                 println glAccount1.errors
             }
         }
         
-        def glAcctOrg1 = new GlAccountOrganization(glAccount : GlAccount.find(glAccount1),
-            organization : AppOrganization.find(organization),
+        def glAcctOrg1 = new GlAccountOrganization(glAccount : GlAccount.get(1),
+            organization : AppOrganization.get(1),
             startDate : "01/01/2011",
             thruDate : "12/31/2012");
         if(!GlAccountOrganization.find(glAcctOrg1)){
@@ -216,16 +216,16 @@ class BootStrap {
 
         def glAccount2 = new GlAccount(glAccount : "1010-001",
             description : "Petty Cash Fund",
-            glAccountType : GlAccountType.find(assets))
-        if(!GlAccount.find(glAccount2) && GlAccountType.find(assets)){
+            glAccountType : GlAccountType.get(1))
+        if(!GlAccount.find(glAccount2)){
             glAccount2.save()
             if(glAccount2.hasErrors()){
                 println glAccount2.errors
             }
         }
         
-        def glAcctOrg2 = new GlAccountOrganization(glAccount : GlAccount.find(glAccount2),
-            organization : AppOrganization.find(organization),
+        def glAcctOrg2 = new GlAccountOrganization(glAccount : GlAccount.get(2),
+            organization : AppOrganization.get(1),
             startDate : "01/01/2011",
             thruDate : "12/31/2012");
         if(!GlAccountOrganization.find(glAcctOrg2)){
@@ -237,17 +237,17 @@ class BootStrap {
 
         def glAccount3 = new GlAccount(glAccount : "1011-001",
             description : "Cash",
-            glAccountType : GlAccountType.find(assets),
+            glAccountType : GlAccountType.get(1),
             glAccountClass : "Asset")
-        if(!GlAccount.find(glAccount3) && GlAccountType.find(assets)){
+        if(!GlAccount.find(glAccount3)){
             glAccount3.save()
             if(glAccount3.hasErrors()){
                 println glAccount3.errors
             }
         }
 
-        def glAcctOrg3 = new GlAccountOrganization(glAccount : GlAccount.find(glAccount3),
-            organization : AppOrganization.find(organization),
+        def glAcctOrg3 = new GlAccountOrganization(glAccount : GlAccount.get(3),
+            organization : AppOrganization.get(1),
             startDate : "01/01/2011",
             thruDate : "12/31/2012");
         if(!GlAccountOrganization.find(glAcctOrg3)){
@@ -269,56 +269,61 @@ class BootStrap {
         }
 
         def acctgTran = new GlAccountingTransaction(description : "Sample GL Entries",
-                    organization : AppOrganization.find(organization),
+                    organization : AppOrganization.get(1),
                     entryDate : "12/24/2011",
                     transactionDate : "12/24/2011",
                     postedDate : "12/25/2011",
-                    party : Party.find(jrl),
+                    party : Party.get(1),
                     status: "Active",
                     voucherNo: "JV-00001",
-                    acctgTransType: AcctgTransType.find(acctgTransType))
-        if(!GlAccountingTransaction.find(acctgTran) && AppOrganization.find(organization) && Party.find(jrl)) {
+                    acctgTransType: AcctgTransType.get(1))
+        if(!GlAccountingTransaction.get(1)){
             acctgTran.save()
             if(acctgTran.hasErrors()){
                 println acctgTran.errors
             }
         }
+        
 
-        def acctgTranItem1 = new GlAccountingTransactionDetails(glAccount : GlAccount.find(glAccount1),
+        def acctgTranItem1 = new GlAccountingTransactionDetails(glAccount : GlAccount.get(1),
                     sequenceId : "1",
                     amount : "1000.00",
                     debitCreditFlag : "Debit",
-                    glAccountingTransaction : GlAccountingTransaction.find(acctgTran))
-        if(!GlAccountingTransactionDetails.find(acctgTranItem1) && GlAccount.find(glAccount1) && GlAccountingTransaction.find(acctgTran)) {
+                    glAccountingTransaction : GlAccountingTransaction.get(1))
+        if(!GlAccountingTransactionDetails.get(1)){
             acctgTranItem1.save()
             if(acctgTranItem1.hasErrors()){
-               println acctgTranItem1.errors
+                println acctgTranItem1.errors
             }
         }
+        
 
-        def acctgTranItem2 = new GlAccountingTransactionDetails(glAccount : GlAccount.find(glAccount2),
+        def acctgTranItem2 = new GlAccountingTransactionDetails(glAccount : GlAccount.get(2),
                     sequenceId : "2",
                     amount : "1000.00",
                     debitCreditFlag : "Debit",
-                    glAccountingTransaction : GlAccountingTransaction.find(acctgTran))
-        if(!GlAccountingTransactionDetails.find(acctgTranItem2) && GlAccount.find(glAccount2) && GlAccountingTransaction.find(acctgTran)) {
+                    glAccountingTransaction : GlAccountingTransaction.get(1))
+        if(!GlAccountingTransactionDetails.get(2)){
             acctgTranItem2.save()
             if(acctgTranItem2.hasErrors()){
-               println acctgTranItem2.errors
+                println acctgTranItem2.errors
             }
         }
 
-        def acctgTranItem3 = new GlAccountingTransactionDetails(glAccount : GlAccount.find(glAccount3),
+        
+
+        def acctgTranItem3 = new GlAccountingTransactionDetails(glAccount : GlAccount.get(3),
                     sequenceId : "3",
                     amount : "2000.00",
                     debitCreditFlag : "Credit",
-                    glAccountingTransaction : GlAccountingTransaction.find(acctgTran))
-        if(!GlAccountingTransactionDetails.find(acctgTranItem3) && GlAccount.find(glAccount3) && GlAccountingTransaction.find(acctgTran)) {
-           acctgTranItem3.save()
-           if(acctgTranItem3.hasErrors()){
-               println acctgTranItem3.errors
-           }
+                    glAccountingTransaction : GlAccountingTransaction.get(1))
+        if(!GlAccountingTransactionDetails.get(3)){
+            acctgTranItem3.save()
+            if(acctgTranItem3.hasErrors()){
+                println acctgTranItem3.errors
+            }
         }
+        
 
 
         def admin = new AppRole(roleCode:"ADM",
@@ -338,16 +343,39 @@ class BootStrap {
             }
         }
 
+        def user2 = new Party(name:"The JRL Administrator2", firstName: "--", middleName: "--", lastName: "--")
+        if(!Party.find(user)){
+            user2.save()
+            if(user2.hasErrors()){
+                println user2.errors
+            }
+        }
+
+
+
         def jrladmin = new AppUser(username:"jrladmin",
                     password:"jrladmin",
                     firstName:"JRL Administrator",
                     lastName:"The",
-                    role:AppRole.find(admin),
-                    party:Party.find(user))
-        if(!AppUser.find(jrladmin) && AppRole.find(admin) && Party.find(user)){
+                    role:AppRole.get(1),
+                    party:Party.get(2))
+        if(!AppUser.get(1)){
             jrladmin.save()
             if(jrladmin.hasErrors()){
                 println jrladmin.errors
+            }
+        }
+
+        def jrladmin2 = new AppUser(username:"jrladmin2",
+                    password:"jrladmin2",
+                    firstName:"JRL Administrator",
+                    lastName:"The",
+                    role:AppRole.get(1),
+                    party:Party.get(2))
+        if(!AppUser.get(2)){
+            jrladmin2.save()
+            if(jrladmin2.hasErrors()){
+                println jrladmin2.errors
             }
         }
 
@@ -359,6 +387,7 @@ class BootStrap {
                 println superuser.errors
             }
         }
+        
     }
     def destroy = {
     }

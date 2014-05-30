@@ -3,6 +3,8 @@ package com.app
 class ApprovalController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+
+    def approvalService
     
     def beforeInterceptor = [action:this.&auth]
 
@@ -19,19 +21,37 @@ class ApprovalController {
 
     def list = {
         def approvalInstance = new Approval()
-
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        [approvalInstance : approvalInstance, approvalInstanceList: Approval.list(params), approvalInstanceTotal: Approval.count()]
+        [approvalInstanceList: Approval.list(params), approvalInstanceTotal: Approval.count(), approvalInstance: approvalInstance]
     }
 
     def create = {
         def approvalInstance = new Approval()
+        def approvalSeqInstance = new ApprovalSeq()
+
         approvalInstance.properties = params
-        return [approvalInstance: approvalInstance]
+
+        return [approvalInstance: approvalInstance, approvalSeqInstance : approvalSeqInstance]
     }
 
     def save = {
         def approvalInstance = new Approval(params)
+
+        def positions = params.positions
+        def remarks = params.remarks
+
+        def success = 1;
+
+        approvalInstance.status = 'Yes'
+        if(approvalInstance.validate()){
+            approvalInstance.save(flush:true)
+            for (i = 0; i < positions.size(); i++){
+                success = approvalService.insertApprovalItem(approvalInstance.id, positions[i], remarks[i], i);
+            }
+        } 
+
+        
+
         if (approvalInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'approval.label', default: 'Approval'), approvalInstance.id])}"
             redirect(action: "show", id: approvalInstance.id)

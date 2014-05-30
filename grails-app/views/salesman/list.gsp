@@ -1,11 +1,11 @@
 
 
-<%@ page import="com.app.Approval" %>
+<%@ page import="com.ar.Salesman" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'approval.label', default: 'Approval')}" />
+        <g:set var="entityName" value="${message(code: 'salesman.label', default: 'Salesman')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -28,28 +28,28 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="description"><g:message code="approval.description.label" default="Description" /></label>
+                                    <label for="agentCode"><g:message code="salesman.agentCode.label" default="Agent Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'description', 'errors')}">
-                                    <g:textField name="description" value="${approvalInstance?.description}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="department"><g:message code="approval.department.label" default="Department" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'department', 'errors')}">
-                                    <g:select name="department" from="${approvalInstance.constraints.department.inList}" value="${approvalInstance?.department}" valueMessagePrefix="approval.department"  />
+                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'agentCode', 'errors')}">
+                                    <g:textField name="agentCode" value="${salesmanInstance?.agentCode}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="approvalFeature"><g:message code="approval.approvalFeature.label" default="Approval Feature" /></label>
+                                    <label for="lastName"><g:message code="salesman.lastName.label" default="Last Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'approvalFeature', 'errors')}">
-                                    <g:select name="approvalFeature" from="${approvalInstance.constraints.approvalFeature.inList}" value="${approvalInstance?.approvalFeature}" valueMessagePrefix="approval.approvalFeature"  />
+                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'lastName', 'errors')}">
+                                    <g:textField name="lastName" maxlength="50" value="${salesmanInstance?.lastName}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="firstName"><g:message code="salesman.firstName.label" default="First Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'firstName', 'errors')}">
+                                    <g:textField name="firstName" maxlength="50" value="${salesmanInstance?.firstName}" />
                                 </td>
                             </tr>
                         
@@ -68,35 +68,31 @@
                     <thead>
                         <tr>
                         
-                            <g:sortableColumn property="id" title="${message(code: 'approval.id.label', default: 'Id')}" />
+                            <g:sortableColumn property="id" title="${message(code: 'salesman.id.label', default: 'Id')}" />
                         
-                            <g:sortableColumn property="description" title="${message(code: 'approval.description.label', default: 'Description')}" />
+                            <g:sortableColumn property="agentCode" title="${message(code: 'salesman.agentCode.label', default: 'Agent Code')}" />
                         
-                            <g:sortableColumn property="department" title="${message(code: 'approval.department.label', default: 'Department')}" />
+                            <g:sortableColumn property="lastName" title="${message(code: 'salesman.lastName.label', default: 'Last Name')}" />
                         
-                            <g:sortableColumn property="approvalFeature" title="${message(code: 'approval.approvalFeature.label', default: 'Approval Feature')}" />
-                        
-                            <g:sortableColumn property="active" title="${message(code: 'approval.active.label', default: 'Active')}" />
+                            <g:sortableColumn property="firstName" title="${message(code: 'salesman.firstName.label', default: 'First Name')}" />
                         
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    <g:each in="${approvalInstanceList}" status="i" var="approvalInstance">
+                    <g:each in="${salesmanInstanceList}" status="i" var="salesmanInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${approvalInstance.id}">${fieldValue(bean: approvalInstance, field: "id")}</g:link></td>
+                            <td><g:link action="show" id="${salesmanInstance.id}">${fieldValue(bean: salesmanInstance, field: "id")}</g:link></td>
                         
-                            <td>${fieldValue(bean: approvalInstance, field: "description")}</td>
+                            <td>${fieldValue(bean: salesmanInstance, field: "agentCode")}</td>
                         
-                            <td>${fieldValue(bean: approvalInstance, field: "department")}</td>
+                            <td>${fieldValue(bean: salesmanInstance, field: "lastName")}</td>
                         
-                            <td>${fieldValue(bean: approvalInstance, field: "approvalFeature")}</td>
-                        
-                            <td>${fieldValue(bean: approvalInstance, field: "active")}</td>
+                            <td>${fieldValue(bean: salesmanInstance, field: "firstName")}</td>
                         
                             <td>
-                                <g:link action="edit" id="${approvalInstance.id}">
+                                <g:link action="edit" id="${salesmanInstance.id}">
                                     Edit
                                 </g:link>
                             </td>
@@ -106,7 +102,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${approvalInstanceTotal}" />
+                <g:paginate total="${salesmanInstanceTotal}" />
             </div>
         </div>
     </body>
