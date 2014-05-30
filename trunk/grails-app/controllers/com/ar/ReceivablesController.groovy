@@ -34,4 +34,6 @@ class ReceivablesController {
     def rest = {
         
     }
+
+    def test2 = {}
 }
