@@ -2,6 +2,15 @@ package com.ar
 
 class ReceivablesController {
 
+    def beforeInterceptor = [action:this.&auth]
+
+    def auth() {
+        if(!session.user) {
+            redirect(uri:"/")
+            return false
+        }
+    }
+
 	def receivable = {
 		render(view: "receivable")
     }
