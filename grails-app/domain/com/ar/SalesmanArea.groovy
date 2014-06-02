@@ -6,8 +6,6 @@ class SalesmanArea {
     	dateCreated()
     }
 
-    static belongsTo = [area:Area, salesman:Salesman]
-
     Date dateCreated
     
 }
