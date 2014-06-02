@@ -8,8 +8,6 @@ class Customer {
 		creditLimit()
 		creditTerm()
 	}
-
-	static hasMany = [area:Area]
 	
 	String customerCode
 	String customerName
