@@ -5,6 +5,7 @@ class Area {
 	String code
 	String description
 
-    static constraints = {
+	   static constraints = {
+
     }
 }
