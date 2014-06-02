@@ -3,8 +3,9 @@ package com.ar
 class CustomerArea {
 
     static constraints = {
-    	dateCreated()
+    	startDate()
     }
 
-    Date dateCreated
+    Date startDate
+    
 }
