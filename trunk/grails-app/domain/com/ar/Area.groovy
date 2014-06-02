@@ -5,7 +5,8 @@ class Area {
 	String code
 	String description
 
-	   static constraints = {
+	static hasMany = [customerArea:CustomerArea, salesmanArea:SalesmanArea]
 
+    static constraints = {
     }
 }
