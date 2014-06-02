@@ -8,7 +8,7 @@ class Customer {
 		creditLimit()
 		creditTerm()
 	}
-	
+
 	String customerCode
 	String customerName
 	Integer creditLimit
