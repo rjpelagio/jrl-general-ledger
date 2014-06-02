@@ -58,22 +58,6 @@
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="area"><g:message code="salesman.area.label" default="Area" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: salesmanInstance, field: 'area', 'errors')}">
-                                    
-<ul>
-<g:each in="${salesmanInstance?.area?}" var="a">
-    <li><g:link controller="area" action="show" id="${a.id}">${a?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="area" action="create" params="['salesman.id': salesmanInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'area.label', default: 'Area')])}</g:link>
-
-                                </td>
-                            </tr>
-                        
                         </tbody>
                     </table>
                 </div>
