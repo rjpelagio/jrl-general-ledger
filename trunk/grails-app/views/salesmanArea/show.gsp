@@ -29,6 +29,13 @@
                             
                         </tr>
                     
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="salesmanArea.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${salesmanAreaInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
                     </tbody>
                 </table>
             </div>

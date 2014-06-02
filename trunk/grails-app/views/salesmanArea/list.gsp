@@ -43,6 +43,8 @@
                         
                             <g:sortableColumn property="id" title="${message(code: 'salesmanArea.id.label', default: 'Id')}" />
                         
+                            <g:sortableColumn property="dateCreated" title="${message(code: 'salesmanArea.dateCreated.label', default: 'Date Created')}" />
+                        
                             <th></th>
                         </tr>
                     </thead>
@@ -51,6 +53,8 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
                             <td><g:link action="show" id="${salesmanAreaInstance.id}">${fieldValue(bean: salesmanAreaInstance, field: "id")}</g:link></td>
+                        
+                            <td><g:formatDate date="${salesmanAreaInstance.dateCreated}" /></td>
                         
                             <td>
                                 <g:link action="edit" id="${salesmanAreaInstance.id}">
