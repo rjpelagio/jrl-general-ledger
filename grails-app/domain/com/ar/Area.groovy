@@ -7,6 +7,12 @@ class Area {
 
 	static hasMany = [customerArea:CustomerArea, salesmanArea:SalesmanArea]
 
+<<<<<<< .mine
+	
+
+=======
     static constraints = {
+>>>>>>> .r120
     }
+
 }
