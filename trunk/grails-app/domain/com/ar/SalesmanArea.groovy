@@ -2,10 +2,10 @@ package com.ar
 
 class SalesmanArea {
 
-    static constraints = {
-    	dateCreated()
-    }
+	static constraints = {
+		dateCreated()
+	}
 
-    Date dateCreated
-    
+	Date dateCreated
+	
 }
