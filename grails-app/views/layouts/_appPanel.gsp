@@ -89,10 +89,10 @@
         <li><g:link controller="receivables" action="remittance">Salemen's Remittance</g:link></li>
         <li><g:link controller="receivables" action="violation">Receivables Violation</g:link></li>  
         <li>
-          <g:link controller="receivables" action="summary">Summary of Sales and Invoices</g:link>
+          <a href="#">Summary of Sales and Invoices</a>
           <ul>
-            <li><a href="#">SCIDE</a></li>
-            <li><a href="#">SID</a></li>
+            <li><g:link controller="receivables" action="summary">SCIDE</g:link></li>
+            <li><g:link controller="receivables" action="sid">SID</g:link></li>
           </ul>
         </li>  
       </ul>
