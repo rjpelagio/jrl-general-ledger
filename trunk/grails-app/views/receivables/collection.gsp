@@ -32,13 +32,13 @@
                             <tr class="prop">
                                 <td>Payment Date</td>
                                 <td>
-                                    <calendar:datePicker name="startdate" precision="day" value="" years="1950, 2050"  />
+                                    <calendar:datePicker name="paymentdate" precision="day" value="" years="1950, 2050"  />
                                 </td>
                             </tr>
                             <tr class="prop">
                                 <td></td>
                                 <td>
-                                    <input type="checkbox" name="invoice" value="number">Select All</input>
+                                    <input id="select" type="checkbox" name="date">Select All</input>
                                 </td>
                             </tr>
                             <tr class="prop">
