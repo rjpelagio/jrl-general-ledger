@@ -34,12 +34,6 @@
                                     <input type="text" name="invoiceno">
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Report Type</td>
-                                <td>
-                                   <label for="sid">SID</label>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
