@@ -4,7 +4,5 @@ class CustomerArea {
 
 	Date dateCreated
 
-    static constraints = {
-    	
-    }
+    static constraints = {}
 }
