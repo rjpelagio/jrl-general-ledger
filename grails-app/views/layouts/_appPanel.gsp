@@ -15,21 +15,21 @@
           <li><g:link controller="appUser" action="list">Users</g:link></li>
           <li><g:link controller="approval" action="list">Approval Setup</g:link></li>
           <li>
-            <g:link controller="receivables" action="summary">Customer</g:link>
+            <a href="#">Customer</a>
             <ul>
-              <li><a href="#">Customer Area</a></li>
-              <li><a href="#">Customer Info</a></li>
+              <li><g:link controller="customerArea" action="list">Customer Area</g:link></li>
+              <li><g:link controller="customer" action="list">Customer Info</g:link></li>
             </ul>
           </li>
           <li> 
-            <g:link controller="salesman" action="list">Salesman</g:link>
-             <ul>
-              <li><a href="#">Salesman Area</a></li>
-              <li><a href="#">Salesman Info</a></li>
+            <a href="#">Salesman</a>
+            <ul>
+              <li><g:link controller="salesmanArea" action="list">Salesman Area</g:link></li>
+              <li><g:link controller="salesman" action="list">Salesman Info</g:link></li>
             </ul>
           </li>
           <li><g:link controller="area" action="list">Area</g:link></li>
-      </ul>
+        </ul>
     </li>
     </g:if>
     
