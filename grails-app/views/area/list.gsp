@@ -37,28 +37,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="customer"><g:message code="area.customer.label" default="Customer" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'customer', 'errors')}">
-                                    <g:select name="customer.id" from="${com.ar.Customer.list()}" optionKey="id" value="${areaInstance?.customer?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                     <label for="description"><g:message code="area.description.label" default="Description" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'description', 'errors')}">
                                     <g:textField name="description" value="${areaInstance?.description}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="salesman"><g:message code="area.salesman.label" default="Salesman" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'salesman', 'errors')}">
-                                    <g:select name="salesman.id" from="${com.ar.Salesman.list()}" optionKey="id" value="${areaInstance?.salesman?.id}"  />
                                 </td>
                             </tr>
                         
@@ -81,11 +63,7 @@
                         
                             <g:sortableColumn property="code" title="${message(code: 'area.code.label', default: 'Code')}" />
                         
-                            <th><g:message code="area.customer.label" default="Customer" /></th>
-                        
                             <g:sortableColumn property="description" title="${message(code: 'area.description.label', default: 'Description')}" />
-                        
-                            <th><g:message code="area.salesman.label" default="Salesman" /></th>
                         
                             <th></th>
                         </tr>
@@ -98,11 +76,7 @@
                         
                             <td>${fieldValue(bean: areaInstance, field: "code")}</td>
                         
-                            <td>${fieldValue(bean: areaInstance, field: "customer")}</td>
-                        
                             <td>${fieldValue(bean: areaInstance, field: "description")}</td>
-                        
-                            <td>${fieldValue(bean: areaInstance, field: "salesman")}</td>
                         
                             <td>
                                 <g:link action="edit" id="${areaInstance.id}">

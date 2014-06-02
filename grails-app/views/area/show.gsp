@@ -37,23 +37,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="area.customer.label" default="Customer" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="customer" action="show" id="${areaInstance?.customer?.id}">${areaInstance?.customer?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="area.description.label" default="Description" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: areaInstance, field: "description")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="area.salesman.label" default="Salesman" /></td>
-                            
-                            <td valign="top" class="value"><g:link controller="salesman" action="show" id="${areaInstance?.salesman?.id}">${areaInstance?.salesman?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     
