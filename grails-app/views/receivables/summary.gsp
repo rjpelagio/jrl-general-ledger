@@ -29,12 +29,6 @@
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td>Customer Code</td>
-                                <td>
-                                    <input type="text" name="invoiceno">
-                                </td>
-                            </tr>
-                            <tr class="prop">
                                 <td>Area Code</td>
                                 <td>
                                     <select>
@@ -63,11 +57,7 @@
                             <tr>
                                 <td>Report Type</td>
                                 <td>
-                                   <select>
-                                        <option value="none">---</option>
-                                        <option value="SCIDE">SCIDE</option>
-                                        <option value="SID">SID</option>  
-                                   </select> 
+                                   <label for="scide">SCIDE</label> 
                                 </td>
                             </tr>
                         </tbody>
