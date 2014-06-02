@@ -14,4 +14,6 @@ class Customer {
 	Integer creditLimit
 	String creditTerm
 
+	
+
 }
