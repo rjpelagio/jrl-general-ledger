@@ -8,8 +8,6 @@ class Salesman {
 		firstName(blank:false, maxSize:50)
 	}
 
-	static hasMany = [area:Area]
-
 	String agentCode
 	String lastName
 	String firstName
