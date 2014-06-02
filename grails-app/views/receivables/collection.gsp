@@ -36,12 +36,6 @@
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td></td>
-                                <td>
-                                    <input id="select" type="checkbox" name="date">Select All</input>
-                                </td>
-                            </tr>
-                            <tr class="prop">
                                 <td>Area Code</td>
                                 <td>
                                     <select>
