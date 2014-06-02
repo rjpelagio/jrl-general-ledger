@@ -28,6 +28,7 @@
               <li><a href="#">Salesman Info</a></li>
             </ul>
           </li>
+          <li><g:link controller="area" action="list">Area</g:link></li>
       </ul>
     </li>
     </g:if>
