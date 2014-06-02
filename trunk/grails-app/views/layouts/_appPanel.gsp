@@ -17,12 +17,14 @@
           <li>
             <a href="#">Customer</a>
             <ul>
+              <li><g:link controller="customerArea" action="list">Customer Area</g:link></li>
               <li><g:link controller="customer" action="list">Customer Info</g:link></li>
             </ul>
           </li>
           <li> 
             <a href="#">Salesman</a>
             <ul>
+              <li><g:link controller="salesmanArea" action="list">Salesman Area</g:link></li>
               <li><g:link controller="salesman" action="list">Salesman Info</g:link></li>
             </ul>
           </li>
