@@ -131,8 +131,8 @@
                                     <label for="areaCode"><g:message code="employeeData.contactNumber.label" /></label>
                                 </td>
                                 <td class="value">
-                                    <g:textField class="${hasErrors(bean: employeeData, field: 'areaCode', 'errors')}"
-                                        name="areaCode" value="${employeeData?.areaCode}" size="5"/>
+                                    ( <g:textField class="${hasErrors(bean: employeeData, field: 'areaCode', 'errors')}"
+                                        name="areaCode" value="${employeeData?.areaCode}" size="5"/> )
                                     
                                     &nbsp; &ndash; &nbsp;
 
