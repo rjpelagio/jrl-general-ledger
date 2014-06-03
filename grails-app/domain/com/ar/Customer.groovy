@@ -13,7 +13,5 @@ class Customer {
 	String customerName
 	Integer creditLimit
 	String creditTerm
-
 	
-
 }
