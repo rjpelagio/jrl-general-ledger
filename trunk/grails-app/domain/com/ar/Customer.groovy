@@ -3,10 +3,12 @@ package com.ar
 class Customer {
 
 	static constraints = {
-	customerCode()
-	customerName()
-	creditLimit()
-	creditTerm()
+
+	customerCode(blank : false)
+	customerName(blank : false)
+	creditLimit(blank : false)
+	creditTerm(blank : false)
+	
 	}
 
 	static hasMany = [customerArea:CustomerArea]
@@ -15,8 +17,5 @@ class Customer {
 	Integer creditLimit
 	String creditTerm
 	
-<<<<<<< .mine
-	 
-=======
->>>>>>> .r137
+
 }
