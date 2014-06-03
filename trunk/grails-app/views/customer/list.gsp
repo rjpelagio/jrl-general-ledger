@@ -1,14 +1,15 @@
 
 
-<%@ page import="com.ar.Customer" %>
+<%@ page import="com.app.Employee" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'customer.label', default: 'Customer')}" />
+        <g:set var="entityName" value="${message(code: 'employee.label', default: 'Employee')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
     <body>
+        
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
@@ -25,42 +26,50 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="customerCode"><g:message code="customer.customerCode.label" default="Customer Code" /></label>
+                                    <label for="firstName"><g:message code="party.firstName.label" default="First Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'customerCode', 'errors')}">
-                                    <g:textField name="customerCode" value="${customerInstance?.customerCode}" />
+                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'firstName', 'errors')}">
+                                    <g:textField name="firstName" value="${partyInstance?.firstName}" />
                                 </td>
                             </tr>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="customerName"><g:message code="customer.customerName.label" default="Customer Name" /></label>
+                                    <label for="middleName"><g:message code="party.middleName.label" default="Middle Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'customerName', 'errors')}">
-                                    <g:textField name="customerName" value="${customerInstance?.customerName}" />
+                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'middleName', 'errors')}">
+                                    <g:textField name="middleName" value="${partyInstance?.middleName}" />
                                 </td>
                             </tr>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="creditLimit"><g:message code="customer.creditLimit.label" default="Credit Limit" /></label>
+                                    <label for="lastName"><g:message code="party.lastName.label" default="Last Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'creditLimit', 'errors')}">
-                                    <g:textField name="creditLimit" value="${fieldValue(bean: customerInstance, field: 'creditLimit')}" />
+                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'lastName', 'errors')}">
+                                    <g:textField name="lastName" value="${partyInstance?.lastName}" />
                                 </td>
                             </tr>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="creditTerm"><g:message code="customer.creditTerm.label" default="Credit Term" /></label>
+                                    <label for="tin"><g:message code="party.tin.label" default="TIN" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'creditTerm', 'errors')}">
-                                    <g:textField name="creditTerm" value="${customerInstance?.creditTerm}" />
+                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'tin', 'errors')}">
+                                    <g:textField name="tin" value="${partyInstance?.tin}" />
                                 </td>
                             </tr>
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="department"><g:message code="employee.department.label" default="Department" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'department', 'errors')}">
+                                    <g:select name="department" from="${employeeInstance.constraints.department.inList}" value="${employeeInstance?.department}" valueMessagePrefix="employee.department" noSelection="['null':'']" />
+                                </td>
+                            </tr>
+                    
                         
                             <tr>
                                 <td></td>
@@ -72,40 +81,54 @@
                     </table>
                 </div>
             </g:form>
+            <br/>
             <div class="list">
                 <table>
                     <thead>
                         <tr>
-                        
-                            <g:sortableColumn property="id" title="${message(code: 'customer.id.label', default: 'Id')}" />
-                        
-                            <g:sortableColumn property="customerCode" title="${message(code: 'customer.customerCode.label', default: 'Customer Code')}" />
-                        
-                            <g:sortableColumn property="customerName" title="${message(code: 'customer.customerName.label', default: 'Customer Name')}" />
-                        
-                            <g:sortableColumn property="creditLimit" title="${message(code: 'customer.creditLimit.label', default: 'Credit Limit')}" />
-                        
-                            <g:sortableColumn property="creditTerm" title="${message(code: 'customer.creditTerm.label', default: 'Credit Term')}" />
+
+                            <g:sortableColumn property="name" title="${message(code: 'employeeData.lastName.label', default: 'Name')}" />
+
+                            <th>First Name</th>
+
+                            <th>Middle Name</th>
+                            
+                            <th>TIN</th>
+
+                            <th>Department</th>
+
+                            <th>Position</th>
+
+                            <th>Contact Number</th>
+
+                            <th>Mobile Number</th>
+                            
+                            <th>Status</th>
                         
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                    <g:each in="${customerInstanceList}" status="i" var="customerInstance">
+                    <g:each in="${employeeInstanceList}" status="i" var="employeeInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+
+                            <td><g:link action="show" id="${employeeInstance.id}">${employeeInstance?.last_name}</g:link></td>
+                            <td>${employeeInstance?.first_name}</td>
+                            <td>${employeeInstance?.middle_name}</td>
+                            <td>${employeeInstance?.tin}</td>
+
+                            <td>${employeeInstance?.department}</td>
                         
-                            <td><g:link action="show" id="${customerInstance.id}">${fieldValue(bean: customerInstance, field: "id")}</g:link></td>
-                        
-                            <td>${fieldValue(bean: customerInstance, field: "customerCode")}</td>
-                        
-                            <td>${fieldValue(bean: customerInstance, field: "customerName")}</td>
-                        
-                            <td>${fieldValue(bean: customerInstance, field: "creditLimit")}</td>
-                        
-                            <td>${fieldValue(bean: customerInstance, field: "creditTerm")}</td>
+                            <td>${employeeInstance?.position}</td>
+
+                            <td>(${employeeInstance?.areaCode}) ${employeeInstance?.contactNumber} </td>
+
+                            <td>+63${employeeInstance?.mobileNumber}</td>
+
+                            <td>${employeeInstance?.status}</td>
                         
                             <td>
-                                <g:link action="edit" id="${customerInstance.id}">
+                                <g:link action="edit" id="${employeeInstance.id}">
                                     Edit
                                 </g:link>
                             </td>
@@ -115,7 +138,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${customerInstanceTotal}" />
+                <g:paginate total="${employeeInstanceTotal}" /> Record ${recordCount} of ${employeeInstanceTotal}
             </div>
         </div>
     </body>
