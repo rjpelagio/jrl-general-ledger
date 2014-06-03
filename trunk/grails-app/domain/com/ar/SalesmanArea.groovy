@@ -7,5 +7,5 @@ class SalesmanArea {
 	}
 
 	Date dateCreated
-	
+
 }
