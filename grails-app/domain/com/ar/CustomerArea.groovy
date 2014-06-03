@@ -2,14 +2,26 @@ package com.ar
 
 class CustomerArea {
 
+    Date dateCreated 
+
+    static belongsTo = [area:Area, customer:Customer]
+
+
+
     static constraints = {
-		dateCreated()
-	}
 
-	Date dateCreated
+     area(blank : false)
+     customer(blank : false)
+	 dateCreated(blank : false)
 
-	static mapping = {
-		autoTimestamp false
+	 }
+
+	 String toString(){
+	 	return "${Area.find(area).area} -- ${Area.find(area).description}"
+
 	}
 
 }
+
+
+
