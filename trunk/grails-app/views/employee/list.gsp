@@ -98,6 +98,10 @@
                             <th>Department</th>
 
                             <th>Position</th>
+
+                            <th>Contact Number</th>
+
+                            <th>Mobile Number</th>
                             
                             <th>Status</th>
                         
@@ -116,6 +120,10 @@
                             <td>${employeeInstance?.department}</td>
                         
                             <td>${employeeInstance?.position}</td>
+
+                            <td>(${employeeInstance?.areaCode}) ${employeeInstance?.contactNumber} </td>
+
+                            <td>+63${employeeInstance?.mobileNumber}</td>
 
                             <td>${employeeInstance?.status}</td>
                         
