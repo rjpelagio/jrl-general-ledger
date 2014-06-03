@@ -1,5 +1,5 @@
 package com.app
-
+import com.ar.EmployeeData
 class EmployeeController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
