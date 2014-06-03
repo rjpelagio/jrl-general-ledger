@@ -182,9 +182,16 @@ class AppSearchService {
             newDepartment = "%"+ department +"%"
         }
 
-        def result = db.rows("SELECT employee.id, party.last_name, party.first_name, party.middle_name, party.tin, employee.department, employee.position, employee.status\
+        def result = db.rows("SELECT employee.id, party.last_name, party.first_name, party.middle_name, party.tin, employee.department, employee.position, employee.status,\
+            tele_info.area_code as areaCode, \
+            tele_info.contact_number as contactNumber, \
+            tele_info.mobile_number as mobileNumber \
             FROM party\
             JOIN employee ON employee.party_id = party.party_id\
+            JOIN party_contact_mech AS a \
+                ON a.party_id = party.party_id \
+                AND a.contact_mech_type = 'PHONE_INFO' \
+            JOIN tele_info ON tele_info.contact_mech_id = a.contact_mech_id \
             WHERE (party.last_name LIKE ?\
             AND party.first_name LIKE ?\
             AND party.middle_name LIKE ?\
