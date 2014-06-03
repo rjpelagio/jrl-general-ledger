@@ -26,6 +26,15 @@
                     <table>
                         <tbody>
                         
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="name"><g:message code="customerArea.name.label" default="Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: customerAreaInstance, field: 'name', 'errors')}">
+                                    <g:textField name="name" value="${customerAreaInstance?.name}" />
+                                </td>
+                            </tr>
+                        
                             <tr>
                                 <td></td>
                                 <td>
@@ -43,8 +52,15 @@
                         
                             <g:sortableColumn property="id" title="${message(code: 'customerArea.id.label', default: 'Id')}" />
                         
+<<<<<<< .mine
+                            <g:sortableColumn property="name" title="${message(code: 'customerArea.name.label', default: 'Name')}" />
+                        
                             <g:sortableColumn property="dateCreated" title="${message(code: 'customerArea.dateCreated.label', default: 'Date Created')}" />
                         
+=======
+                            <g:sortableColumn property="dateCreated" title="${message(code: 'customerArea.dateCreated.label', default: 'Date Created')}" />
+                        
+>>>>>>> .r135
                             <th></th>
                         </tr>
                     </thead>
@@ -54,8 +70,15 @@
                         
                             <td><g:link action="show" id="${customerAreaInstance.id}">${fieldValue(bean: customerAreaInstance, field: "id")}</g:link></td>
                         
+<<<<<<< .mine
+                            <td>${fieldValue(bean: customerAreaInstance, field: "name")}</td>
+                        
                             <td><g:formatDate date="${customerAreaInstance.dateCreated}" /></td>
                         
+=======
+                            <td><g:formatDate date="${customerAreaInstance.dateCreated}" /></td>
+                        
+>>>>>>> .r135
                             <td>
                                 <g:link action="edit" id="${customerAreaInstance.id}">
                                     Edit
