@@ -29,6 +29,14 @@
                             
                         </tr>
                     
+<<<<<<< .mine
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="customerArea.name.label" default="Name" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: customerAreaInstance, field: "name")}</td>
+                            
+                        </tr>
+                    
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="customerArea.dateCreated.label" default="Date Created" /></td>
                             
@@ -36,6 +44,15 @@
                             
                         </tr>
                     
+=======
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="customerArea.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${customerAreaInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+>>>>>>> .r135
                     </tbody>
                 </table>
             </div>
