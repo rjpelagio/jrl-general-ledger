@@ -183,38 +183,6 @@
                                     <g:textField name="tin" value="${employeeData?.tin}" />
                                 </td>
                             </tr>
-                            
-                            <tr class="prop">
-                                <td valign="top" class="sub">
-                                    <label for="department"><g:message code="employeeData.department.label" default="Department" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'department', 'errors')}">
-                                    <g:select name="department" from="${employeeData.constraints.department.inList}" 
-                                        value="${employeeData?.department}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="sub">
-                                    <label for="position"><g:message code="employeeData.position.label" default="Position" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'position', 'errors')}">
-                                    <g:select name="position" from="${employeeData.constraints.position.inList}" 
-                                        value="${employeeData?.position}"  />
-                                    
-                                </td>
-                            </tr>
-
-                            <tr class="prop">
-                                <td valign="top" class="sub">
-                                    <label for="status"><g:message code="employeeData.status.label" default="Status" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'Status', 'errors')}">
-                                    <g:select name="status" from="${employeeData.constraints.status.inList}" 
-                                        value="${employeeData?.status}"  />
-                                    
-                                </td>
-                            </tr>
                         
                         </tbody>
                     </table>
