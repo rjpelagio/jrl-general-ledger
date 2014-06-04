@@ -24,15 +24,9 @@ class CustomerController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        def employee = new Employee()
-        employee.properties = params.properties
-        def party = new Party()
-        party.properties = params.properties
         
         def offset = 0
-        def result = appSearchService.getEmployees(
-            params.name, params.firstName, params.middleName, params.lastName, params.tin, employee.department, employee.position
-        )
+        def result = appSearchService.getCustomer(params.name)
 
         if(params.offset){
             offset = Math.min(params.offset ? params.int('offset') : 0, result.size())
