@@ -24,6 +24,7 @@ class CustomerController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
+ 
         
         def offset = 0
         def result = appSearchService.getCustomer(params.name)
@@ -36,7 +37,7 @@ class CustomerController {
         if(recordCount >= result.size()){
             recordCount = result.size()
         }
-        [employeeInstanceList: result.subList(offset, recordCount), employeeInstanceTotal: result.size(), employeeInstance: employee, partyInstance: party, recordCount: recordCount]
+        [employeeInstanceList: result.subList(offset, recordCount), employeeInstanceTotal: result.size(), employeeInstance: new Employee(), partyInstance: new Party(), recordCount: recordCount]
     }
 
     def create = {
