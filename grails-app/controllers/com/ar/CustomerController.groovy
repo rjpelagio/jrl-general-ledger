@@ -1,5 +1,6 @@
 package com.app
-import com.app.EmployeeData
+
+import com.app.*
 
 class CustomerController {
 
