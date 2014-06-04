@@ -123,18 +123,6 @@
                             <td valign="top" class="value">${employeeData?.status}</td>
                             
                         </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.department.label" /></td>
-                            
-                            <td valign="top" class="value">${employeeData?.department}</td>
-
-                            <td class="sub" valign="top"><g:message code="employeeData.position.label"/></td>
-                            
-                            <td valign="top" class="value">${employeeData?.position}</td>
-                            
-                        </tr>
-                
                     
                     </tbody>
                 </table>
