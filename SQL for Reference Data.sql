@@ -47,6 +47,9 @@ VALUES (0, 3/1/2014, 3/1/2014, @generatedId, 'SUPP', 'Supplier')
 INSERT INTO dbo.app_role (version, date_created, last_updated, parent_id, role_code, role_name)
 VALUES (0, 3/1/2014, 3/1/2014, @generatedId, 'ORG', 'Organization')
 
+INSERT INTO dbo.app_role (version, date_created, last_updated, parent_id, role_code, role_name)
+VALUES (0, 3/1/2014, 3/1/2014, @generatedId, 'SLM', 'Salesman')
+
 IF @@ERROR > 1 
 	ROLLBACK TRANSACTION
 ELSE 
