@@ -1,7 +1,7 @@
 package com.app
-import com.ar.EmployeeData
+import com.app.EmployeeData
 
-class EmployeeController {
+class SalesmanController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
