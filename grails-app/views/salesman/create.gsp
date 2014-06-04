@@ -1,204 +1,211 @@
-package com.app
 
-class EmployeeController {
 
-    static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+<%@ page import="com.app.Employee" %>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="layout" content="main" />
+        <g:set var="entityName" value="${message(code: 'employee.label', default: 'Employee')}" />
+        <title><g:message code="default.create.label" args="[entityName]" /></title>
+    </head>
+    <body>
+        <div class="nav">
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
+        </div>
+        <div class="body" style="width:75%">
+            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+            <g:if test="${flash.message}">
+            <div class="message">${flash.message}</div>
+            </g:if>
+            <g:hasErrors bean="${employeeData}">
+            <div class="errors">
+                <g:renderErrors bean="${employeeData}" as="list" />
+            </div>
+            </g:hasErrors>
+            <g:form action="save" >
+                <div class="dialog">
+                    <table border='1'>
+                        <tbody>
+                            <tr class="prop">
+                                <td class="name" colspan="2">Personal Information</td>
+                                <td class="name" colspan="2">Contact Information</td>
+                            </tr>
+                            <tr class="prop">
+                                <td valign="middle" class="sub">
+                                    <label for="personalTitle"><g:message code="employeeData.personalTitle.label" default="First Name" /></label>
+                                </td>
+                                <td valign="middle" class="value ${hasErrors(bean: employeeData, field: 'personalTitle', 'errors')}">
+                                    <g:select name="personalTitle" from="${employeeData.constraints.personalTitle.inList}" 
+                                        value="${employeeData?.personalTitle}"  />
+                                </td>
 
-    def appSearchService
-    def appUtilityService
+                                <td valign="middle" class="sub">
+                                    <label for="addressLine1"><g:message code="employeeData.addressLine1.label" /></label>
+                                </td>
 
-    def beforeInterceptor = [action:this.&auth]
+                                <td class="value ${hasErrors(bean: employeeData, field: 'addressLine1', 'errors')}">
+                                    <g:textField name="addressLine1" value="${employeeData?.addressLine1}" size="55"/>
+                                </td>
 
-    def auth() {
-        if(!session.user) {
-            redirect(uri:"/")
-            return false
-        }
-    }
+                            </tr>                            
 
-    def index = {
-        redirect(action: "list", params: params)
-    }
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="firstName"><g:message code="employeeData.firstName.label" default="First Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'firstName', 'errors')}">
+                                    <g:textField name="firstName" value="${employeeData?.firstName}" />
+                                </td>
 
-    def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        def employee = new Employee()
-        employee.properties = params.properties
-        def party = new Party()
-        party.properties = params.properties
-        
-        def offset = 0
-        def result = appSearchService.getEmployees(
-            params.name, params.firstName, params.middleName, params.lastName, params.tin, employee.department, employee.position
-        )
+                                <td valign="middle" class="sub">
+                                    <label for="addressLine2"><g:message code="employeeData.addressLine2.label" /></label>
+                                </td>
 
-        if(params.offset){
-            offset = Math.min(params.offset ? params.int('offset') : 0, result.size())
-        }
-        //Record Count - if sql query is used
-        def recordCount = offset + params.max
-        if(recordCount >= result.size()){
-            recordCount = result.size()
-        }
-        [employeeInstanceList: result.subList(offset, recordCount), employeeInstanceTotal: result.size(), employeeInstance: employee, partyInstance: party, recordCount: recordCount]
-    }
+                                <td class="value ${hasErrors(bean: employeeData, field: 'addressLine2', 'errors')}">
+                                    <g:textField name="addressLine2" value="${employeeData?.addressLine2}" size="55"/>
+                                </td>
 
-    def create = {
-        def employeeData = new EmployeeData()
-        return [employeeData: employeeData]
-    }
+                            </tr>
 
-    def save = { EmployeeData data ->
-        def employeeInstance = new Employee(params)
-        def partyInstance = new Party()
-        def personInstance = new Person(params)
-        def partyRole = new PartyRole(params)
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="middleName"><g:message code="employeeData.middleName.label" default="Middle Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'middleName', 'errors')}">
+                                    <g:textField name="middleName" value="${employeeData?.middleName}" />
+                                </td>
+                                
+                                <td valign="middle" class="sub">
+                                    <label for="province"><g:message code="employeeData.city.label" /></label>
+                                </td>
+                                <td class="value ${hasErrors(bean: employeeData, field: 'city', 'errors')}">
+                                    <g:textField name="city" value="${employeeData?.city}" size="25"/>
+                                </td>
+                            </tr>
 
-        bindData(data, params)
-        data.status = 'Active'
-        def empRole = AppRole.findByRoleCode('EMP')
-        data.roleId = empRole.id
-        data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
-        if(data.validate()){
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="lastName"><g:message code="employeeData.lastName.label" default="Last Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'lastName', 'errors')}">
+                                    <g:textField name="lastName" value="${employeeData?.lastName}" />
+                                </td>
 
-            partyInstance.name = data.fullName
-            partyInstance.lastName = data.lastName
-            partyInstance.firstName = data.firstName
-            partyInstance.middleName = data.middleName
-            partyInstance.tin = data.tin
-            partyInstance.save(flush:true)
+                                <td valign="middle" class="sub">
+                                    <label for="province"><g:message code="employeeData.province.label" /></label>
+                                </td>
+                                <td class="value" >
+                                    <g:textField class="${hasErrors(bean: employeeData, field: 'province', 'errors')}"
+                                        name="province" value="${employeeData?.province}" size="15"/>
 
-            personInstance.party = Party.get(partyInstance.id)
-            personInstance.lastName = data.lastName
-            personInstance.firstName = data.firstName
-            personInstance.middleName = data.middleName
-            personInstance.gender = data.gender
-            personInstance.nickname = data.firstName
-            personInstance.personalTitle = data.personalTitle
-            personInstance.maritalStatus = data.maritalStatus
-            personInstance.save(flush:true)
+                                    <span class="sub">
+                                         <label for="postalCode"><g:message code="employeeData.postalCode.label" /></label>
+                                    </span> &nbsp; &nbsp;
+                                    <span>
+                                         <g:textField class="${hasErrors(bean: employeeData, field: 
+                                         'postalCode', 'errors')}"
+                                            name="postalCode" value="${employeeData?.postalCode}" size="12"/>
+                                    </span>
+                                </td>
+                            </tr>
 
-            employeeInstance.party = Party.get(partyInstance.id)
-            employeeInstance.department = data.department
-            employeeInstance.position = data.position
-            employeeInstance.status = 'Active'
-            employeeInstance.save(flush:true)
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="Birthdate"><g:message code="employeeData.birthdate.label" default="Birthdate" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'birthdate', 'errors')}">
+                                    <calendar:datePicker name="birthdate" precision="day" value="${employeeData?.birthdate}" years="1950, 2013"  />
+                                </td>
 
-            partyRole.party = Party.get(partyInstance.id)
-            partyRole.fromDate = new Date()
-            partyRole.status = 'Active'
-            
-            partyRole.role = empRole
-            partyRole.save(flush:true)
+                                <td valign="middle" class="sub">
+                                    <label for="areaCode"><g:message code="employeeData.contactNumber.label" /></label>
+                                </td>
+                                <td class="value">
+                                    (&nbsp; 
+                                        <g:textField class="${hasErrors(bean: employeeData, field: 'areaCode', 'errors')}"
+                                            name="areaCode" value="${employeeData?.areaCode}" size="5"/>
+                                    &nbsp;)
+                                    
+                                    &nbsp; &ndash; &nbsp;
 
-            appUtilityService.createContactEntries(data, Party.get(partyInstance.id))
+                                    <g:textField class="${hasErrors(bean: employeeData, field: 'contactNumber', 'errors')}"
+                                        name="contactNumber" value="${employeeData?.contactNumber}" size="20"/>
+                                    
+                                    
+                                </td>
+                            </tr>                            
 
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
-            redirect(action: "show", id: employeeInstance.id)
-        } else {
-            render(view: "create", model : [employeeData: data])
-            return 
-        }
-    }
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="gender"><g:message code="employeeData.gender.label" default="First Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'gender', 'errors')}">
+                                    <g:select name="gender" from="${employeeData.constraints.gender.inList}" 
+                                        value="${employeeData?.gender}"  />
+                                </td>
+                                <td valign="top" class="sub">
+                                    <label for="mobileNumber"><g:message code="employeeData.mobileNumber.label"/></label>
+                                </td>
+                                <td class="value ${hasErrors(bean: employeeData, field: 'mobileNumber', 'errors')}">
+                                    +63 &nbsp;<g:textField name="mobileNumber" value="${employeeData?.mobileNumber}" size="25"/>
+                                </td>
 
-    def show = {
-        def employeeInstance = Employee.get(params.id)
+                            </tr>   
 
-        def employeeData = appUtilityService.prepareEmployeeData(employeeInstance)
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="maritalStatus"><g:message code="employeeData.maritalStatus.label" default="First Name" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'maritalStatus', 'errors')}">
+                                    <g:select name="maritalStatus" from="${employeeData.constraints.maritalStatus.inList}" 
+                                        value="${employeeData?.maritalStatus}"  />
+                                </td>
+                                <td valign="top" class="sub">
+                                    <label for="emailAddress"><g:message code="employeeData.emailAddress.label"/></label>
+                                </td>
+                                <td class="value ${hasErrors(bean: employeeData, field: 'emailAddress', 'errors')}">
+                                    <g:textField name="emailAddress" value="${employeeData?.emailAddress}" size="25"/>
+                                </td>
+                            </tr>   
 
-        if (!employeeInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            [employeeData: employeeData]
-        }
-    }
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="tin"><g:message code="employeeData.tin.label" default="TIN" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'tin', 'errors')}">
+                                    <g:textField name="tin" value="${employeeData?.tin}" />
+                                </td>
+                            </tr>
+                            
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="department"><g:message code="employeeData.department.label" default="Department" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'department', 'errors')}">
+                                    <g:select name="department" from="${employeeData.constraints.department.inList}" 
+                                        value="${employeeData?.department}"  />
+                                </td>
 
-    def edit = {
-        def employeeInstance = Employee.get(params.id)
-
-        def employeeData = appUtilityService.prepareEmployeeData(employeeInstance)
-
-        if (!employeeData) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            return [employeeData: employeeData]
-        }
-    }
-
-    def update = { EmployeeData data ->
-
-        bindData(data, params)
-        data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
-        
-        def empRole = AppRole.findByRoleCode('EMP')
-        data.roleId = empRole.id
-
-        if(data.validate()){
-
-            def partyInstance = Party.get(data.partyId);
-            partyInstance.name = data.fullName
-            partyInstance.lastName = data.lastName
-            partyInstance.firstName = data.firstName
-            partyInstance.middleName = data.middleName
-            partyInstance.tin = data.tin
-            partyInstance.save(flush:true)
-
-            def personInstance = Person.get(data.personId)
-            personInstance.lastName = data.lastName
-            personInstance.firstName = data.firstName
-            personInstance.middleName = data.middleName
-            personInstance.gender = data.gender
-            personInstance.nickname = data.firstName
-            personInstance.personalTitle = data.personalTitle
-            personInstance.maritalStatus = data.maritalStatus
-            personInstance.save(flush:true)
-
-            def employeeInstance = Employee.get(data.empId)
-            employeeInstance.department = data.department
-            employeeInstance.position = data.position
-            employeeInstance.status = data.status
-            employeeInstance.save(flush:true)
-
-            if(data.status == 'Inactive'){
-                def partyRole = PartyRole.findByParty(partyInstance)
-                if (partyRole != null) {
-                    partyRole.status = 'Inactive'
-                    partyRole.thruDate = new Date()
-                    partyROle.save(flush:true)
-                }
-            }
-            
-            appUtilityService.updateContactEntries(data)
-
-            flash.message = "${message(code: 'default.updated.message', args: [message(code: 'employee.label', default: 'Employee'), partyInstance.name])}"
-            redirect(action: "show", id: employeeInstance.id)
-
-        } else {
-            render(view: "edit", model : [employeeData: data])
-            return 
-        }
-    }
-
-    def delete = {
-        def employeeInstance = Employee.get(params.id)
-        if (employeeInstance) {
-            try {
-                employeeInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-                redirect(action: "list")
-            }
-            catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-                redirect(action: "show", id: params.id)
-            }
-        }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'employee.label', default: 'Employee'), params.id])}"
-            redirect(action: "list")
-        }
-    }
-}
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="position"><g:message code="employeeData.position.label" default="Position" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'position', 'errors')}">
+                                    <g:select name="position" from="${employeeData.constraints.position.inList}" 
+                                        value="${employeeData?.position}"  />
+                                </td>
+                            </tr>
+                        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="buttons">
+                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                </div>
+            </g:form>
+        </div>
+    </body>
+</html>

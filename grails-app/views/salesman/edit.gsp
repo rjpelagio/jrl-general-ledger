@@ -194,7 +194,6 @@
                                 </td>
                             </tr>
                         
-<<<<<<< .mine
                             <tr class="prop">
                                 <td valign="top" class="sub">
                                     <label for="position"><g:message code="employeeData.position.label" default="Position" /></label>
@@ -216,9 +215,7 @@
                                     
                                 </td>
                             </tr>
-                        
-=======
->>>>>>> .r147
+
                         </tbody>
                     </table>
                 </div>

@@ -71,7 +71,6 @@
                             
                         </tr>
 
-<<<<<<< .mine
                         <tr class="prop">
                             <td valign="top" class="sub"><g:message code="employeeData.birthdate.label"  /></td>
                             
@@ -137,8 +136,6 @@
                         </tr>
                 
                     
-=======
->>>>>>> .r147
                     </tbody>
                 </table>
             </div>
