@@ -6,15 +6,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'employee.label', default: 'Employee')}" />
-        <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <title><g:message code="default.edit.label" args="[entityName]" /></title>
     </head>
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
+            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body" style="width:75%">
-            <h1><g:message code="default.create.label" args="[entityName]" /></h1>
+            <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
@@ -23,19 +24,29 @@
                 <g:renderErrors bean="${employeeData}" as="list" />
             </div>
             </g:hasErrors>
-            <g:form action="save" >
+            <g:form method="post" >
+                <g:hiddenField name="empId" value="${employeeData?.empId}" />
+                <g:hiddenField name="version" value="${employeeData?.version}" />
+                <g:hiddenField name="partyId" value="${employeeData?.partyId}"/>
+                <g:hiddenField name="personId" value="${employeeData?.personId}"/>
+
+                <g:hiddenField name="postalAddressId" value="${employeeData?.postalAddressId}"/>
+                <g:hiddenField name="telInfoId" value="${employeeData?.telInfoId}"/>
+                <g:hiddenField name="contactPerson" value="${employeeData?.contactPerson}"/>
+                <g:hiddenField name="elecAddressId" value="${employeeData?.elecAddressId}"/>
+
                 <div class="dialog">
-                    <table border='1'>
+                    <table>
                         <tbody>
                             <tr class="prop">
                                 <td class="name" colspan="2">Personal Information</td>
                                 <td class="name" colspan="2">Contact Information</td>
-                            </tr>
+                            </tr>   
                             <tr class="prop">
                                 <td valign="middle" class="sub">
                                     <label for="personalTitle"><g:message code="employeeData.personalTitle.label" default="First Name" /></label>
                                 </td>
-                                <td valign="middle" class="value ${hasErrors(bean: employeeData, field: 'personalTitle', 'errors')}">
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'personalTitle', 'errors')}">
                                     <g:select name="personalTitle" from="${employeeData.constraints.personalTitle.inList}" 
                                         value="${employeeData?.personalTitle}"  />
                                 </td>
@@ -47,7 +58,6 @@
                                 <td class="value ${hasErrors(bean: employeeData, field: 'addressLine1', 'errors')}">
                                     <g:textField name="addressLine1" value="${employeeData?.addressLine1}" size="55"/>
                                 </td>
-
                             </tr>                            
 
                             <tr class="prop">
@@ -65,7 +75,6 @@
                                 <td class="value ${hasErrors(bean: employeeData, field: 'addressLine2', 'errors')}">
                                     <g:textField name="addressLine2" value="${employeeData?.addressLine2}" size="55"/>
                                 </td>
-
                             </tr>
 
                             <tr class="prop">
@@ -75,7 +84,7 @@
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'middleName', 'errors')}">
                                     <g:textField name="middleName" value="${employeeData?.middleName}" />
                                 </td>
-                                
+
                                 <td valign="middle" class="sub">
                                     <label for="province"><g:message code="employeeData.city.label" /></label>
                                 </td>
@@ -122,10 +131,8 @@
                                     <label for="areaCode"><g:message code="employeeData.contactNumber.label" /></label>
                                 </td>
                                 <td class="value">
-                                    (&nbsp; 
-                                        <g:textField class="${hasErrors(bean: employeeData, field: 'areaCode', 'errors')}"
-                                            name="areaCode" value="${employeeData?.areaCode}" size="5"/>
-                                    &nbsp;)
+                                    ( <g:textField class="${hasErrors(bean: employeeData, field: 'areaCode', 'errors')}"
+                                        name="areaCode" value="${employeeData?.areaCode}" size="5"/> )
                                     
                                     &nbsp; &ndash; &nbsp;
 
@@ -150,7 +157,6 @@
                                 <td class="value ${hasErrors(bean: employeeData, field: 'mobileNumber', 'errors')}">
                                     +63 &nbsp;<g:textField name="mobileNumber" value="${employeeData?.mobileNumber}" size="25"/>
                                 </td>
-
                             </tr>   
 
                             <tr class="prop">
@@ -186,7 +192,6 @@
                                     <g:select name="department" from="${employeeData.constraints.department.inList}" 
                                         value="${employeeData?.department}"  />
                                 </td>
-
                             </tr>
                         
                             <tr class="prop">
@@ -196,6 +201,18 @@
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'position', 'errors')}">
                                     <g:select name="position" from="${employeeData.constraints.position.inList}" 
                                         value="${employeeData?.position}"  />
+                                    
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="sub">
+                                    <label for="status"><g:message code="employeeData.status.label" default="Status" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'Status', 'errors')}">
+                                    <g:select name="status" from="${employeeData.constraints.status.inList}" 
+                                        value="${employeeData?.status}"  />
+                                    
                                 </td>
                             </tr>
                         
@@ -203,7 +220,7 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <span class="button"><g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" /></span>
+                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
                 </div>
             </g:form>
         </div>
