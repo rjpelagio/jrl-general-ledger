@@ -1,5 +1,5 @@
 package com.app
-import com.app.EmployeeData
+
 
 class SalesmanController {
 
@@ -57,7 +57,7 @@ class SalesmanController {
 
         bindData(data, params)
         data.status = 'Active'
-        def empRole = AppRole.findByRoleCode('SALES')
+        def empRole = AppRole.findByRoleCode('SLM')
         data.roleId = empRole.id
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
         if(data.validate()){
@@ -135,7 +135,7 @@ class SalesmanController {
         bindData(data, params)
         data.fullName = data.firstName + ' ' + data.middleName + ' ' + data.lastName
         
-        def empRole = AppRole.findByRoleCode('SALES')
+        def empRole = AppRole.findByRoleCode('SLM')
         data.roleId = empRole.id
 
         if(data.validate()){
