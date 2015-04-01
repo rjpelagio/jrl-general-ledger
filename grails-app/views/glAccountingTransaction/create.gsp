@@ -21,8 +21,7 @@
                         rowIndex++;
                         $("input[name='rowIndex']").val(rowIndex);
                         $("tbody#dataTable tr#totals").before(<g:render template="/glAccountingTransaction/transItem"/>);
-                        
-                        
+            
                         var $content = $('#leftnav');
                         $content.height($(document).height() - 155);
                         
@@ -41,6 +40,9 @@
             <h1><g:message code="default.create.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
+            </g:if>
+            <g:if test="${flash.errors}">
+            <div class="errors"><ul><li>${flash.errors}</li></ul></div>
             </g:if>
             <g:hasErrors bean="${glAccountingTransactionInstance}">
             <div class="errors">
@@ -216,12 +218,14 @@
                         <span >
                             <input type="button" id="addRow" class="add" value="Add Item"></input>
                         </span>
-                        <span style="float:right">
-                            <g:submitButton name="create" class="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
-                        </span>
-                        <span style="float:right">
-                            <g:submitButton name="create" class="submit" value="${message(code: 'default.button.submit.label', default: 'Submit')}" />
-                        </span>
+                        <g:if test="${disableFields == false}">
+                            <span style="float:right">
+                                <g:submitButton name="create" class="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
+                            </span>
+                            <span style="float:right">
+                                <g:submitButton name="create" class="submit" value="${message(code: 'default.button.submit.label', default: 'Submit')}" />
+                            </span>
+                        </g:if>
                 </div>
             </g:form>
         </div>

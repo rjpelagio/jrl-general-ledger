@@ -70,10 +70,14 @@
                                 <td valign="top" class="value ${hasErrors(bean: Organization, field: 'organization', 'errors')}">
                                     <g:each in="${organizationInstance}" var="o">
                                       <g:if test="${o.id == session.organization.id}">
-                                        <g:checkBox name="organization" value="${o?.id}" checked="true"/> ${o?.organizationName}<br/>
+                                        <g:checkBox name="organizationCheck" value="${o?.id}" checked="true"/> ${o?.organizationName}
+                                        <input type="hidden" name="organizationVal" value="${o.id}"/>
+                                        <br/>
                                       </g:if>
                                       <g:else>
-                                        <g:checkBox name="organization" value="${o?.id}" checked="false"/> ${o?.organizationName}<br/>
+                                        <g:checkBox name="organizationCheck" value="${o?.id}" checked="false"/> ${o?.organizationName}
+                                        <input type="hidden" name="organizationVal" value="${o.id}"/>
+                                        <br/>
                                       </g:else>
                                     </g:each>
                                 </td>

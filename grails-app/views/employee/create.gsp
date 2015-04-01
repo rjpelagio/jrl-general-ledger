@@ -7,8 +7,14 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'employee.label', default: 'Employee')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+
     </head>
     <body>
+        <script>
+        $(document).ready(function () {
+               document.getElementById("birthdate-trigger").setAttribute("tabIndex", "5");
+        });
+        </script>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
@@ -37,7 +43,7 @@
                                 </td>
                                 <td valign="middle" class="value ${hasErrors(bean: employeeData, field: 'personalTitle', 'errors')}">
                                     <g:select name="personalTitle" from="${employeeData.constraints.personalTitle.inList}" 
-                                        value="${employeeData?.personalTitle}"  />
+                                        value="${employeeData?.personalTitle}" tabIndex="1" />
                                 </td>
 
                                 <td valign="middle" class="sub">
@@ -45,7 +51,7 @@
                                 </td>
 
                                 <td class="value ${hasErrors(bean: employeeData, field: 'addressLine1', 'errors')}">
-                                    <g:textField name="addressLine1" value="${employeeData?.addressLine1}" size="55"/>
+                                    <g:textField name="addressLine1" value="${employeeData?.addressLine1}" size="55" tabIndex="11"/>
                                 </td>
 
                             </tr>                            
@@ -55,7 +61,7 @@
                                     <label for="firstName"><g:message code="employeeData.firstName.label" default="First Name" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'firstName', 'errors')}">
-                                    <g:textField name="firstName" value="${employeeData?.firstName}" />
+                                    <g:textField name="firstName" value="${employeeData?.firstName}" tabIndex="2" />
                                 </td>
 
                                 <td valign="middle" class="sub">
@@ -63,7 +69,7 @@
                                 </td>
 
                                 <td class="value ${hasErrors(bean: employeeData, field: 'addressLine2', 'errors')}">
-                                    <g:textField name="addressLine2" value="${employeeData?.addressLine2}" size="55"/>
+                                    <g:textField name="addressLine2" value="${employeeData?.addressLine2}" size="55" tabIndex="12" />
                                 </td>
 
                             </tr>
@@ -73,14 +79,14 @@
                                     <label for="middleName"><g:message code="employeeData.middleName.label" default="Middle Name" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'middleName', 'errors')}">
-                                    <g:textField name="middleName" value="${employeeData?.middleName}" />
+                                    <g:textField name="middleName" value="${employeeData?.middleName}" tabIndex="3"/>
                                 </td>
                                 
                                 <td valign="middle" class="sub">
                                     <label for="province"><g:message code="employeeData.city.label" /></label>
                                 </td>
                                 <td class="value ${hasErrors(bean: employeeData, field: 'city', 'errors')}">
-                                    <g:textField name="city" value="${employeeData?.city}" size="25"/>
+                                    <g:textField name="city" value="${employeeData?.city}" size="25" tabIndex="13"/>
                                 </td>
                             </tr>
 
@@ -89,7 +95,7 @@
                                     <label for="lastName"><g:message code="employeeData.lastName.label" default="Last Name" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'lastName', 'errors')}">
-                                    <g:textField name="lastName" value="${employeeData?.lastName}" />
+                                    <g:textField name="lastName" value="${employeeData?.lastName}" tabIndex="4" />
                                 </td>
 
                                 <td valign="middle" class="sub">
@@ -97,7 +103,7 @@
                                 </td>
                                 <td class="value" >
                                     <g:textField class="${hasErrors(bean: employeeData, field: 'province', 'errors')}"
-                                        name="province" value="${employeeData?.province}" size="15"/>
+                                        name="province" value="${employeeData?.province}" size="15"  tabIndex="14"/>
 
                                     <span class="sub">
                                          <label for="postalCode"><g:message code="employeeData.postalCode.label" /></label>
@@ -105,7 +111,7 @@
                                     <span>
                                          <g:textField class="${hasErrors(bean: employeeData, field: 
                                          'postalCode', 'errors')}"
-                                            name="postalCode" value="${employeeData?.postalCode}" size="12"/>
+                                            name="postalCode" value="${employeeData?.postalCode}" size="12" tabIndex="15"/>
                                     </span>
                                 </td>
                             </tr>
@@ -124,13 +130,13 @@
                                 <td class="value">
                                     (&nbsp; 
                                         <g:textField class="${hasErrors(bean: employeeData, field: 'areaCode', 'errors')}"
-                                            name="areaCode" value="${employeeData?.areaCode}" size="5"/>
+                                            name="areaCode" value="${employeeData?.areaCode}" size="5" tabIndex="16"/>
                                     &nbsp;)
                                     
                                     &nbsp; &ndash; &nbsp;
 
                                     <g:textField class="${hasErrors(bean: employeeData, field: 'contactNumber', 'errors')}"
-                                        name="contactNumber" value="${employeeData?.contactNumber}" size="20"/>
+                                        name="contactNumber" value="${employeeData?.contactNumber}" size="20" tabIndex="17"/>
                                     
                                     
                                 </td>
@@ -142,13 +148,13 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'gender', 'errors')}">
                                     <g:select name="gender" from="${employeeData.constraints.gender.inList}" 
-                                        value="${employeeData?.gender}"  />
+                                        value="${employeeData?.gender}" tabIndex="6" />
                                 </td>
                                 <td valign="top" class="sub">
                                     <label for="mobileNumber"><g:message code="employeeData.mobileNumber.label"/></label>
                                 </td>
                                 <td class="value ${hasErrors(bean: employeeData, field: 'mobileNumber', 'errors')}">
-                                    +63 &nbsp;<g:textField name="mobileNumber" value="${employeeData?.mobileNumber}" size="25"/>
+                                    +63 &nbsp;<g:textField name="mobileNumber" value="${employeeData?.mobileNumber}" size="25" tabIndex="18"/>
                                 </td>
 
                             </tr>   
@@ -159,13 +165,13 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'maritalStatus', 'errors')}">
                                     <g:select name="maritalStatus" from="${employeeData.constraints.maritalStatus.inList}" 
-                                        value="${employeeData?.maritalStatus}"  />
+                                        value="${employeeData?.maritalStatus}" tabIndex="7" />
                                 </td>
                                 <td valign="top" class="sub">
                                     <label for="emailAddress"><g:message code="employeeData.emailAddress.label"/></label>
                                 </td>
                                 <td class="value ${hasErrors(bean: employeeData, field: 'emailAddress', 'errors')}">
-                                    <g:textField name="emailAddress" value="${employeeData?.emailAddress}" size="25"/>
+                                    <g:textField name="emailAddress" value="${employeeData?.emailAddress}" size="25" tabIndex="19" />
                                 </td>
                             </tr>   
 
@@ -174,7 +180,7 @@
                                     <label for="tin"><g:message code="employeeData.tin.label" default="TIN" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'tin', 'errors')}">
-                                    <g:textField name="tin" value="${employeeData?.tin}" />
+                                    <g:textField name="tin" value="${employeeData?.tin}" tabIndex="8"/>
                                 </td>
                             </tr>
                             
@@ -184,7 +190,7 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'department', 'errors')}">
                                     <g:select name="department" from="${employeeData.constraints.department.inList}" 
-                                        value="${employeeData?.department}"  />
+                                        value="${employeeData?.department}" tabIndex="9" />
                                 </td>
 
                             </tr>
@@ -195,7 +201,7 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: employeeData, field: 'position', 'errors')}">
                                     <g:select name="position" from="${employeeData.constraints.position.inList}" 
-                                        value="${employeeData?.position}"  />
+                                        value="${employeeData?.position}"  tabIndex="10"/>
                                 </td>
                             </tr>
                         
