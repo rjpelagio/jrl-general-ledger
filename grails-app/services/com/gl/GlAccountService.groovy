@@ -78,12 +78,14 @@ class GlAccountService {
         }
         
     }
-    def insertAccount(def glAccountId, def organization) {
-        for (int i = 0; i < organization.size(); i++) {
+    def insertAccount(def glAccountId, def organizationCheck, def organizationVal) {
+        for (int i = 0; i < organizationCheck.size(); i++) {
+
+
             def glAccountOrganization = new GlAccountOrganization()
             
             glAccountOrganization.glAccount = GlAccount.get(glAccountId.id)
-            glAccountOrganization.organization = AppOrganization.get(organization[i])
+            glAccountOrganization.organization = AppOrganization.get(organizationCheck[i])
             glAccountOrganization.startDate = new Date()
 
             glAccountOrganization.save()
