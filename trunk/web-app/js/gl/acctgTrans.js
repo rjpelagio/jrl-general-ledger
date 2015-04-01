@@ -111,8 +111,20 @@
                             });
                     },
                     minLength: 3,
+                    selectFirst: true,
+                    autoFocus: true,
                     select : function(event,ui) {
                         $("#glAccountId_"+rowIndex).val(ui.item.id);
+                        $("#glAccount_"+rowIndex).val(ui.item.value);
+
+                        var TABKEY = 9;
+
+                        if (event.keyCode == TABKEY) { 
+                            event.preventDefault();
+                            $("#glAccountId_"+rowIndex).val(ui.item.id);
+                            $("#glAccount_"+rowIndex).val(ui.item.value);
+                            $("#glAccount_"+rowIndex).focus();
+                        }
                     }
                 });
             }
