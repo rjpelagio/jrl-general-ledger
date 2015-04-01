@@ -1,3 +1,4 @@
+
 --REFERENCE DATA
 
 --app_role
@@ -58,4 +59,69 @@ GO
 
 SELECT 'AFTER APP_ROLE' AS 'AFTER APP_ROLE',* FROM app_role
 
+
 -- end app_role
+
+-- begin app_organization
+
+SELECT 'BEFORE APP_ORGANIZATION' AS 'BEFORE APP_ORGANIZATION',* FROM APP_ORGANIZATION
+
+INSERT INTO dbo.app_organization (version, logo_path, organization_code, organization_name, organization_type, party_id)
+VALUES (1, '', 'TEST', 'Public Organization', 'Public Organization', 2)
+
+SELECT 'AFTER APP_ORGANIZATION' AS 'AFTER APP_ORGANIZATION',* FROM APP_ORGANIZATION
+
+-- end app_organization
+
+-- begin approval
+
+SELECT 'BEFORE APPROVAL' AS 'BEFORE APPROVAL', * FROM APPROVAL
+
+INSERT INTO dbo.approval (version, active, approval_feature, department, submit_by_position, description)
+VALUES (0, 'Yes', 'Voucher Approval', 'Finance', 'Clerk', 'Finance Clerk submission for voucher approval')
+
+INSERT INTO dbo.approval (version, active, approval_feature, department, submit_by_position, description)
+VALUES (0, 'Yes', 'Voucher Approval', 'Finance', 'Supervisor', 'Finance Supervisor submission for voucher approval')
+
+
+INSERT INTO dbo.approval (version, active, approval_feature, department, submit_by_position, description)
+VALUES (0, 'Yes', 'Voucher Approval', 'Finance', 'Manager', 'Finance Manager submission for voucher approval')
+
+SELECT 'AFTER APPROVAL' AS 'AFTER APPROVAL', * FROM APPROVAL
+
+-- end approval
+
+-- begin approval_seq
+
+SELECT 'BEFORE APPROVAL' AS 'BEFORE APPROVAL', * FROM approval_seq
+
+
+ --remarks (inList: ['Noted By', 'Approved By', 'Reviewed By'])
+INSERT INTO dbo.approval_seq (version, approval_id, position, remarks, sequence, status)
+VALUES (0, 1, 'Clerk', '', 1)
+
+INSERT INTO dbo.approval_seq (version, approval_id, position, remarks, sequence, status)
+VALUES (0, 1, 'Supervisor', '', 1)
+
+INSERT INTO dbo.approval_seq (version, approval_id, position, remarks, sequence, status)
+VALUES (0, 1, 'Manager', '', 1)
+
+
+SELECT 'AFTER APPROVAL' AS 'AFTER APPROVAL', * FROM approval_seq
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
