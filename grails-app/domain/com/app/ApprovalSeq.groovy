@@ -3,13 +3,12 @@ package com.app
 class ApprovalSeq {
 
     Integer sequence
-    String remarks
     String position
 
     static belongsTo = [approval : Approval]
     
     static constraints = {
-        remarks (inList: ['Noted By', 'Approved By', 'Reviewed By'])
+    	remarks sqlType : "varchar", length : 255
         position (inList : ['Clerk', 'Supervisor', 'Manager'])
     }
 }
