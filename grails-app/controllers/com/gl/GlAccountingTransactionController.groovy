@@ -57,11 +57,21 @@ class GlAccountingTransactionController {
         def glAccounts = [:];
         def debit = 0.00;
         def credit = 0.00;
-         
+        def disableFields = false;
+        
+        def approvalStatus = glAcctgTransactionService.checkApproval('Voucher', session.employee.department)
+        println "ApprovalStatus " + approvalStatus
+        if (approvalStatus == false) { 
+            flash.errors = "${message(code : 'approval.notFound')}"
+            disableFields = true;
+        }
+
+
         return [glAccountingTransactionInstance: glAccountingTransactionInstance, 
             glAccounts : glAccounts,
             debit : debit,
-            credit : credit]
+            credit : credit,
+            disableFields : disableFields]
     }
 
     def submit = {

@@ -46,20 +46,24 @@ class GlAccountController {
 
     def create = {
         def glAccountInstance = new GlAccount()
-        
+
         glAccountInstance.properties = params
         return [glAccountInstance: glAccountInstance, organizationInstance: AppOrganization.list()]
     }
 
     def save = {
         def glAccountInstance = new GlAccount(params)
-        def organization = params.organization
+        def organizationCheck = params.organizationCheck
+        def organizationVal = params.organizationVal
+
+        println "Organization Check val " + organizationCheck
         
         if (glAccountInstance.save(flush: true)) {
             flash.message = "${message(code: 'glAccount.created', args: [message(code: 'glAccount.label', default: 'GlAccount'), glAccountInstance.id])}"
             glAccountService.insertAccount(
-                glAccountInstance,
-                organization
+               glAccountInstance,
+               organizationCheck,
+               organizationVal
             )
             redirect(action: "show", id: glAccountInstance.id)
         }
