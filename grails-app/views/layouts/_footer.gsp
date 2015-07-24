@@ -6,7 +6,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <div class="footer">
-  <hr />
+  <hr color="#433438"/>
   &copy; <g:thisYear /> JRL Endaya Inc
 </div>
 

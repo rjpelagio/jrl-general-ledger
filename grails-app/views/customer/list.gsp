@@ -27,45 +27,45 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="firstName"><g:message code="party.firstName.label" default="First Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'firstName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: partyInstance, field: 'firstName', 'errors')}">
                                     <g:textField name="firstName" value="${partyInstance?.firstName}" />
                                 </td>
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="middleName"><g:message code="party.middleName.label" default="Middle Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'middleName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: partyInstance, field: 'middleName', 'errors')}">
                                     <g:textField name="middleName" value="${partyInstance?.middleName}" />
                                 </td>
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="lastName"><g:message code="party.lastName.label" default="Last Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'lastName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: partyInstance, field: 'lastName', 'errors')}">
                                     <g:textField name="lastName" value="${partyInstance?.lastName}" />
                                 </td>
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="tin"><g:message code="party.tin.label" default="TIN" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'tin', 'errors')}">
+                                <td  class="value ${hasErrors(bean: partyInstance, field: 'tin', 'errors')}">
                                     <g:textField name="tin" value="${partyInstance?.tin}" />
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="department"><g:message code="employee.department.label" default="Department" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: employeeInstance, field: 'department', 'errors')}">
+                                <td  class="value ${hasErrors(bean: employeeInstance, field: 'department', 'errors')}">
                                     <g:select name="department" from="${employeeInstance.constraints.department.inList}" value="${employeeInstance?.department}" valueMessagePrefix="employee.department" noSelection="['null':'']" />
                                 </td>
                             </tr>

@@ -23,37 +23,37 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountType.glAccountType.label" default="Gl Account Type" /></td>
+                            <td  class="name"><g:message code="glAccountType.glAccountType.label" default="Gl Account Type" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: glAccountTypeInstance, field: "glAccountType")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountType.description.label" default="Description" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: glAccountTypeInstance, field: "description")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountTypeInstance, field: "glAccountType")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountType.glAccountClass.label" default="Gl Account Class" /></td>
+                            <td  class="name"><g:message code="glAccountType.description.label" default="Description" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: glAccountTypeInstance, field: "glAccountClass")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountType.dateCreated.label" default="Date Created" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${glAccountTypeInstance?.dateCreated}" /></td>
+                            <td  class="value">${fieldValue(bean: glAccountTypeInstance, field: "description")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountType.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="name"><g:message code="glAccountType.glAccountClass.label" default="Gl Account Class" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${glAccountTypeInstance?.lastUpdated}" /></td>
+                            <td  class="value">${fieldValue(bean: glAccountTypeInstance, field: "glAccountClass")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="glAccountType.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${glAccountTypeInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="glAccountType.lastUpdated.label" default="Last Updated" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${glAccountTypeInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     

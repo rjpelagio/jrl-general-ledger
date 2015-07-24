@@ -23,72 +23,72 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.id.label" default="Id" /></td>
+                            <td  class="name"><g:message code="acctgPeriod.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: acctgPeriodInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.acctgPeriodNum.label" default="Acctg Period Num" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: acctgPeriodInstance, field: "acctgPeriodNum")}</td>
+                            <td  class="value">${fieldValue(bean: acctgPeriodInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.month.label" default="Month" /></td>
+                            <td  class="name"><g:message code="acctgPeriod.acctgPeriodNum.label" default="Acctg Period Num" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: acctgPeriodInstance, field: "month")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.status.label" default="Status" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: acctgPeriodInstance, field: "status")}</td>
+                            <td  class="value">${fieldValue(bean: acctgPeriodInstance, field: "acctgPeriodNum")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.fromDate.label" default="From Date" /></td>
+                            <td  class="name"><g:message code="acctgPeriod.month.label" default="Month" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${acctgPeriodInstance?.fromDate}" /></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.thruDate.label" default="Thru Date" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${acctgPeriodInstance?.thruDate}" /></td>
+                            <td  class="value">${fieldValue(bean: acctgPeriodInstance, field: "month")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.year.label" default="Year" /></td>
+                            <td  class="name"><g:message code="acctgPeriod.status.label" default="Status" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: acctgPeriodInstance, field: "year")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.dateCreated.label" default="Date Created" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${acctgPeriodInstance?.dateCreated}" /></td>
+                            <td  class="value">${fieldValue(bean: acctgPeriodInstance, field: "status")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.organization.label" default="Organization" /></td>
+                            <td  class="name"><g:message code="acctgPeriod.fromDate.label" default="From Date" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="appOrganization" action="show" id="${acctgPeriodInstance?.organization?.id}">${acctgPeriodInstance?.organization?.encodeAsHTML()}</g:link></td>
+                            <td  class="value"><g:formatDate date="${acctgPeriodInstance?.fromDate}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPeriod.periodTypeId.label" default="Period Type Id" /></td>
+                            <td  class="name"><g:message code="acctgPeriod.thruDate.label" default="Thru Date" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="periodType" action="show" id="${acctgPeriodInstance?.periodTypeId?.id}">${acctgPeriodInstance?.periodTypeId?.encodeAsHTML()}</g:link></td>
+                            <td  class="value"><g:formatDate date="${acctgPeriodInstance?.thruDate}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="acctgPeriod.year.label" default="Year" /></td>
+                            
+                            <td  class="value">${fieldValue(bean: acctgPeriodInstance, field: "year")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="acctgPeriod.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${acctgPeriodInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="acctgPeriod.organization.label" default="Organization" /></td>
+                            
+                            <td  class="value"><g:link controller="appOrganization" action="show" id="${acctgPeriodInstance?.organization?.id}">${acctgPeriodInstance?.organization?.encodeAsHTML()}</g:link></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="acctgPeriod.periodTypeId.label" default="Period Type Id" /></td>
+                            
+                            <td  class="value"><g:link controller="periodType" action="show" id="${acctgPeriodInstance?.periodTypeId?.id}">${acctgPeriodInstance?.periodTypeId?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     

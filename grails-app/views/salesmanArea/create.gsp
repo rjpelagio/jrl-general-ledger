@@ -29,37 +29,37 @@
                         <tbody>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="customerCode"><g:message code="customer.customerCode.label" default="Customer Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'customerCode', 'errors')}">
+                                <td  class="value ${hasErrors(bean: customerInstance, field: 'customerCode', 'errors')}">
                                     <g:textField name="customerCode" value="${customerInstance?.customerCode}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="customerName"><g:message code="customer.customerName.label" default="Customer Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'customerName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: customerInstance, field: 'customerName', 'errors')}">
                                     <g:textField name="customerName" value="${customerInstance?.customerName}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="creditLimit"><g:message code="customer.creditLimit.label" default="Credit Limit" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'creditLimit', 'errors')}">
+                                <td  class="value ${hasErrors(bean: customerInstance, field: 'creditLimit', 'errors')}">
                                     <g:textField name="creditLimit" value="${fieldValue(bean: customerInstance, field: 'creditLimit')}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="creditTerm"><g:message code="customer.creditTerm.label" default="Credit Term" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: customerInstance, field: 'creditTerm', 'errors')}">
+                                <td  class="value ${hasErrors(bean: customerInstance, field: 'creditTerm', 'errors')}">
                                     <g:textField name="creditTerm" value="${customerInstance?.creditTerm}" />
                                 </td>
 

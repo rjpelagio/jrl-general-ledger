@@ -23,37 +23,37 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="periodType.id.label" default="Id" /></td>
+                            <td  class="name"><g:message code="periodType.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: periodTypeInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="periodType.periodTypeId.label" default="Period Type Id" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: periodTypeInstance, field: "periodTypeId")}</td>
+                            <td  class="value">${fieldValue(bean: periodTypeInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="periodType.periodName.label" default="Period Name" /></td>
+                            <td  class="name"><g:message code="periodType.periodTypeId.label" default="Period Type Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: periodTypeInstance, field: "periodName")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="periodType.dateCreated.label" default="Date Created" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${periodTypeInstance?.dateCreated}" /></td>
+                            <td  class="value">${fieldValue(bean: periodTypeInstance, field: "periodTypeId")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="periodType.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="name"><g:message code="periodType.periodName.label" default="Period Name" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${periodTypeInstance?.lastUpdated}" /></td>
+                            <td  class="value">${fieldValue(bean: periodTypeInstance, field: "periodName")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="periodType.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${periodTypeInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="periodType.lastUpdated.label" default="Last Updated" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${periodTypeInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     

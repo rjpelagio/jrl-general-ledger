@@ -27,19 +27,19 @@
                         <tbody>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="name"><g:message code="party.name.label" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: partyInstance, field: 'name', 'errors')}">
+                                <td  class="value ${hasErrors(bean: partyInstance, field: 'name', 'errors')}">
                                     <g:textField name="name" value="${partyInstance?.name}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="status"><g:message code="employeeData.role.label" default="role" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <g:select from="${roleList}" name="role" optionValue="roleName" optionKey="id"/>             
                                 </td>
                             </tr>

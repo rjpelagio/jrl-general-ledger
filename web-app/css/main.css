@@ -17,6 +17,10 @@ html * {
     font: 11px verdana, arial, helvetica, sans-serif;
 }*/
 
+body {
+    height:100%;
+}
+
 #grailsLogo {
 	padding:20px;
 }
@@ -47,18 +51,30 @@ ul {
 
 input, select, textarea {
     background-color: #fcfcfc;
-    border: 1px solid #ccc;
-    font: 11px verdana, arial, helvetica, sans-serif;
+    border: 1px solid #3C5326;
+    font: 13px Trebuchet MS, Helvetica, sans-serif;
+    height: 20px;
     margin: 2px 0;
     padding: 2px 4px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 2px 2px 3px #666;
+    -webkit-box-shadow: 2px 2px 3px #666;
+    box-shadow: 2px 2px 3px #666;
 }
-select {
-   padding: 2px 2px 2px 0;
+
+select option {
+    border: 1px solid #ccc;
+    height: 20px;
+    
 }
+
 textarea {
 	width: 250px;
 	height: 150px;
 	vertical-align: top;
+
 }
 
 input:focus, select:focus, textarea:focus {
@@ -66,10 +82,9 @@ input:focus, select:focus, textarea:focus {
 }
 
 .body {
-    float: left;
-    margin: 0 5px 10px 0px;
-    padding-bottom: 40px;
-    display:inline-block;
+    clear:both;
+    margin: 0 160px 10px 160px;
+
 }
 
 .login-body {
@@ -87,7 +102,7 @@ input:focus, select:focus, textarea:focus {
     color: #006dba;
     margin: 10px 0 5px 0;
     padding: 5px 5px 5px 30px;
-    font: 13px verdana, arial, helvetica, sans-serif;
+    font: 13px Trebuchet MS, Helvetica, sans-serif;
 }
 
 div.errors {
@@ -105,7 +120,7 @@ div.errors li {
 	background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
     line-height: 16px;
     padding-left: 30px;
-    font:  13px verdana, arial, helvetica, sans-serif;
+    font:  13px Trebuchet MS, Helvetica, sans-serif;
 }
 
 td.errors select {
@@ -133,11 +148,9 @@ tr {
     border: 0;
 }
 td, th {
-    font: 11px verdana, arial, helvetica, sans-serif;
-    line-height: 12px;
+    font: 12px Trebuchet MS, Helvetica, sans-serif;
     padding: 5px 6px;
     text-align: left;
-    vertical-align: top;
 }
 th {
     background: #fff url(../images/skin/shadow.jpg);
@@ -184,9 +197,17 @@ th.desc a {
 
 .list table {
     border-collapse: collapse;
+    border-color:#3C5326;
+    background-color:#C2D9AE;
+    color:#3C5326;
 }
+
+.list th {
+    border-bottom: 1px solid #3C5326;
+}
+
 .list th, .list td {
-    border-left: 1px solid #ddd;
+    border-left: 1px solid #3C5326;
 }
 .list th:hover, .list tr:hover {
     background: #b2d1ff;
@@ -196,16 +217,30 @@ th.desc a {
 
 .search table {
     border-collapse: collapse;
+    border-left: 1px solid #3C5326;
+    border-right:1px solid #3C5326;
+    border-bottom:1px solid #3C5326;
+    color:#3C5326;
 }
 .search th:hover, .search tr:hover {
     background: #b2d1ff;
+}
+
+.search .save {
+
+    height : 25px;
+    font-size : 10px;
+    text-align: center;
+    width:50px;
+    color:#3C5326;
+
 }
 
 /* PAGINATION */
 
 .paginateButtons {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
-    border: 1px solid #ccc;
+    border: 1px solid #3C5326;
     border-top: 0;
     color: #666;
     font-size: 10px;
@@ -229,6 +264,8 @@ th.desc a {
 
 .dialog table {
     padding: 5px 0;
+    border-color:#3C5326;
+    color:#3C5326;
 }
 
 .prop {
@@ -237,12 +274,12 @@ th.desc a {
 .prop .name {
     text-align: left;
     /*white-space: nowrap;*/
-    padding-left: 10px;
-    padding-bottom: 5px;
-    padding-top: 5px;
+    vertical-align:middle;
     width:15%;
     font-weight: bold;
     font-style:normal;
+    font-size:13px;
+    padding-left:40px;
 }
 
 .prop .sub {
@@ -262,7 +299,7 @@ th.desc a {
 /* ACTION BUTTONS */
 
 .buttons {
-    background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
+    background-color:#C2D9AE;
     border: 1px solid #ccc;
     color: #666;
     font-size: 10px;
@@ -273,7 +310,7 @@ th.desc a {
 
 .buttons input {
     border: 1px solid black;
-    background: #fff;
+    background: white;
     border: 0;
     color: #333;
     cursor: pointer;
@@ -284,25 +321,30 @@ th.desc a {
     padding: 2px 6px;
 }
 .buttons input.delete {
-    background: transparent url(../images/skin/database_delete.png) 5px 50% no-repeat;
+    background: white url(../images/skin/database_delete.png) 5px 50% no-repeat;
+    border-color: 1.5px solid #3C5326;
     padding-left: 28px;
 }
 .buttons input.edit {
-    background: transparent url(../images/skin/database_edit.png) 5px 50% no-repeat;
+    background: white url(../images/skin/database_edit.png) 5px 50% no-repeat;
+    border-color: 1.5px solid #3C5326;
     padding-left: 28px;
 }
 .buttons input.save {
-    background: transparent url(../images/skin/database_save.png) 5px 50% no-repeat;
+    background: white url(../images/skin/database_save.png) 5px 50% no-repeat;
+    border-color: 1.5px solid #3C5326;
     padding-left: 28px;
 }
 
 .buttons input.add {
-    background: transparent url(../images/skin/add_button.png)  5px 50% no-repeat;
+    background: white url(../images/skin/add_button.png)  5px 50% no-repeat;
+    border-color: 1.5px solid #3C5326;
     padding-left: 28px;
 }
 
 .buttons input.submit {
-    background: transparent url(../images/skin/database_add.png)  5px 50% no-repeat;
+    background: white url(../images/skin/database_add.png)  5px 50% no-repeat;
+    border-color: 1.5px solid #3C5326;
     padding-left: 28px;
 }
 
@@ -315,13 +357,8 @@ th.desc a {
     font-size: 10px;
     font-weight: bold;
     margin-left: 3px;0;
-   
-
+    border-color: 1.5px solid #3C5326;
 }
-
-
-
-
 
 #header {
     background: #48802c;
@@ -342,8 +379,12 @@ a.header-main:link, a.header-main:visited {
 .footer {
     font-size: 0.75em;
     font-style: italic;
-    margin-bottom: 1em;
     clear: both;
+    position:fixed;
+    bottom:0px;
+    width:100%;
+    background-color: #433438;
+    color:white;
 }
 
 #loginHeader {
@@ -400,11 +441,11 @@ a.header-main:link, a.header-main:visited {
 
 .table-header {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
-    border: 1px solid #ccc;
+    border: 1px solid #3C5326;
     color: #666;
     font-size: 10px;
     overflow: hidden;
     padding: 4px 3px;
     font-weight: bold;
-    font-family : Calibri;
+    font-family : Trebuchet MS;
 }

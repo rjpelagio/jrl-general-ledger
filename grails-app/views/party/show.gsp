@@ -28,99 +28,99 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="party.name.label"  /></td>
+                            <td  class="sub"><g:message code="party.name.label"  /></td>
                             
-                            <td valign="top" class="value">${payeeData?.fullName}</td>
+                            <td  class="value">${payeeData?.fullName}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.addressLine1.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.addressLine1.label"/></td>
                             
-                            <td valign="top" class="value">${payeeData?.addressLine1}</td>
+                            <td  class="value">${payeeData?.addressLine1}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.firstName.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.firstName.label"  /></td>
                             
-                            <td valign="top" class="value">${payeeData?.firstName}</td>
+                            <td  class="value">${payeeData?.firstName}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.addressLine2.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.addressLine2.label"/></td>
                             
-                            <td valign="top" class="value">${payeeData?.addressLine2}</td>
+                            <td  class="value">${payeeData?.addressLine2}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.middleName.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.middleName.label"  /></td>
                             
-                            <td valign="top" class="value">${payeeData?.middleName}</td>
+                            <td  class="value">${payeeData?.middleName}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.city.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.city.label"/></td>
                             
-                            <td valign="top" class="value">${payeeData?.city}</td>
+                            <td  class="value">${payeeData?.city}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.lastName.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.lastName.label"  /></td>
                             
-                            <td valign="top" class="value">${payeeData?.lastName}</td>
+                            <td  class="value">${payeeData?.lastName}</td>
                             
-                            <td valign="top" class="sub"><g:message code="employeeData.province.label" /></td>
+                            <td  class="sub"><g:message code="employeeData.province.label" /></td>
                             
-                            <td valign="top" class="value">${payeeData?.province}, ${payeeData?.postalCode}</td>
+                            <td  class="value">${payeeData?.province}, ${payeeData?.postalCode}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.birthdate.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.birthdate.label"  /></td>
                             
-                            <td valign="top" class="value">
+                            <td  class="value">
                                 <g:formatDate format="yyyy-MM-dd" date="${payeeData?.birthdate}" />
                             </td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.contactNumber.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.contactNumber.label"/></td>
                             
-                            <td valign="top" class="value">(${payeeData?.areaCode}) ${payeeData?.contactNumber}</td>
-                            
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.gender.label"  /></td>
-                            
-                            <td valign="top" class="value">${payeeData?.gender}</td>
-
-                            <td class="sub" valign="top"><g:message code="employeeData.mobileNumber.label"/></td>
-                            
-                            <td valign="top" class="value">(+63)${payeeData?.mobileNumber}</td>
+                            <td  class="value">(${payeeData?.areaCode}) ${payeeData?.contactNumber}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.maritalStatus.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.gender.label"  /></td>
                             
-                            <td valign="top" class="value">${payeeData?.maritalStatus}</td>
+                            <td  class="value">${payeeData?.gender}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.emailAddress.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.mobileNumber.label"/></td>
                             
-                            <td valign="top" class="value">${payeeData?.emailAddress}</td>
+                            <td  class="value">(+63)${payeeData?.mobileNumber}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.tin.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.maritalStatus.label"  /></td>
                             
-                            <td valign="top" class="value">${payeeData?.tin}</td>
+                            <td  class="value">${payeeData?.maritalStatus}</td>
+
+                            <td class="sub" ><g:message code="employeeData.emailAddress.label"/></td>
+                            
+                            <td  class="value">${payeeData?.emailAddress}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.role.label" /></td>
+                            <td  class="sub"><g:message code="employeeData.tin.label"  /></td>
                             
-                            <td valign="top" class="value">${payeeData?.role}</td>
+                            <td  class="value">${payeeData?.tin}</td>
+                            
+                        </tr>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.status.label"/></td>
+                        <tr class="prop">
+                            <td  class="sub"><g:message code="employeeData.role.label" /></td>
                             
-                            <td valign="top" class="value">${payeeData?.status}</td>
+                            <td  class="value">${payeeData?.role}</td>
+
+                            <td class="sub" ><g:message code="employeeData.status.label"/></td>
+                            
+                            <td  class="value">${payeeData?.status}</td>
                             
                         </tr>
                 

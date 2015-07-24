@@ -17,8 +17,15 @@
     <body>
         <script type="text/javascript">
         $(function(){
-            var $content = $('#leftnav');
-            $content.height($(document).height() - 155 );
+
+
+            if ( $(document).height() > $(".leftnav").height() ) {
+                $(".leftnav").height($(document).height() - 50)
+            } else {
+                $(".leftnav").height($(".leftnav").height() - 50)
+            }
+
+            $(".rightnav").height($(".leftnav").height());
         });
         </script>
         <div id="mainwrapper">
@@ -34,6 +41,8 @@
                 </g:if>
                 <g:if test="${session.user != null}">
                     <div id="leftnav" class="leftnav">
+                    </div> 
+                    <div id="rightnav" class="rightnav">
                     </div> 
                 </g:if>
                 

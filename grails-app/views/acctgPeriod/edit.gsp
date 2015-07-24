@@ -32,73 +32,73 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="acctgPeriodNum"><g:message code="acctgPeriod.acctgPeriodNum.label" default="Acctg Period Num" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriodNum', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriodNum', 'errors')}">
                                     <g:textField name="acctgPeriodNum" value="${fieldValue(bean: acctgPeriodInstance, field: 'acctgPeriodNum')}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="month"><g:message code="acctgPeriod.month.label" default="Month" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'month', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'month', 'errors')}">
                                     <g:select name="month" from="${acctgPeriodInstance.constraints.month.inList}" value="${acctgPeriodInstance?.month}" valueMessagePrefix="acctgPeriod.month"  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="status"><g:message code="acctgPeriod.status.label" default="Status" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'status', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'status', 'errors')}">
                                     <g:select name="status" from="${acctgPeriodInstance.constraints.status.inList}" value="${acctgPeriodInstance?.status}" valueMessagePrefix="acctgPeriod.status"  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="fromDate"><g:message code="acctgPeriod.fromDate.label" default="From Date" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'fromDate', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'fromDate', 'errors')}">
                                     <g:datePicker name="fromDate" precision="day" value="${acctgPeriodInstance?.fromDate}"  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="thruDate"><g:message code="acctgPeriod.thruDate.label" default="Thru Date" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'thruDate', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'thruDate', 'errors')}">
                                     <g:datePicker name="thruDate" precision="day" value="${acctgPeriodInstance?.thruDate}"  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="year"><g:message code="acctgPeriod.year.label" default="Year" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'year', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'year', 'errors')}">
                                     <g:textField name="year" value="${acctgPeriodInstance?.year}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="organization"><g:message code="acctgPeriod.organization.label" default="Organization" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'organization', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'organization', 'errors')}">
                                     <g:select name="organization.id" from="${com.app.AppOrganization.list()}" optionKey="id" value="${acctgPeriodInstance?.organization?.id}"  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                   <label for="periodTypeId"><g:message code="acctgPeriod.periodTypeId.label" default="Period Type Id" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'periodTypeId', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'periodTypeId', 'errors')}">
                                     <g:select name="periodTypeId.id" from="${com.gl.PeriodType.list()}" optionKey="id" value="${acctgPeriodInstance?.periodTypeId?.id}"  />
                                 </td>
                             </tr>

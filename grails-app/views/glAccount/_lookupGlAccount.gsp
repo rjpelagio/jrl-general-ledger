@@ -53,37 +53,37 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="glAccount"><g:message code="glAccount.glAccount.label" default="Gl Account" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <g:textField name="glAccount" value="" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="description"><g:message code="glAccount.description.label" default="Description" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <g:textField name="description" value="" id="lookupDescription"/>
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="glAccountType"><g:message code="glAccount.glAccountType.label" default="Gl Account Type" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <g:select name="glAccountType.id" from="${com.gl.GlAccountType.list()}" optionKey="id" value=""  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="parentGlAccount"><g:message code="glAccount.parentGlAccount.label" default="Parent Gl Account" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <g:select name="parentGlAccount.id" from="${com.gl.GlAccount.list()}" optionKey="id" value="" noSelection="['null': '']" />
                                 </td>
                             </tr>

@@ -27,55 +27,55 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="jvPrefix"><g:message code="acctgPreferences.jvPrefix.label" default="Jv Prefix" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'jvPrefix', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'jvPrefix', 'errors')}">
                                     <g:textField name="jvPrefix" value="${acctgPreferencesInstance?.jvPrefix}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="amtRounding"><g:message code="acctgPreferences.amtRounding.label" default="Amt Rounding" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'amtRounding', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'amtRounding', 'errors')}">
                                     <g:textField name="amtRounding" value="${fieldValue(bean: acctgPreferencesInstance, field: 'amtRounding')}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="priceRounding"><g:message code="acctgPreferences.priceRounding.label" default="Price Rounding" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'priceRounding', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'priceRounding', 'errors')}">
                                     <g:textField name="priceRounding" value="${fieldValue(bean: acctgPreferencesInstance, field: 'priceRounding')}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="docLineLimit"><g:message code="acctgPreferences.docLineLimit.label" default="Doc Line Limit" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'docLineLimit', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'docLineLimit', 'errors')}">
                                     <g:textField name="docLineLimit" value="${fieldValue(bean: acctgPreferencesInstance, field: 'docLineLimit')}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="docFormat"><g:message code="acctgPreferences.docFormat.label" default="Doc Format" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'docFormat', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'docFormat', 'errors')}">
                                     <g:textField name="docFormat" value="${acctgPreferencesInstance?.docFormat}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="organizationCode"><g:message code="acctgPreferences.organizationCode.label" default="Organization Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'organizationCode', 'errors')}">
+                                <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'organizationCode', 'errors')}">
                                     <g:select name="organizationCode.id" from="${com.app.AppOrganization.list()}" optionKey="id" value="${acctgPreferencesInstance?.organizationCode?.id}"  />
                                 </td>
                             </tr>

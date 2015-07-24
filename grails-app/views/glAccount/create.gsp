@@ -29,45 +29,45 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="parentGlAccount"><g:message code="glAccount.parentGlAccount.label" default="Main GL Account" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountInstance, field: 'parentGlAccount', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountInstance, field: 'parentGlAccount', 'errors')}">
                                     <g:select name="parentGlAccount.id" from="${com.gl.GlAccount.list()}" optionKey="id" value="${glAccountInstance?.parentGlAccount?.id}" noSelection="['null': '']" />
                                 </td>
                             </tr>
                             
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="glAccount"><g:message code="glAccount.glAccount.label" default="GL Account" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountInstance, field: 'glAccount', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccount', 'errors')}">
                                     <g:textField name="glAccount" value="${glAccountInstance?.glAccount}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="description"><g:message code="glAccount.description.label" default="Description" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountInstance, field: 'description', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountInstance, field: 'description', 'errors')}">
                                     <g:textField name="description" value="${glAccountInstance?.description}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="glAccountType"><g:message code="glAccount.glAccountType.label" default="Account Type" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountInstance, field: 'glAccountType', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccountType', 'errors')}">
                                     <g:select name="glAccountType.id" from="${com.gl.GlAccountType.list()}" optionKey="id" value="${glAccountInstance?.glAccountType?.id}"  />
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="organization"><g:message code="glAccount.organization.label" default="Organization" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: Organization, field: 'organization', 'errors')}">
+                                <td  class="value ${hasErrors(bean: Organization, field: 'organization', 'errors')}">
                                     <g:each in="${organizationInstance}" var="o">
                                       <g:if test="${o.id == session.organization.id}">
                                         <g:checkBox name="organizationCheck" value="${o?.id}" checked="true"/> ${o?.organizationName}

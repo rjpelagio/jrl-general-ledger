@@ -52,10 +52,10 @@
                             </tr> 
                         
                             <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="firstName"><g:message code="employeeData.firstName.label" default="First Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'firstName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'firstName', 'errors')}">
                                     <g:textField name="firstName" value="${payeeData?.firstName}" />
                                 </td>
 
@@ -70,10 +70,10 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="middleName"><g:message code="employeeData.middleName.label" default="Middle Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'middleName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'middleName', 'errors')}">
                                     <g:textField name="middleName" value="${payeeData?.middleName}" />
                                 </td>
                                 
@@ -86,10 +86,10 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="lastName"><g:message code="employeeData.lastName.label" default="Last Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'lastName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'lastName', 'errors')}">
                                     <g:textField name="lastName" value="${payeeData?.lastName}" />
                                 </td>
 
@@ -112,10 +112,10 @@
                             </tr>
                         
                              <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="Birthdate"><g:message code="employeeData.birthdate.label" default="Birthdate" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'birthdate', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'birthdate', 'errors')}">
                                     <calendar:datePicker name="birthdate" precision="day" value="${payeeData?.birthdate}" years="1950, 2013"  />
                                 </td>
 
@@ -136,14 +136,14 @@
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="gender"><g:message code="employeeData.gender.label" default="First Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'gender', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'gender', 'errors')}">
                                     <g:select name="gender" from="${payeeData.constraints.gender.inList}" 
                                         value="${payeeData?.gender}"  />
                                 </td>
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="mobileNumber"><g:message code="employeeData.mobileNumber.label"/></label>
                                 </td>
                                 <td class="value ${hasErrors(bean: payeeData, field: 'mobileNumber', 'errors')}">
@@ -153,14 +153,14 @@
                             </tr>   
 
                             <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="maritalStatus"><g:message code="employeeData.maritalStatus.label" default="First Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'maritalStatus', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'maritalStatus', 'errors')}">
                                     <g:select name="maritalStatus" from="${payeeData.constraints.maritalStatus.inList}" 
                                         value="${payeeData?.maritalStatus}"  />
                                 </td>
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="emailAddress"><g:message code="employeeData.emailAddress.label"/></label>
                                 </td>
                                 <td class="value ${hasErrors(bean: payeeData, field: 'emailAddress', 'errors')}">
@@ -169,19 +169,19 @@
                             </tr>   
 
                             <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="tin"><g:message code="employeeData.tin.label" default="TIN" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'tin', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'tin', 'errors')}">
                                     <g:textField name="tin" value="${payeeData?.tin}" />
                                 </td>
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="sub">
+                                <td  class="sub">
                                     <label for="role"><g:message code="employeeData.role.label" default="Department" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: payeeData, field: 'role', 'errors')}">
+                                <td  class="value ${hasErrors(bean: payeeData, field: 'role', 'errors')}">
                                     <g:select from="${roleList}" name="roleId" optionValue="roleName" optionKey="id" value="${payeeData.roleId}"/>
                                 </td>
 

@@ -54,46 +54,46 @@
                     <table >
                         <tbody>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Voucher No"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'voucherNo', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'voucherNo', 'errors')}">
                                     <g:textField name="voucherNo" value="${glAccountingTransactionInstance?.voucherNo}" style="display:none" />
                                     <g:hiddenField name="glAccount.id"></g:hiddenField> 
                                     <g:textField name="glAccountAuto" style="width: 300px;"> </g:textField>
                                 </td>
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Transaction Date"><g:message code="glAccountingTransaction.transactionDate.label" default="Transaction Date" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'transactionDate', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'transactionDate', 'errors')}">
                                     <calendar:datePicker name="transactionDate" precision="day" value="${glAccountingTransactionInstance?.transactionDate}"  />
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Ref Doc"><g:message code="glAccountingTransaction.refDoc.label" default="Reference Doc" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'refDoc', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'refDoc', 'errors')}">
                                     <g:textField name="refDoc" value="${glAccountingTransactionInstance?.refDoc}"/>
                                 </td>
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Voucher Type"><g:message code="glAccountingTransaction.acctgTransType.label" default="Voucher Type" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <g:select name="party.id" from="${com.gl.AcctgTransType.list()}" optionKey="id" value="${glAccountingTransactionInstance?.acctgTransType?.id}"  />
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="CDO Kg"><g:message code="glAccountingTransaction.cdoKg.label" default="CDO Kg" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <g:textField name="cdoKg" value="${glAccountingTransactionInstance?.cdoKg}" />
                                 </td>
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Terms"><g:message code="glAccountingTransaction.terms.label" default="Terms" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <select name="Terms">
                                         <option value="30D">30 Days</option>
                                         <option value="45D">45 Days</option>
@@ -103,41 +103,41 @@
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Check No"><g:message code="glAccountingTransaction.checkNo.label" default="Check No." /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'checkNo', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'checkNo', 'errors')}">
                                     <g:textField name="checkNo" value="${glAccountingTransactionInstance?.checkNo}" />
                                 </td>
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Check Date"><g:message code="glAccountingTransaction.ckSiDate.label" default="Check/SI Date" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                     <calendar:datePicker name="ckSiDate" precision="day" value="${glAccountingTransactionInstance?.ckSiDate}"  />
                                 </td>
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Payee"><g:message code="glAccountingTransaction.partyId.label" default="Payee" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'partyId', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'partyId', 'errors')}">
                                     <g:textField name="partyName" value="${glAccountingTransactionInstance?.id}" id="partyName"/>
                                     <input type="hidden" name="partyId" id="partyId"/>
                                 </td>
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Tin"><g:message code="party.tin.label" default="TIN" /></label>
                                 </td>
-                                <td valign="top">
+                                <td >
                                   <span id="tin">N/A</span>
                                 </td>
                             </tr>
 
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="Description"><g:message code="glAccountingTransaction.description.label" default="Description" /></label>
                                 </td>
-                                <td colspan="3" valign="top" class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'description', 'errors')}">
+                                <td colspan="3"  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'description', 'errors')}">
                                     <g:textArea name="description" value="${glAccountingTransactionInstance?.description}" rows="3" cols="150" style="resize:none"/>
                                 </td>
                             </tr>
