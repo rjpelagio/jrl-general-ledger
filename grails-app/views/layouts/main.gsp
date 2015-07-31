@@ -24,7 +24,6 @@
             } else {
                 $(".leftnav").height($(".leftnav").height() - 50)
             }
-
             $(".rightnav").height($(".leftnav").height());
         });
         </script>

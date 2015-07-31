@@ -22,8 +22,13 @@
                         $("input[name='rowIndex']").val(rowIndex);
                         $("tbody#dataTable tr#totals").before(<g:render template="/glAccountingTransaction/transItem"/>);
             
-                        var $content = $('#leftnav');
-                        $content.height($(document).height() - 155);
+
+                        if ( $(document).height() > $(".leftnav").height() ) {
+                            $(".leftnav").height($(document).height() - 50)
+                        } else {
+                            $(".leftnav").height($(".leftnav").height() - 50)
+                        }
+                        $(".rightnav").height($(".leftnav").height());
                         
                         return false;
                     }
@@ -36,7 +41,7 @@
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">${currentOrg}<g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
-        <div class="body" style="width:70%">
+        <div class="body">
             <h1><g:message code="default.create.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
@@ -50,12 +55,15 @@
             </div>
             </g:hasErrors>
             <g:form action="save" id="createAcctgTrans">
-                <div class="dialog">
+                <div class="table-header">
+                    <g:message code="default.button.details.label" args="[entityName]" />
+                </div>
+                <div class="dialog" >
                     <table >
                         <tbody>
                             <tr class="prop">
                                 <td  class="name">
-                                    <label for="Voucher No"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></label>
+                                    <label for="Voucher No"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No."  /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'voucherNo', 'errors')}">
                                     <g:textField name="voucherNo" value="${glAccountingTransactionInstance?.voucherNo}" style="display:none" />
@@ -145,11 +153,8 @@
                     </table>
                 </div>
                 <br/>
-                <div class="table-header">
-                    <g:message code="default.button.details.label" args="[entityName]" />
                     <input type="hidden" id="rowIndex" name="rowIndex" value="1"/>
                     <input type="hidden" id="rowCount" name="rowCount" value="0"/>
-                </div>
                 <div class="list">
                     
                         <table>

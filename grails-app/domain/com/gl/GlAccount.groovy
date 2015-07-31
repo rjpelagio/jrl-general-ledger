@@ -2,6 +2,7 @@ package com.gl
 
 class GlAccount implements Serializable{
     
+    static auditable = true
     String glAccount
     String description
     GlAccount parentGlAccount

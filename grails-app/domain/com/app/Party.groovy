@@ -1,6 +1,7 @@
 package com.app
 
 class Party implements Serializable{
+    static auditable = true
     String name
     String firstName
     String middleName

@@ -1,7 +1,7 @@
 package com.app
 
 class AppRole {
-    
+    static auditable = true
     String roleCode
     String roleName
     AppRole parent

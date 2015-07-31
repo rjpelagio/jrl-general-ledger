@@ -102,6 +102,21 @@ class DataBootStrap {
         }
 
 
+        /** APPROVAL DEFINITIONS **/
+
+    	def managerVoucherApproval = new Approval(description : "Manager's Voucher Approval Feature",
+            department:"Finance",
+            approvalFeature:"VOUCHER",
+            status:"Enabled",
+            position:"Manager")
+        if(!Approval.find(managerVoucherApproval)){
+            managerVoucherApproval.save()
+            if(managerVoucherApproval.hasErrors()){
+                println managerVoucherApproval.errors
+            }
+        }
+
+
 
 
 

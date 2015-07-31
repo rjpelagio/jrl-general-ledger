@@ -88,3 +88,10 @@ log4j = {
 
     warn   'org.mortbay.log'
 }
+
+//Audit Log Username tagging for transactions
+auditLog {
+  actorClosure = { request, session ->
+      session.user?.username
+  } 
+}

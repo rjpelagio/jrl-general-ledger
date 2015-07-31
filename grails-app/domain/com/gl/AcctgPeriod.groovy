@@ -3,6 +3,7 @@ package com.gl
 import com.app.AppOrganization
 
 class AcctgPeriod {
+        static auditable = true
         Integer acctgPeriodNum
         String month
         String year

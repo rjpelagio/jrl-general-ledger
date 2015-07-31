@@ -1,6 +1,7 @@
 package com.app
 
 class PostalAddress {
+    static auditable = true 
     String addressLine1
     String addressLine2
     String city

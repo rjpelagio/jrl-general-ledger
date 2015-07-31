@@ -100,8 +100,9 @@ class GlAcctgTransactionService {
         }
     }
 
-    def checkApproval (def transactionType, def department){
-        def approvalFeature = Approval.findByDepartmentAndApprovalFeature(department, transactionType)
+    def checkApproval (def transactionType, def department, def position){
+
+        def approvalFeature = Approval.findByApprovalFeatureAndPosition(department, transactionType, position)
         def approvalStatus = false
         if (approvalFeature){
             def approvalSeq = ApprovalSeq.findAllByApproval(approvalFeature)

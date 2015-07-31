@@ -31,7 +31,7 @@
             </g:hasErrors>
             <g:form action="save" >
                 <div class="dialog">
-                    <table border='1'>
+                    <table>
                         <tbody>
                             <tr class="prop">
                                 <td class="name" colspan="2">Personal Information</td>
