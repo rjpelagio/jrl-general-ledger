@@ -26,7 +26,7 @@ class CashVoucher implements Serializable {
 	static constraints = {
         status (blank : false, nullable : false, inList : ['Active', 'Closed', 'Released', 'Liquidated'])
         approvalStatus (blank : false, nullable : false, inList : ['Pending Approval', 'Approved', 'Cancelled'])
-        cashVoucherNumber (blank : false, nullable : false, unique : true)
+    cashVoucherNumber (blank : false, nullable : false, unique : true)
     }
 
 }

@@ -3,6 +3,8 @@ package com.gl
 import com.app.*
 import groovy.sql.Sql
 
+
+
 class GlAcctgTransactionService {
 
     static transactional = true
@@ -12,7 +14,39 @@ class GlAcctgTransactionService {
     def serviceMethod() {
 
     }
-    
+
+
+    def validateTransItems (def accounts, def ids) {
+
+        ArrayList<String> msgs = new ArrayList<String>();
+
+        if (!accounts) {
+          msgs.add('GL account items must contain at least 1 debit and credit entries.')
+        }
+
+        if (accounts.size() == 0 || ids.size() == 0) {
+          msgs.add('GL account items must contain at least 1 debit and credit entries.')
+
+        }
+
+
+        if (accounts.size() != ids.size()) {
+            msgs.add('Errors encountered on your GL Account items please recheck.')
+        } 
+
+        for (int i = 0; i < accounts.size(); i++) {
+          if (ids[i].isInteger()) { 
+              if(!GlAccountOrganization.get(ids[i].toInteger())) {
+                  msgs.add('Invalid GL account on row ' + (i+1))
+              }
+          } else {
+            msgs.add('Invalid GL account on row ' + (i+1))
+          }
+        }
+
+        return msgs;
+    }
+
     def insertAcctgTrans (GlAccountingTransaction acctgTrans, 
         def glAccounts, def debits, def credits) {
         
@@ -20,14 +54,11 @@ class GlAcctgTransactionService {
         
         for (int i = 0; i < glAccounts.size(); i++) {
             if((Double.parseDouble(debits[i])>0)){
+                
                 insertAcctgTransItem(glAccounts[i], debits[i],
                 "Debit", seq, acctgTrans);
                 seq++;
-            }
-        }
-
-        for (int i = 0; i < glAccounts.size(); i++) {
-            if((Double.parseDouble(credits[i])>0)){
+            } else if (Double.parseDouble(credits[i]) > 0) {
                 insertAcctgTransItem(glAccounts[i], credits[i],
                 "Credit", seq, acctgTrans);
                 seq++;
@@ -83,40 +114,6 @@ class GlAcctgTransactionService {
         }
     }
 
-    def insertAcctgTransApproval (GlAccountingTransaction glAcctgTrans, def department, AppUser loggedUser) {
-        def approvalFeature = Approval.findByDepartmentAndApprovalFeature(department, 'VOUCHER')
-        def approvalSeq = ApprovalSeq.findAllByApproval(approvalFeature)
-        for (int a=0; a<3; a++) {
-            def acctgTransApproval = new AcctgTransApproval()
-            acctgTransApproval.acctgTrans = glAcctgTrans
-            acctgTransApproval.approvalSeq = ApprovalSeq.get(approvalSeq[a].id)
-            if(approvalSeq[a].sequence==1){
-                acctgTransApproval.user = loggedUser
-            }
-            acctgTransApproval.save()
-            if(acctgTransApproval.hasErrors()){
-                println acctgTransApproval.errors
-            }
-        }
-    }
-
-    def checkApproval (def transactionType, def department, def position){
-
-        def approvalFeature = Approval.findByApprovalFeatureAndPosition(department, transactionType, position)
-        def approvalStatus = false
-        if (approvalFeature){
-            def approvalSeq = ApprovalSeq.findAllByApproval(approvalFeature)
-            if(approvalFeature.count() > 0) {
-                approvalStatus = true
-            }
-        }
-        //println 'Approval Feature: ' + approvalFeature.count()
-        //println 'Approval Seq: ' + approvalSeq.size()
-        
-        println 'Approval Status ' + approvalStatus
-
-        return approvalStatus
-    }
 
     def consolResult(def currentPeriod, def orgId) {
 

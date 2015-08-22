@@ -1,6 +1,9 @@
 import grails.util.GrailsUtil
 import com.app.*
 import com.gl.*
+import groovy.sql.Sql
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 class BootStrap {
     def init = { servletContext ->
@@ -276,7 +279,8 @@ class BootStrap {
                     party : Party.get(1),
                     status: "Active",
                     voucherNo: "JV-00001",
-                    acctgTransType: AcctgTransType.get(1))
+                    acctgTransType: AcctgTransType.get(1),
+                    preparedBy : Party.get(1))
         if(!GlAccountingTransaction.get(1)){
             acctgTran.save()
             if(acctgTran.hasErrors()){
@@ -387,6 +391,16 @@ class BootStrap {
                 println superuser.errors
             }
         }
+
+        //def sql = Sql.newInstance(CH.config.dataSource.url, CH.config.dataSource.username,
+        //CH.config.dataSource.password, CH.config.dataSource.driverClassName)
+
+        //String sqlFilePath =  ApplicationHolder.application.parentContext.servletContext.getRealPath("/data/insVoucherApproval.sql")
+        //String sqlString = new File(sqlFilePath).text
+        
+
+
+        //sql.execute(sqlString)
         
     }
     def destroy = {

@@ -49,8 +49,6 @@ class LookupService {
 
         def db = new Sql(dataSource)
 
-        println 'params.term : ' + params.term
-
         def newTerm
         if(params.term) {
         	newTerm = '%' + params.term + '%'
@@ -65,8 +63,6 @@ class LookupService {
             WHERE party.name LIKE ? \
             AND party_role.status = 'Active'", [newTerm]
         )
-
-        println 'result : ' + result
 
         for (int i = 0; i < result.size(); i++){
         	def payeeMap = [:]

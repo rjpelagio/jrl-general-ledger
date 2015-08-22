@@ -27,6 +27,6 @@ class GlAccount implements Serializable{
     
     
     String toString(){
-        return "${description} -- ${glAccount}"
+        return "${glAccount} : ${description}"
     }
 }

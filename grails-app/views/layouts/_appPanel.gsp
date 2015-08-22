@@ -7,7 +7,7 @@
 <div id="navMenu">
   <ul>
     <!-- ADM only -->
-    <g:if test="${session.employee.position == 'Manager'}">
+    <g:if test="${session?.employee?.position == 'Manager'}">
     <li><a href="/jrl/">Setup</a>
        <ul>
           <li><g:link controller="party" action="list">Payee</g:link></li>
@@ -36,7 +36,7 @@
     <li><a href="#">GL</a>
       <ul>
         <!-- ADM  -->
-        <g:if test="${session.employee.position == 'Manager'}">
+        <g:if test="${session?.employee?.position == 'Manager'}">
         <li><g:link controller="glAccount" action="list">GL Setup</g:link>
             <ul>
               <li><g:link controller="glAccount" action="list">GL Account</g:link></li>
@@ -55,7 +55,7 @@
             </ul>
         </li>
 
-      <g:if test="${session.employee.position == 'Manager' || session.employee.position == 'Supervisor'}">
+      <g:if test="${session?.employee?.position == 'Manager' || session?.employee?.position == 'Supervisor'}">
         <li>
           <g:link controller="reports" action="list">Reports</g:link>
           <ul>

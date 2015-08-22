@@ -308,10 +308,10 @@ class PartyBootStrap {
 
         /** CLERK SAMPLE DATA ENTRY **/
 
-        def cleParty = new Party(name: "Clara Montenegro",
+        def cleParty = new Party(name: "Clara del Valle",
                         firstName: "Clara",
-                        middleName: "Fernandez",
-                        lastName: "Montenegro",
+                        middleName: "Davis",
+                        lastName: "del Valle",
                         tin: "1111-1111-3333")
         if(!Party.find(cleParty)){
             cleParty.save()
@@ -321,7 +321,7 @@ class PartyBootStrap {
         }
 
         def clePerson = new Person(firstName : "Clara",
-                            lastName : "Montenegro",
+                            lastName : "del Valle",
                             gender : "Female",
                             nickname : "Clara",
                             birthdate : "03/15/2013",

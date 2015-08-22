@@ -101,7 +101,6 @@ class DataBootStrap {
             }
         }
 
-
         /** APPROVAL DEFINITIONS **/
 
     	def managerVoucherApproval = new Approval(description : "Manager's Voucher Approval Feature",
@@ -116,15 +115,65 @@ class DataBootStrap {
             }
         }
 
+        def managerApprovalSeq = new ApprovalSeq(approval : managerVoucherApproval, 
+            position:"Manager",
+            sequence:1)
+        managerApprovalSeq.save()
+
+
+        def supervisorVoucherApproval = new Approval(description : "Supervisor's Voucher Approval Feature",
+            department:"Finance",
+            approvalFeature:"VOUCHER",
+            status:"Enabled",
+            position:"Supervisor")
+        if(!Approval.find(supervisorVoucherApproval)){
+            supervisorVoucherApproval.save()
+            if(supervisorVoucherApproval.hasErrors()){
+                println supervisorVoucherApproval.errors
+            }
+        }
+
+        def supervisorApprovalSeq1 = new ApprovalSeq(approval : supervisorVoucherApproval, 
+            position:"Manager",
+            sequence:1)
+        supervisorApprovalSeq1.save()
+            
+
+        def supervisorApprovalSeq2 = new ApprovalSeq(approval : supervisorVoucherApproval, 
+            position:"Supervisor",
+            sequence:2)
+        supervisorApprovalSeq2.save()
 
 
 
+        def clerkVoucherApproval = new Approval(description : "Clerk's Voucher Approval Feature",
+            department:"Finance",
+            approvalFeature:"VOUCHER",
+            status:"Enabled",
+            position:"Clerk")
+        if(!Approval.find(clerkVoucherApproval)){
+            clerkVoucherApproval.save()
+            if(clerkVoucherApproval.hasErrors()){
+                println clerkVoucherApproval.errors
+            }
+        }
+
+        def clerkApprovalSeq1 = new ApprovalSeq(approval : clerkVoucherApproval, 
+            position:"Manager",
+            sequence:1)
+        clerkApprovalSeq1.save()
 
 
+        def clerkApprovalSeq2 = new ApprovalSeq(approval : clerkVoucherApproval, 
+            position:"Supervisor",
+            sequence:2)
+        clerkApprovalSeq2.save()
 
 
-
-
+        def clerkApprovalSeq3 = new ApprovalSeq(approval : clerkVoucherApproval, 
+            position:"Clerk",
+            sequence:3)
+        clerkApprovalSeq3.save()
 
 	}
 

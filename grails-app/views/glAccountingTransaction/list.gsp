@@ -11,17 +11,23 @@
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <g:if test="${disableCreate == 'no'}">
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
+            </g:if>
         </div>
         <div class="body">
             <h1><g:message code="default.list.label" args="[entityName]" /></h1>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+                <div class="message">${flash.message}</div>
+            </g:if>
+            <g:if test="${flash.errors}">
+                <div class="errors"><ul><li>${flash.errors}</li></ul></div>
             </g:if>
             <div class="table-header">
               <g:message code="default.button.search.label" args="[entityName]" />
             </div>
             <g:form action="list">
+                
                 <div class="search">
                     <table>
                         <tbody>
@@ -123,7 +129,6 @@
                         
                             <th>Entry Date</th>
                             
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -149,14 +154,9 @@
                                 <td><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance.postedDate}" /></td>
 
                                 <td><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance.entryDate}" /></td>
+                                
 
-                                <td>
-                                    <g:if test="${glAccountingTransactionInstance.status!='Approved'}">
-                                    <g:link action="edit" id="${glAccountingTransactionInstance.id}">
-                                        Edit
-                                    </g:link>
-                                    </g:if>
-                                </td>
+                                
                             </tr>
                         </g:each>
                     </g:else>

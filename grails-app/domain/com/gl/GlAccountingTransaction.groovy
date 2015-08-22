@@ -24,12 +24,13 @@ class GlAccountingTransaction {
 
     static belongsTo = [organization : AppOrganization,
                         party :  Party,
+                        preparedBy : Party,
                         acctgTransType : AcctgTransType]
     
     static hasMany = [item : GlAccountingTransactionDetails]
     
     static constraints = {
-        description (blank : false)
+        description (blank : false, maxSize : 500)
         organization ()
         transactionDate (blank : false)
         postedDate (nullable : true, blank : true)
@@ -41,7 +42,7 @@ class GlAccountingTransaction {
         terms (blank : true, nullable : true)
         cdoKg (blank : true, nullable : true)
         refDoc (blank : true, nullable : true)
-        status (blank: true, inList: ['Active', 'Closed', 'Cancelled'])
+        status (blank: true, inList: ['Active', 'Submitted','Closed', 'Cancelled'])
         approvalStatus (blank: true, inList : ['Pending Approval', 'Approved', 'Denied'])
         printed (inList: ['Yes', 'No'])
     }

@@ -61,16 +61,16 @@
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Verdana, Lucida Sans, Arial, sans-serif; font-size: 1em; }
 .ui-widget-content { border: 1px solid #3f7506; background: #ffffff url(images/ui-bg_inset-soft_10_ffffff_1x100.png) 50% bottom repeat-x; color: #000000; }
 .ui-widget-content a { color: #000000; }
-.ui-widget-header { border: 1px solid #3f7506; background: #3a8104 url(images/ui-bg_inset-hard_33_3a8104_1x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
+.ui-widget-header { border: 1px solid #3f7506; background: #C2D9AE url(images/ui-bg_inset-hard_33_3a8104_1x100.png) 50% 50% repeat-x; color: #ffffff; font-weight: bold; }
 .ui-widget-header a { color: #ffffff; }
 
 /* Interaction states
 ----------------------------------*/
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #45930b; background: #4ca20b url(images/ui-bg_highlight-soft_60_4ca20b_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #ffffff; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #8bd83b; background: #4eb305 url(images/ui-bg_highlight-soft_50_4eb305_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #3f7506; }
-.ui-state-hover a, .ui-state-hover a:hover { color: #3f7506; text-decoration: none; }
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #72b42d; background: #285c00 url(images/ui-bg_highlight-hard_30_285c00_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #8bd83b; background: #C2D9AE 50% 50% repeat-x; font-weight: bold; }
+.ui-state-hover a, .ui-state-hover a:hover { color: #C2D9AE; text-decoration: none; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #72b42d; background: #C2D9AE url(images/ui-bg_highlight-hard_30_285c00_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #ffffff; text-decoration: none; }
 .ui-widget :active { outline: none; }
 
@@ -344,7 +344,7 @@
  *
  * http://docs.jquery.com/UI/Autocomplete#theming
  */
-.ui-autocomplete { position: absolute; cursor: default; font-size: 12px;  background:#6DC8FD}	
+.ui-autocomplete { position: absolute; cursor: default; font-size: 12px;  background:#fcfcfc}	
 
 .ul.ui-autocomplete.ui-menu{width:300px}
 
@@ -390,7 +390,7 @@
 .ui-menu .ui-menu-item a.ui-state-active {
 	font-weight: normal;
 	margin: -1px;
-	background-color: #111111;
+	background-color: #C2D9AE;
 }
 /*
  * jQuery UI Button 1.8.16

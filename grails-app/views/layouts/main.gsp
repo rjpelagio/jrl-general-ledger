@@ -13,12 +13,8 @@
         <g:javascript library="jquery-ui-1.8.16.custom.min"/>
         <g:javascript library="validator"/>
         <g:layoutHead />
-    </head>
-    <body>
         <script type="text/javascript">
         $(function(){
-
-
             if ( $(document).height() > $(".leftnav").height() ) {
                 $(".leftnav").height($(document).height() - 50)
             } else {
@@ -27,6 +23,8 @@
             $(".rightnav").height($(".leftnav").height());
         });
         </script>
+    </head>
+    <body>
         <div id="mainwrapper">
             <div id="mainwrapper2">
                 <div id="spinner" class="spinner" style="display:none;">
