@@ -13,7 +13,7 @@
         </div>
         <div class="mncntr">
           <h4>Voucher Summary </h4>
-          <% <g:dashboardSummary /> %>
+          
         </div>
         <div class="clearer"></div>
       </div>
@@ -40,7 +40,7 @@
         <div class="mncntr">
           <h4>Voucher for Approval</h4>
           
-             <% <g:approvalSummary />%>
+             
           
         </div>
         <div class="clearer"></div>

@@ -251,6 +251,8 @@ th.desc a {
 
 .list th {
     border-bottom: 1px solid #3C5326;
+    font : 10px;
+    text-decoration: none;
 }
 
 .list th, .list td {
@@ -285,6 +287,12 @@ th.desc a {
     text-align: center;
     width:50px;
     color:#3C5326;
+
+}
+
+.search button:hover {
+
+    border-top : 1px solid #b2d1ff;
 
 }
 

@@ -1,6 +1,9 @@
 import grails.util.GrailsUtil
 import com.app.*
 import com.gl.*
+import groovy.sql.Sql
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 class DataBootStrap {
 
@@ -118,7 +121,12 @@ class DataBootStrap {
         def managerApprovalSeq = new ApprovalSeq(approval : managerVoucherApproval, 
             position:"Manager",
             sequence:1)
-        managerApprovalSeq.save()
+        ic (!ApprovalSeq.find(managerApprovalSeq)) {
+            managerApprovalSeq.save()
+            if(managerApprovalSeq.hasErrors()){
+                println managerApprovalSeq.errors
+            }
+        }
 
 
         def supervisorVoucherApproval = new Approval(description : "Supervisor's Voucher Approval Feature",
@@ -136,13 +144,22 @@ class DataBootStrap {
         def supervisorApprovalSeq1 = new ApprovalSeq(approval : supervisorVoucherApproval, 
             position:"Manager",
             sequence:1)
-        supervisorApprovalSeq1.save()
+        if(!ApprovalSeq.find(supervisorApprovalSeq1) {
+            supervisorApprovalSeq1.save()
+            if(supervisorApprovalSeq1.hasErrors()){
+                println supervisorApprovalSeq1.errors
+            }
+        }
             
 
         def supervisorApprovalSeq2 = new ApprovalSeq(approval : supervisorVoucherApproval, 
             position:"Supervisor",
             sequence:2)
-        supervisorApprovalSeq2.save()
+        if(!ApprovalSeq.find(supervisorApprovalSeq2)) {
+            supervisorApprovalSeq2.save()
+                
+        }
+        
 
 
 
@@ -174,6 +191,14 @@ class DataBootStrap {
             position:"Clerk",
             sequence:3)
         clerkApprovalSeq3.save()
+
+        def sql = Sql.newInstance(CH.config.dataSource.url, CH.config.dataSource.username,
+        CH.config.dataSource.password, CH.config.dataSource.driverClassName)
+
+        String sqlFilePath =  ApplicationHolder.application.parentContext.servletContext.getRealPath("/data/seed_data.sql")
+        String sqlString = new File(sqlFilePath).text
+        
+        sql.execute(sqlString)
 
 	}
 

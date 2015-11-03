@@ -72,7 +72,7 @@
 
     <li><a href="#">Cash</a>
       <ul>
-        <li><a href="#">Petty Cash</a>
+        <li><g:link controller="cashVoucher" action="list">Petty Cash</g:link>
           <ul>
             <li><g:link controller="cashVoucher" action="list">Cash Advance</g:link></li>
             <li><a href="#">Reimbursement</a></li>

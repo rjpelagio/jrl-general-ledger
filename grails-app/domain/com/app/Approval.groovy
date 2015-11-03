@@ -11,7 +11,7 @@ class Approval implements Serializable {
     static constraints = {
         description (blank: false)
         department (blank: false, nullable: false, inList : ["Administration", "Finance", "HR", "Sales"])
-        approvalFeature (inList : ["VOUCHER", "LEAVE"])
+        approvalFeature (inList : ["VOUCHER", "LEAVE", "CASH_ADVANCE"])
         position (blank: false, nullable : false)
         status(inList : ["Enabled", "Disabled"])
     }

@@ -51,7 +51,7 @@ class GlAccountingTransactionController {
         }
 
         def disableCreate = 'no';
-        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position)
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
         if (approvalStatus == false) { 
             flash.errors = "${message(code : 'approval.notFound')}"
             disableCreate = 'yes';
@@ -62,7 +62,7 @@ class GlAccountingTransactionController {
 
     def create = {
 
-        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position)
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
         if (approvalStatus == false) {
             flash.errors = "${message(code : 'approval.notFound')}"
             redirect(action:"list")
@@ -89,8 +89,8 @@ class GlAccountingTransactionController {
             processSaveSubmit(trans, params)
         } else if (params.formAction == 'edit') {
             def trans = GlAccountingTransaction.get(params.transId)
-            processUpdateSubmit(trans, params)
             trans.status = "Submitted"
+            processUpdateSubmit(trans, params)
         }
     }
     
@@ -101,7 +101,7 @@ class GlAccountingTransactionController {
     }
 
     def show = {
-        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position)
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
 
         if (approvalStatus == false) {
             flash.errors = "${message(code : 'approval.notFound')}"
@@ -176,7 +176,7 @@ class GlAccountingTransactionController {
                 )
 
                 if (trans.status == 'Submitted') {
-                    approvalMsg = approvalService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
+                    approvalMsg = glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
                 }
             
 
@@ -256,7 +256,7 @@ class GlAccountingTransactionController {
                 )
 
                 if (trans.status == 'Submitted') {
-                    approvalService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
+                    glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
                 }
 
             flash.message = "${message(code: 'glAccountingTransaction.updated', args: [message(code: 'trans.label', default: 'GlAccountingTransaction'), trans.id])}"
@@ -334,7 +334,7 @@ class GlAccountingTransactionController {
 
     def edit = {
         
-        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position)
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
         if (approvalStatus == false) {
             flash.errors = "${message(code : 'approval.notFound')}"
             redirect(action:"list")

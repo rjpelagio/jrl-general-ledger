@@ -127,12 +127,13 @@ class GlSearchService {
         if(voucherno){
             newVoucherNo = "%" + voucherno + "%"
         }
-        println "Status: " + voucherType
+
         def result = GlAccountingTransaction.executeQuery("\
             FROM GlAccountingTransaction acctgTrans\
             WHERE (acctgTrans.organization = ?\
             AND acctgTrans.voucherNo LIKE ?\
             AND acctgTrans.description LIKE ?)", [organization, newVoucherNo, newParticulars])
+        
         if(status!=null || voucherType!=null || transactionDate!=null || entryDate!=null){
             if(status!='null' && voucherType=='null'){
                 result = GlAccountingTransaction.executeQuery("\
@@ -141,7 +142,6 @@ class GlSearchService {
                     AND acctgTrans.voucherNo LIKE ?\
                     AND acctgTrans.description LIKE ?)\
                     AND acctgTrans.status = ?", [organization, newVoucherNo, newParticulars, status])
-                println "Status: " + status
             }
             if(status!='null' && voucherType!='null'){
                 result = GlAccountingTransaction.executeQuery("\
@@ -150,7 +150,6 @@ class GlSearchService {
                     AND acctgTrans.voucherNo LIKE ?\
                     AND acctgTrans.description LIKE ?)\
                     AND acctgTrans.status = ?", [organization, newVoucherNo, newParticulars, status])
-                println "Voucher Type: " + voucherType
             }
             if(status!='null' && voucherType!='null' && transactionDate!='null'){
                 result = GlAccountingTransaction.executeQuery("\
@@ -159,7 +158,6 @@ class GlSearchService {
                     AND acctgTrans.voucherNo LIKE ?\
                     AND acctgTrans.description LIKE ?)\
                     AND acctgTrans.status = ?", [organization, newVoucherNo, newParticulars, status])
-                println "Transaction Date: " + transactionDate
             }
             
         }

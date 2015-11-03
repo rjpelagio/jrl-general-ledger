@@ -391,16 +391,6 @@ class BootStrap {
                 println superuser.errors
             }
         }
-
-        //def sql = Sql.newInstance(CH.config.dataSource.url, CH.config.dataSource.username,
-        //CH.config.dataSource.password, CH.config.dataSource.driverClassName)
-
-        //String sqlFilePath =  ApplicationHolder.application.parentContext.servletContext.getRealPath("/data/insVoucherApproval.sql")
-        //String sqlString = new File(sqlFilePath).text
-        
-
-
-        //sql.execute(sqlString)
         
     }
     def destroy = {

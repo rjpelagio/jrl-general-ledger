@@ -10,7 +10,7 @@
         <g:set var="entityName" value="${message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
         <g:javascript library="gl/acctgTrans"/>
-        <script>
+        <script type="text/javascript">
         $(document).ready(function () {
                $("#addRow").click(
                     function() {

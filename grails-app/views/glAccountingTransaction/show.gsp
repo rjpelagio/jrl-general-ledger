@@ -172,7 +172,7 @@
                   <table border="1">
                       <thead>
                           <tr>
-                            <th>Remarks</th>
+                            <th>Approval Remarks</th>
                             <th>Position</th>
                             <th>Updated By</th>
                             <th>Last Updated</th>

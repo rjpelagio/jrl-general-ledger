@@ -33,5 +33,10 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
+        bundle('javax.websocket:javax.websocket-api:1.1') {
+            // This line is necessary for deployment to Tomcat, since
+            // Tomcat comes with its own version of javax.websocket-api.
+            export = false
+        }  
     }
 }
