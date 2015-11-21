@@ -1,6 +1,7 @@
 * {
 	margin: 0;
 	padding: 0;
+
 }
 
 html, body, div, span, object, iframe,
@@ -21,49 +22,49 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 
 h1
 {
-	font: bold 150%/100% Arial, Helvetica, sans-serif;
+	font: bold 150%/100% Trebuchet MS, Helvetica, sans-serif;
 	display:block;
 	padding:10px 5px 10px 50px;
 	background:#eeeeee url(../images/modulesmini.png) no-repeat;
 	background-position: 3px 3px;
-	border-bottom:2px solid #cccccc;
+	border:1px solid;
+	border-color:#3C5326;
 }
 
 h2
 {
-	font: bold 140%/100% Arial, Helvetica, sans-serif;
+	font: bold 140%/100% Trebuchet MS, Helvetica, sans-serif;
 	margin:5px;
 }
 
 h3
 {
-	font: bold 130%/100% Arial, Helvetica, sans-serif;
+	font: bold 130%/100% Trebuchet MS, Helvetica, sans-serif;
 	margin:5px;
 }
 
 h4
 {
-	font: bold 100%/100% Arial, Helvetica, sans-serif;
+	font: bold 100%/100% Trebuchet MS, Helvetica, sans-serif;
 	margin:5px;
 }
 
 h5
 {
-	font: bold 100%/100% Arial, Helvetica, sans-serif;
+	font: bold 100%/100% Trebuchet MS, Helvetica, sans-serif;
 	margin:5px;
 }
 
 h6
 {
-	font: bold 100%/100% Arial, Helvetica, sans-serif;
+	font: bold 100%/100% Trebuchet MS, Helvetica, sans-serif;
 	margin:5px;
 }
 
 body
 {
-	font: Arial, Helvetica, sans-serif;
 	margin:0 auto;
-	background: #ffffff url(../images/bg_stripe.jpg) repeat-x;
+	background-color:#C2D9AE;
 }
 
 strong
@@ -73,12 +74,12 @@ strong
 
 a
 {
-	color:#0099FF;
+	color:#3C5326;
 }
 
 p
 {
-	font: 80%/140% Arial, Helvetica, sans-serif;
+	font: 80%/140% Trebuchet MS, Helvetica, sans-serif;
 	padding:5px 5px 5px 5px;
 }
 
@@ -94,28 +95,56 @@ p
 
 .leftnav{    
   width: 150px;
-  height:500px;
   float: left;
-  display: inline;
-  background-color: #019328;
+  position:absolute;
+  background-color: #58B28B;
+  background-image: 
+	  linear-gradient(
+	      to top right, 
+	      #58B28B, #71B553
+	    );
   margin: 0;
   padding: 0;
-  margin-right: 10px;
+  left:0px;
+  top:98px;
+  border:double #3C5326;
+}
+
+.rightnav{    
+  width: 150px;
+  height:100%;
+  float: left;
+  position:absolute;
+  background-color: #58B28B;
+  /* 71B553 */
+  background-image: 
+	  linear-gradient(
+	      to top left, 
+	      #58B28B, #71B553
+	    );  margin: 0;
+  padding: 0;
+  right:0px;
+  top:98px;
+  border:double #3C5326;
 }
 
 #mainwrapper
 {
 	margin:10px;
-	border:1px solid #cacaca;
-	background:#fafafa url(../images/wrapper_bg.jpg) no-repeat;
+	border:1px solid #C2D9AE;
+	/*background:#fafafa url(../images/wrapper_bg.jpg) no-repeat;*/
 	min-width:770px;
 	display: inline;
+	height:100%;
+
 }
 
 #mainwrapper2
 {
-	border:1px solid #ffffff;
+	border:1px solid #C2D9AE;
 	border-bottom:0;
+	height:100%;
+
 }
 
 #mainheader
@@ -128,7 +157,7 @@ p
 	position:absolute;
 	top:48px;
 	left:80px;
-	font: bold 150%/120% Arial, Helvetica, sans-serif;
+	font: bold 150%/120% Trebuchet MS, Helvetica, sans-serif;
 	color:#333333;
 	font-style:italic;
 	min-width:500px;
@@ -136,7 +165,7 @@ p
 
 #userpane
 {
-	font: 70%/100% Arial, Helvetica, sans-serif;
+	font: 70%/100% Trebuchet MS, Helvetica, sans-serif;
 	float:right;
 	clear:both;
 	color:#666666;
@@ -173,7 +202,7 @@ p
 {
 	height:35px;
 	background:#00a22a url(../images/mainnavbg.jpg);
-	font: bold 80%/100% Arial, Helvetica, sans-serif;
+	font: bold 80%/100% Trebuchet MS, Helvetica, sans-serif;
 	margin:0 5px 0 5px;
 }
 
@@ -186,7 +215,6 @@ ul#menu
 	position:relative;
 	display:block;
 	height:20px;
-	font-family:Arial, Helvetica, sans-serif;
 }
 
 /* navigation menu */
@@ -226,7 +254,8 @@ ul#menu li a:hover
 }
 
 .ddsubmenustyle, .ddsubmenustyle ul{ /*topmost and sub ULs, respectively*/
-	font: normal 13px Arial, Helvetica, sans-serif;
+	font: normal 13px;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	margin: 0;
 	padding: 0;
 	position: absolute;
@@ -268,11 +297,14 @@ ul#menu li a:hover
 
 .nav {
     margin-left:150px;
+    margin-right:150px;
+    margin-top:3px;
     padding:10px 5px 10px 5px;
-    font: 70%/100% Arial, Helvetica, sans-serif;
+    font: 70%/100% Trebuchet MS, Helvetica, sans-serif;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
     color:#666666;
     background:#6DC8FD;
-    border-bottom:1px solid #e2e89d;
+    border:1px solid #3C5326;
 }
 
 .nav span {
@@ -295,16 +327,19 @@ ul#menu li a:hover
     background: url(../images/skin/house.png) center left no-repeat;
     /*color: #333;*/
     padding-left: 25px;
+    color:#3C5326;
 }
 .menuButton a.list {
     background: url(../images/skin/database_table.png) center left no-repeat;
     /*color: #333;*/
     padding-left: 25px;
+    color:#3C5326;
 }
 .menuButton a.create {
     background: url(../images/skin/database_add.png) center left no-repeat;
     /*color: #333;*/
     padding-left: 25px;
+    color:#3C5326;
 }
 
 /* ######### Neutral CSS  ######### */
@@ -333,7 +368,7 @@ border: 0;
 
 #leftdiv
 {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	margin:5px 193px 5px 5px;
 	padding:5px 5px 5px 5px;
 	border:1px solid #c1dad7;
@@ -342,7 +377,7 @@ border: 0;
 
 #contentdiv
 {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	padding:0px 0px 0px 0px;
 	border:1px solid #c1dad7;
 	background:#ffffff;
@@ -350,14 +385,14 @@ border: 0;
 
 #fulldiv
 {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	margin:5px 0px 5px 0;
 	padding:0px 0px 5px 5px;
 }
 
 #leftdiv ul, #fulldiv ul
 {
-	font: 80%/140% Arial, Helvetica, sans-serif;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	list-style:inside;
 	list-style-image:none;
 	list-style-type:none;
@@ -408,7 +443,8 @@ fieldset
 	border-top:1px solid #cccccc;
 	border-bottom:1px solid #cccccc;
 	background: #f3f3f3;
-	font: 80%/140% Arial, Helvetica, sans-serif;
+	font: 80%/140%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 legend
@@ -437,7 +473,8 @@ legend
 {
 	padding:2px;
 	border:1px solid #999999;
-	font: 100%/140% Arial, Helvetica, sans-serif;
+	font: 100%/140%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .selectbox
@@ -479,7 +516,8 @@ a#remove
 }
 
 .viewmaintable th {
-	font: 100%/100% Arial, Helvetica, sans-serif;
+	font: 100%/100%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	color: #4f6b72;
 	border-right: 1px solid #C1DAD7;
 	border-bottom: 1px solid #C1DAD7;
@@ -611,7 +649,8 @@ a#remove
 
 #footer
 {
-	font: 80%/100% Arial, Helvetica, sans-serif;
+	font: 80%/100%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	margin:10px;
 	margin-bottom:40px;
 }
@@ -622,7 +661,8 @@ a#remove
 	width:49%;
 	margin:0px 5px 5px 0;
 	border:1px solid #c1dad7;
-	font: 80%/100% Arial, Helvetica, sans-serif;
+	font: 80%/100%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	background:#d6f0f1;
 }
 
@@ -632,7 +672,8 @@ a#remove
 	width:49%;
 	margin:0px 5px 5px 0;
 	border:1px solid #c1dad7;
-	font: 80%/100% Arial, Helvetica, sans-serif;
+	font: 80%/100%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	background:#d6f0f1;
 }
 
@@ -670,7 +711,8 @@ a#remove
 
 .bi li
 {
-	font: 120%/120% Arial, Helvetica, sans-serif;
+	font: 120%/120%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 .bi .imgcntr
@@ -724,7 +766,8 @@ body > div#fixme {
 	height:30px;
 	z-index: 5;
 	padding:6px;
-	font: 75%/100% Arial, Helvetica, sans-serif;
+	font: 75%/100%;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
 	color:#999999;
 }
 

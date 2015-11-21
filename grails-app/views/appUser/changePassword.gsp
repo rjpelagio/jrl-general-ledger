@@ -29,26 +29,26 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'oldpassword', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'oldpassword', 'errors')}">
                                   <label for="oldpassword"><g:message code="appUser.oldpassword.label" default="Old Password" /></label>
                                 </td>
-                                <td valign="top" class="value">
+                                <td  class="value">
                                     <g:passwordField name="oldpassword" value="" />
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'password', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'password', 'errors')}">
                                   <label for="password"><g:message code="appUser.password.label" default="New Password" /></label>
                                 </td>
-                                <td valign="top" class="value">
+                                <td  class="value">
                                     <g:passwordField name="password" value="" />
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'confirmpassword', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'confirmpassword', 'errors')}">
                                   <label for="confirmpassword"><g:message code="appUser.confirmpassword.label" default="Confirm Password" /></label>
                                 </td>
-                                <td valign="top" class="value">
+                                <td  class="value">
                                     <g:passwordField name="confirmpassword" value="" />
                                 </td>
                             </tr>

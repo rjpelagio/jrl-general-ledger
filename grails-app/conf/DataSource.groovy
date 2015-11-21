@@ -10,10 +10,10 @@ environments {
             pooled = true
             driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
             username = "sa"
-            password = "admin"
-            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            password = "admin123"
+            dbCreate = "update" // one of 'create', 'create-drop','update'
             //url = "jdbc:mysql://localhost:3306/jrlsystem_dev?autoreconnect=true"
-            url = "jdbc:sqlserver://192.168.101.51:1433;instanceName=SQLEXPRESS;databaseName=jrlsystem_dev"
+            url = "jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=jrlsystem_dev"
         }
     }
     test {

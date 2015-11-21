@@ -29,37 +29,37 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="party"><g:message code="appUser.party.label" default="Employee" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'party', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'party', 'errors')}">
                                     <g:select name="party.id" from="${employeeDropDown}" optionKey="party_id" optionValue="name" value="${appUserInstance?.party?.id}" noSelection="['null':'']" />
                                 </td>
                             </tr>
                             
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="username"><g:message code="appUser.username.label" default="Username" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'username', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'username', 'errors')}">
                                     <g:textField name="username" value="${appUserInstance?.username}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="password"><g:message code="appUser.password.label" default="Password" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'password', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'password', 'errors')}">
                                     <g:passwordField name="password" value="${appUserInstance?.password}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="role"><g:message code="appUser.role.label" default="Role" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">
                                     <g:select name="role.id" from="${roleList}" optionKey="id" optionValue="roleName" value="${appUserInstance?.role?.id}"  />
                                 </td>
                             </tr>

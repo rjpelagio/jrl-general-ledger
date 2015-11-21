@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type"
           content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main" />
-    <g:if test="${session.user == null && request.getSession(false)}">
+    <g:if test="${session?.user == null && request.getSession(false)}">
       <title>Login</title>
     </g:if>
     <g:else>
@@ -26,13 +26,19 @@
             <div class="message">${flash.message}</div>
           </g:if>
           <g:form action="authenticate" method="post" controller="appUser" >
-            <label for="login">Username</label>
+            <div>
+              <label for="login">Username</label>
+            </div>
             <input type="text" id="username" name="username"/>
+            <div style="padding-top : 2px">
             <label for="password">Password</label>
+            </div>
             <input type="password"
                    id="password" name="password"/>
-            <label for="organization">Company</label>
-            <g:select name="organization.id" from="${com.app.AppOrganization.list()}" optionKey="id" value="${glAccountingTransactionInstance?.organization?.id}"  />
+            <div style="padding-top : 2px">
+              <label for="organization">Company</label>
+            </div>
+            <g:select name="organization.id" from="${com.app.AppOrganization.list()}" optionKey="id" value=""  />
             <div class="clearer"></div>
             <div class="buttons">
               <span class="button">
@@ -71,9 +77,7 @@
       <div class="message">${flash.message}</div>
     </g:if>
     
-    <g:if test="${session.user.role}"> 
-        
-    </g:if>
+
     
   </g:if>
 </body>

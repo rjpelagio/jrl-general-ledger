@@ -5,6 +5,7 @@ import com.app.AppOrganization
 
 class GlAccountOrganization {
     
+    static auditable = true
     Date startDate = new Date()
     Date thruDate
     

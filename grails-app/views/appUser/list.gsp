@@ -27,19 +27,19 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="party"><g:message code="appUser.party.label" default="Employee" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'party', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'party', 'errors')}">
                                     <g:select name="party.id" from="${employeeDropDown}" optionKey="party_id" optionValue="name" value="${appUserInstance?.party?.id}" noSelection="['null':'']" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="role">Access Type</label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">
                                     <g:select name="role.id" from="${roleList}" optionKey="id" optionValue="roleName" value="${appUserInstance?.role?.id}"  />
                                 </td>
                             </tr>

@@ -3,6 +3,7 @@ package com.gl
 import com.app.AppOrganization;
 
 class AcctgPreferences {
+    static auditable = true
     String jvPrefix
     Integer amtRounding
     Integer priceRounding

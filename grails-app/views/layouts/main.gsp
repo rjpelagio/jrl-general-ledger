@@ -13,14 +13,18 @@
         <g:javascript library="jquery-ui-1.8.16.custom.min"/>
         <g:javascript library="validator"/>
         <g:layoutHead />
-    </head>
-    <body>
         <script type="text/javascript">
         $(function(){
-            var $content = $('#leftnav');
-            $content.height($(document).height() - 155 );
+            if ( $(document).height() > $(".leftnav").height() ) {
+                $(".leftnav").height($(document).height() - 50)
+            } else {
+                $(".leftnav").height($(".leftnav").height() - 50)
+            }
+            $(".rightnav").height($(".leftnav").height());
         });
         </script>
+    </head>
+    <body>
         <div id="mainwrapper">
             <div id="mainwrapper2">
                 <div id="spinner" class="spinner" style="display:none;">
@@ -34,6 +38,8 @@
                 </g:if>
                 <g:if test="${session.user != null}">
                     <div id="leftnav" class="leftnav">
+                    </div> 
+                    <div id="rightnav" class="rightnav">
                     </div> 
                 </g:if>
                 

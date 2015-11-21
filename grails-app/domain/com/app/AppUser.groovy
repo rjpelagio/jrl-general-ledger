@@ -1,7 +1,7 @@
 package com.app
 
 class AppUser {
-    
+    static auditable = true
     String username
     String password
     //String firstName //to be removed

@@ -27,28 +27,28 @@
                         <tbody>
                             
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="glAccount"><g:message code="glAccount.glAccount.label" default="GL Account Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountInstance, field: 'glAccount', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccount', 'errors')}">
                                     <g:textField name="glAccount" value="${glAccountInstance?.glAccount}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="description"><g:message code="glAccount.description.label" default="GL Account Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountInstance, field: 'description', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountInstance, field: 'description', 'errors')}">
                                     <g:textField name="description" value="${glAccountInstance?.description}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="glAccountType"><g:message code="glAccount.glAccountType.label" default="GL Account Type" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: glAccountInstance, field: 'glAccountType', 'errors')}">
+                                <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccountType', 'errors')}">
                                     <g:select name="glAccountType.id" from="${com.gl.GlAccountType.list()}" optionKey="id" value="${glAccountInstance?.glAccountType?.id}" noSelection="['': '']" />
                                 </td>
                             </tr>

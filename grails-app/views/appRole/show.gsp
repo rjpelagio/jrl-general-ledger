@@ -23,37 +23,37 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appRole.roleCode.label" default="Role Code" /></td>
+                            <td  class="name"><g:message code="appRole.roleCode.label" default="Role Code" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: appRoleInstance, field: "roleCode")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appRole.roleName.label" default="Role Name" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: appRoleInstance, field: "roleName")}</td>
+                            <td  class="value">${fieldValue(bean: appRoleInstance, field: "roleCode")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appRole.parent.label" default="Parent" /></td>
+                            <td  class="name"><g:message code="appRole.roleName.label" default="Role Name" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="appRole" action="show" id="${appRoleInstance?.parent?.id}">${appRoleInstance?.parent?.encodeAsHTML()}</g:link></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appRole.dateCreated.label" default="Date Created" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${appRoleInstance?.dateCreated}" /></td>
+                            <td  class="value">${fieldValue(bean: appRoleInstance, field: "roleName")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appRole.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="name"><g:message code="appRole.parent.label" default="Parent" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${appRoleInstance?.lastUpdated}" /></td>
+                            <td  class="value"><g:link controller="appRole" action="show" id="${appRoleInstance?.parent?.id}">${appRoleInstance?.parent?.encodeAsHTML()}</g:link></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="appRole.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${appRoleInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="appRole.lastUpdated.label" default="Last Updated" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${appRoleInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     

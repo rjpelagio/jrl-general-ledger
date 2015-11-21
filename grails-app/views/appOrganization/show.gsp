@@ -23,30 +23,30 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appOrganization.organizationCode.label" default="Organization Code" /></td>
+                            <td  class="name"><g:message code="appOrganization.organizationCode.label" default="Organization Code" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: appOrganizationInstance, field: "organizationCode")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appOrganization.organizationName.label" default="Organization Name" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: appOrganizationInstance, field: "organizationName")}</td>
+                            <td  class="value">${fieldValue(bean: appOrganizationInstance, field: "organizationCode")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appOrganization.organizationType.label" default="Organization Type" /></td>
+                            <td  class="name"><g:message code="appOrganization.organizationName.label" default="Organization Name" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: appOrganizationInstance, field: "organizationType")}</td>
+                            <td  class="value">${fieldValue(bean: appOrganizationInstance, field: "organizationName")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appOrganization.party.label" default="Party" /></td>
+                            <td  class="name"><g:message code="appOrganization.organizationType.label" default="Organization Type" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="party" action="show" id="${appOrganizationInstance?.party?.id}">${appOrganizationInstance?.party?.encodeAsHTML()}</g:link></td>
+                            <td  class="value">${fieldValue(bean: appOrganizationInstance, field: "organizationType")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="appOrganization.party.label" default="Party" /></td>
+                            
+                            <td  class="value"><g:link controller="party" action="show" id="${appOrganizationInstance?.party?.id}">${appOrganizationInstance?.party?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     

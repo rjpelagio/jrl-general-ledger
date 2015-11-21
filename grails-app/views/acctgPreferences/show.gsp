@@ -23,51 +23,51 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPreferences.id.label" default="Id" /></td>
+                            <td  class="name"><g:message code="acctgPreferences.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: acctgPreferencesInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPreferences.jvPrefix.label" default="Jv Prefix" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: acctgPreferencesInstance, field: "jvPrefix")}</td>
+                            <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPreferences.amtRounding.label" default="Amt Rounding" /></td>
+                            <td  class="name"><g:message code="acctgPreferences.jvPrefix.label" default="Jv Prefix" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: acctgPreferencesInstance, field: "amtRounding")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPreferences.priceRounding.label" default="Price Rounding" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: acctgPreferencesInstance, field: "priceRounding")}</td>
+                            <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "jvPrefix")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPreferences.docLineLimit.label" default="Doc Line Limit" /></td>
+                            <td  class="name"><g:message code="acctgPreferences.amtRounding.label" default="Amt Rounding" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: acctgPreferencesInstance, field: "docLineLimit")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPreferences.docFormat.label" default="Doc Format" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: acctgPreferencesInstance, field: "docFormat")}</td>
+                            <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "amtRounding")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="acctgPreferences.organizationCode.label" default="Organization Code" /></td>
+                            <td  class="name"><g:message code="acctgPreferences.priceRounding.label" default="Price Rounding" /></td>
                             
-                            <td valign="top" class="value"><g:link controller="appOrganization" action="show" id="${acctgPreferencesInstance?.organizationCode?.id}">${acctgPreferencesInstance?.organizationCode?.encodeAsHTML()}</g:link></td>
+                            <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "priceRounding")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="acctgPreferences.docLineLimit.label" default="Doc Line Limit" /></td>
+                            
+                            <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "docLineLimit")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="acctgPreferences.docFormat.label" default="Doc Format" /></td>
+                            
+                            <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "docFormat")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="acctgPreferences.organizationCode.label" default="Organization Code" /></td>
+                            
+                            <td  class="value"><g:link controller="appOrganization" action="show" id="${acctgPreferencesInstance?.organizationCode?.id}">${acctgPreferencesInstance?.organizationCode?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     

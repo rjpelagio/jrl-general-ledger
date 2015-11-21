@@ -35,18 +35,18 @@
             <table>
               <tbody>
                 <tr class="prop">
-                  <td valign="top" class="name">
+                  <td  class="name">
                     <label for="acctgPeriod"><g:message code="acctgPeriod.acctgPeriod.label" default="Accounting Period"/></label>
                   </td>
-                  <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriod', 'errors')}">
+                  <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriod', 'errors')}">
                     <g:select id="acctgPeriod" name="acctgPeriod" from="${com.gl.AcctgPeriod.list()}" optionKey="id" value="${acctgPeriodInstance?.acctgPeriod?.acctgPeriodNum}" onchange="(document.getElementById('period').value = this.value)" />
                   </td>
                 </tr>
                 <tr class="prop">
-                  <td valign="top" class="name">
+                  <td  class="name">
                     <label for="glAccount"><g:message code="glAccountOrganization.glAccount.label" default="GL Account" /></label>
                   </td>
-                  <td valign="top" class="value ${hasErrors(bean: glAccountOrganizationInstance, field: 'glAccount', 'errors')}">
+                  <td  class="value ${hasErrors(bean: glAccountOrganizationInstance, field: 'glAccount', 'errors')}">
                     <g:select name="glAccount.id" from="${com.gl.GlAccountOrganization.list()}" optionKey="id" value="${glAccountOrganizationInstance?.glAccount?.id}" onchange="(document.getElementById('gl_account').value = this.value)" />
                   </td>
                 </tr>

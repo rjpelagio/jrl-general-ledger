@@ -8,7 +8,6 @@ class ApprovalSeq {
     static belongsTo = [approval : Approval]
     
     static constraints = {
-    	remarks sqlType : "varchar", length : 255
-        position (inList : ['Clerk', 'Supervisor', 'Manager'])
+        position (blank: false, nullable: false)
     }
 }

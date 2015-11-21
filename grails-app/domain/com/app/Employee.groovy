@@ -1,6 +1,7 @@
 package com.app
 
 class Employee {
+	static auditable = true
     String department
     String position
     String status

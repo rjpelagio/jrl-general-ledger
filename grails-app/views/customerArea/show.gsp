@@ -28,110 +28,110 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="party.name.label"  /></td>
+                            <td  class="sub"><g:message code="party.name.label"  /></td>
                             
-                            <td valign="top" class="value">${employeeData?.fullName}</td>
+                            <td  class="value">${employeeData?.fullName}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.addressLine1.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.addressLine1.label"/></td>
                             
-                            <td valign="top" class="value">${employeeData?.addressLine1}</td>
+                            <td  class="value">${employeeData?.addressLine1}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.firstName.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.firstName.label"  /></td>
                             
-                            <td valign="top" class="value">${employeeData?.firstName}</td>
+                            <td  class="value">${employeeData?.firstName}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.addressLine2.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.addressLine2.label"/></td>
                             
-                            <td valign="top" class="value">${employeeData?.addressLine2}</td>
+                            <td  class="value">${employeeData?.addressLine2}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.middleName.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.middleName.label"  /></td>
                             
-                            <td valign="top" class="value">${employeeData?.middleName}</td>
+                            <td  class="value">${employeeData?.middleName}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.city.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.city.label"/></td>
                             
-                            <td valign="top" class="value">${employeeData?.city}</td>
+                            <td  class="value">${employeeData?.city}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.lastName.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.lastName.label"  /></td>
                             
-                            <td valign="top" class="value">${employeeData?.lastName}</td>
+                            <td  class="value">${employeeData?.lastName}</td>
                             
-                            <td valign="top" class="sub"><g:message code="employeeData.province.label" /></td>
+                            <td  class="sub"><g:message code="employeeData.province.label" /></td>
                             
-                            <td valign="top" class="value">${employeeData?.province}, ${employeeData?.postalCode}</td>
+                            <td  class="value">${employeeData?.province}, ${employeeData?.postalCode}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.birthdate.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.birthdate.label"  /></td>
                             
-                            <td valign="top" class="value">
+                            <td  class="value">
                                 <g:formatDate format="yyyy-MM-dd" date="${employeeData?.birthdate}" />
                             </td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.contactNumber.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.contactNumber.label"/></td>
                             
-                            <td valign="top" class="value">(${employeeData?.areaCode}) ${employeeData?.contactNumber}</td>
-                            
-                        </tr>
-
-                        <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.gender.label"  /></td>
-                            
-                            <td valign="top" class="value">${employeeData?.gender}</td>
-
-                            <td class="sub" valign="top"><g:message code="employeeData.mobileNumber.label"/></td>
-                            
-                            <td valign="top" class="value">(+63)${employeeData?.mobileNumber}</td>
+                            <td  class="value">(${employeeData?.areaCode}) ${employeeData?.contactNumber}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.maritalStatus.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.gender.label"  /></td>
                             
-                            <td valign="top" class="value">${employeeData?.maritalStatus}</td>
+                            <td  class="value">${employeeData?.gender}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.emailAddress.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.mobileNumber.label"/></td>
                             
-                            <td valign="top" class="value">${employeeData?.emailAddress}</td>
+                            <td  class="value">(+63)${employeeData?.mobileNumber}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.tin.label"  /></td>
+                            <td  class="sub"><g:message code="employeeData.maritalStatus.label"  /></td>
                             
-                            <td valign="top" class="value">${employeeData?.tin}</td>
+                            <td  class="value">${employeeData?.maritalStatus}</td>
+
+                            <td class="sub" ><g:message code="employeeData.emailAddress.label"/></td>
+                            
+                            <td  class="value">${employeeData?.emailAddress}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.role.label" /></td>
+                            <td  class="sub"><g:message code="employeeData.tin.label"  /></td>
                             
-                            <td valign="top" class="value">${employeeData?.role}</td>
-
-                            <td class="sub" valign="top"><g:message code="employeeData.status.label"/></td>
-                            
-                            <td valign="top" class="value">${employeeData?.status}</td>
+                            <td  class="value">${employeeData?.tin}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="sub"><g:message code="employeeData.department.label" /></td>
+                            <td  class="sub"><g:message code="employeeData.role.label" /></td>
                             
-                            <td valign="top" class="value">${employeeData?.department}</td>
+                            <td  class="value">${employeeData?.role}</td>
 
-                            <td class="sub" valign="top"><g:message code="employeeData.position.label"/></td>
+                            <td class="sub" ><g:message code="employeeData.status.label"/></td>
                             
-                            <td valign="top" class="value">${employeeData?.position}</td>
+                            <td  class="value">${employeeData?.status}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td  class="sub"><g:message code="employeeData.department.label" /></td>
+                            
+                            <td  class="value">${employeeData?.department}</td>
+
+                            <td class="sub" ><g:message code="employeeData.position.label"/></td>
+                            
+                            <td  class="value">${employeeData?.position}</td>
                             
                         </tr>
                 

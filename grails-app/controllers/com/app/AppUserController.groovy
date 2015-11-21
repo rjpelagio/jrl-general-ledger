@@ -38,6 +38,7 @@ class AppUserController {
             redirect(uri:"/")
             return false
         }
+
         else{
             String encryptedPassword = params.password;
             encryptedPassword = encryptedPassword.encodeAsSHA();

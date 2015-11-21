@@ -1,6 +1,7 @@
 package com.gl
 
 class AcctgTransType {
+	static auditable = true
     String acctgTransCode
     String acctgTransName
     

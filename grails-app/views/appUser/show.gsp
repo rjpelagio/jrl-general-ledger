@@ -21,9 +21,9 @@
             <div class="dialog">
                 <table>
                     <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.party.label" default="Party" /></td>
+                            <td  class="name"><g:message code="appUser.party.label" default="Party" /></td>
                             
-                            <td valign="top">${appUserInstance?.party?.encodeAsHTML()}</td>
+                            <td >${appUserInstance?.party?.encodeAsHTML()}</td>
                             
                         </tr>
                     <tbody>
@@ -31,51 +31,51 @@
                         
                         
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.username.label" default="Username" /></td>
+                            <td  class="name"><g:message code="appUser.username.label" default="Username" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: appUserInstance, field: "username")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.firstName.label" default="First Name" /></td>
-                            
-                            <td valign="top" class="value">${appUserInstance?.party?.firstName}</td>
+                            <td  class="value">${fieldValue(bean: appUserInstance, field: "username")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.lastName.label" default="Last Name" /></td>
+                            <td  class="name"><g:message code="appUser.firstName.label" default="First Name" /></td>
                             
-                            <td valign="top" class="value">${appUserInstance?.party?.lastName}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.role.label" default="Role" /></td>
-                            
-                            <td valign="top" class="value">${appUserInstance?.role?.encodeAsHTML()}</td>
+                            <td  class="value">${appUserInstance?.party?.firstName}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.lastLogin.label" default="Last Login" /></td>
+                            <td  class="name"><g:message code="appUser.lastName.label" default="Last Name" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${appUserInstance?.lastLogin}" /></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.dateCreated.label" default="Date Created" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${appUserInstance?.dateCreated}" /></td>
+                            <td  class="value">${appUserInstance?.party?.lastName}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="appUser.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="name"><g:message code="appUser.role.label" default="Role" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${appUserInstance?.lastUpdated}" /></td>
+                            <td  class="value">${appUserInstance?.role?.encodeAsHTML()}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="appUser.lastLogin.label" default="Last Login" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${appUserInstance?.lastLogin}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="appUser.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${appUserInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="appUser.lastUpdated.label" default="Last Updated" /></td>
+                            
+                            <td  class="value"><g:formatDate date="${appUserInstance?.lastUpdated}" /></td>
                             
                         </tr>
                     

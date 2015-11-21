@@ -29,19 +29,19 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="periodTypeId"><g:message code="periodType.periodTypeId.label" default="Period Type Id" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: periodTypeInstance, field: 'periodTypeId', 'errors')}">
+                                <td  class="value ${hasErrors(bean: periodTypeInstance, field: 'periodTypeId', 'errors')}">
                                     <g:textField name="periodTypeId" value="${periodTypeInstance?.periodTypeId}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="periodName"><g:message code="periodType.periodName.label" default="Period Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: periodTypeInstance, field: 'periodName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: periodTypeInstance, field: 'periodName', 'errors')}">
                                     <g:textField name="periodName" value="${periodTypeInstance?.periodName}" />
                                 </td>
                             </tr>

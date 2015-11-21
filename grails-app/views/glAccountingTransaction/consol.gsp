@@ -32,10 +32,10 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                              <td valign="top" class="name">
+                              <td  class="name">
                                 <label for="acctgPeriod"><g:message code="acctgPeriod.acctgPeriod.label" default="Acctg Period"/></label>
                               </td>
-                              <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriod', 'errors')}">
+                              <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriod', 'errors')}">
                                 <g:select id="acctgPeriod" name="acctgPeriod" from="${dropDown}" optionKey="id"
                                  value="${acctgPeriodInstance?.acctgPeriod?.id ?: currentPeriodInstance}" />
                               </td>

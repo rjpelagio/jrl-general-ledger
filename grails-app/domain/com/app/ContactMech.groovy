@@ -2,6 +2,7 @@ package com.app
 
 class ContactMech {
 
+	static auditable = true
     String contactMechType;
 
     static mapping = {

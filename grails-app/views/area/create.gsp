@@ -29,19 +29,19 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="code"><g:message code="area.code.label" default="Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'code', 'errors')}">
+                                <td  class="value ${hasErrors(bean: areaInstance, field: 'code', 'errors')}">
                                     <g:textField name="code" value="${areaInstance?.code}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="description"><g:message code="area.description.label" default="Description" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: areaInstance, field: 'description', 'errors')}">
+                                <td  class="value ${hasErrors(bean: areaInstance, field: 'description', 'errors')}">
                                     <g:textField name="description" value="${areaInstance?.description}" />
                                 </td>
                             </tr>

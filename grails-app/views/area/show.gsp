@@ -23,23 +23,23 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="area.id.label" default="Id" /></td>
+                            <td  class="name"><g:message code="area.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: areaInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="area.code.label" default="Code" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: areaInstance, field: "code")}</td>
+                            <td  class="value">${fieldValue(bean: areaInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="area.description.label" default="Description" /></td>
+                            <td  class="name"><g:message code="area.code.label" default="Code" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: areaInstance, field: "description")}</td>
+                            <td  class="value">${fieldValue(bean: areaInstance, field: "code")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="area.description.label" default="Description" /></td>
+                            
+                            <td  class="value">${fieldValue(bean: areaInstance, field: "description")}</td>
                             
                         </tr>
                     

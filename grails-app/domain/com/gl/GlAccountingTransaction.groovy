@@ -4,6 +4,7 @@ import com.app.*
 
 class GlAccountingTransaction {
     
+    static auditable = true
     String description
     Date transactionDate
     Date postedDate
@@ -18,16 +19,18 @@ class GlAccountingTransaction {
     Date dateCreated
     Date lastUpdated
     String status
+    String approvalStatus = 'Pending Approval'
     String printed = 'No'
 
     static belongsTo = [organization : AppOrganization,
                         party :  Party,
+                        preparedBy : Party,
                         acctgTransType : AcctgTransType]
     
     static hasMany = [item : GlAccountingTransactionDetails]
     
     static constraints = {
-        description (blank : false)
+        description (blank : false, maxSize : 500)
         organization ()
         transactionDate (blank : false)
         postedDate (nullable : true, blank : true)
@@ -39,7 +42,8 @@ class GlAccountingTransaction {
         terms (blank : true, nullable : true)
         cdoKg (blank : true, nullable : true)
         refDoc (blank : true, nullable : true)
-        status (blank: true, inList: ['Active', 'For Approval', 'Cancelled', 'Approved'])
+        status (blank: true, inList: ['Active', 'Submitted','Closed', 'Cancelled'])
+        approvalStatus (blank: true, inList : ['Pending Approval', 'Approved', 'Denied'])
         printed (inList: ['Yes', 'No'])
     }
 }

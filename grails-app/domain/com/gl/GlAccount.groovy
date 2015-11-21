@@ -2,6 +2,7 @@ package com.gl
 
 class GlAccount implements Serializable{
     
+    static auditable = true
     String glAccount
     String description
     GlAccount parentGlAccount
@@ -26,6 +27,6 @@ class GlAccount implements Serializable{
     
     
     String toString(){
-        return "${description} -- ${glAccount}"
+        return "${glAccount} : ${description}"
     }
 }

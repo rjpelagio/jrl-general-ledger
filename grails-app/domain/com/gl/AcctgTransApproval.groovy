@@ -2,6 +2,7 @@ package com.gl
 import com.app.*
 
 class AcctgTransApproval {
+	static auditable = true
     String remarks
     
     static belongsTo = [user : AppUser,

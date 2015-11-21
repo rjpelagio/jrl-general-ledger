@@ -54,28 +54,28 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="description"><g:message code="approval.description.label" default="Description" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'description', 'errors')}">
+                                <td  class="value ${hasErrors(bean: approvalInstance, field: 'description', 'errors')}">
                                     <g:textField name="description" value="${approvalInstance?.description}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="department"><g:message code="approval.department.label" default="Department" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'department', 'errors')}">
+                                <td  class="value ${hasErrors(bean: approvalInstance, field: 'department', 'errors')}">
                                     <g:select name="department" from="${approvalInstance.constraints.department.inList}" value="${approvalInstance?.department}" valueMessagePrefix="approval.department"  />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="approvalFeature"><g:message code="approval.approvalFeature.label" default="Approval Feature" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: approvalInstance, field: 'approvalFeature', 'errors')}">
+                                <td  class="value ${hasErrors(bean: approvalInstance, field: 'approvalFeature', 'errors')}">
                                     <g:select name="approvalFeature" from="${approvalInstance.constraints.approvalFeature.inList}" value="${approvalInstance?.approvalFeature}" valueMessagePrefix="approval.approvalFeature"  />
                                 </td>
                             </tr>

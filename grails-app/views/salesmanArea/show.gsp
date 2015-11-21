@@ -23,16 +23,16 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="salesmanArea.id.label" default="Id" /></td>
+                            <td  class="name"><g:message code="salesmanArea.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: salesmanAreaInstance, field: "id")}</td>
+                            <td  class="value">${fieldValue(bean: salesmanAreaInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="salesmanArea.dateCreated.label" default="Date Created" /></td>
+                            <td  class="name"><g:message code="salesmanArea.dateCreated.label" default="Date Created" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${salesmanAreaInstance?.dateCreated}" /></td>
+                            <td  class="value"><g:formatDate date="${salesmanAreaInstance?.dateCreated}" /></td>
                             
                         </tr>
                     

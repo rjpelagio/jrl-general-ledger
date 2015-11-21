@@ -46,26 +46,26 @@
             <table>
               <tbody>
                 <tr class="prop">
-                  <td valign="top" class="name">
+                  <td  class="name">
                     <label for="acctgPeriod"><g:message code="acctgPeriod.acctgPeriod.label" default="Accounting Period"/></label>
                   </td>
-                  <td valign="top" class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriod', 'errors')}">
+                  <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriod', 'errors')}">
                     <g:select id="acctgPeriod" name="acctgPeriod" from="${com.gl.AcctgPeriod.list()}" optionKey="id" value="${acctgPeriodInstance?.acctgPeriod?.acctgPeriodNum}" onchange="(document.getElementById('period').value = this.value)" />
                   </td>
                 </tr>
                 <tr class="prop">
-                    <td valign="top" class="name">
+                    <td  class="name">
                         <label for="transFromDate"><g:message code="period.fromDate.label" default="From Date" /></label>
                     </td>
-                    <td valign="top" class="value">
+                    <td  class="value">
                         <calendar:datePicker name="transFromDate" precision="day" value="" onChange="(document.getElementById('trans_from_date').value = dateFormat(this.value, 'yyyy-mm-dd')); (document.getElementById('bal_thru_date').value = dateFormat(this.value, 'yyyy-mm-dd'))"/>
                     </td>
                 </tr>
                 <tr class="prop">
-                    <td valign="top" class="name">
+                    <td  class="name">
                         <label for="transThruDate"><g:message code="period.thruDate.label" default="Thru Date" /></label>
                     </td>
-                    <td valign="top" class="value">
+                    <td  class="value">
                         <calendar:datePicker name="transThruDate" precision="day" onChange="(document.getElementById('trans_thru_date').value = dateFormat(this.value, 'yyyy-mm-dd'));" />
                     </td>
                 </tr>

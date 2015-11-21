@@ -2,6 +2,7 @@ package com.gl
 
 class GlAccountType {
     
+    static auditable = true
     String glAccountType
     String description
     String glAccountClass = 'Asset'

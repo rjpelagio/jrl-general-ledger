@@ -1,6 +1,7 @@
 package com.app
 
 class Person {
+    static auditable = true
     String lastName
     String firstName
     String middleName

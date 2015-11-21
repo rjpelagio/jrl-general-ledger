@@ -29,28 +29,28 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="roleCode"><g:message code="appRole.roleCode.label" default="Role Code" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appRoleInstance, field: 'roleCode', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appRoleInstance, field: 'roleCode', 'errors')}">
                                     <g:textField name="roleCode" value="${appRoleInstance?.roleCode}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="roleName"><g:message code="appRole.roleName.label" default="Role Name" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appRoleInstance, field: 'roleName', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appRoleInstance, field: 'roleName', 'errors')}">
                                     <g:textField name="roleName" value="${appRoleInstance?.roleName}" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="parent"><g:message code="appRole.parent.label" default="Parent" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: appRoleInstance, field: 'parent', 'errors')}">
+                                <td  class="value ${hasErrors(bean: appRoleInstance, field: 'parent', 'errors')}">
                                     <g:select name="parent.id" from="${com.app.AppRole.list()}" optionKey="id" value="${appRoleInstance?.parent?.id}" noSelection="['null': '']" />
                                 </td>
                             </tr>

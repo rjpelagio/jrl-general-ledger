@@ -23,37 +23,37 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="approval.id.label" default="Id" /></td>
+                            <td  class="name"><g:message code="approval.id.label" default="Id" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: approvalInstance, field: "id")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="approval.description.label" default="Description" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: approvalInstance, field: "description")}</td>
+                            <td  class="value">${fieldValue(bean: approvalInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="approval.department.label" default="Department" /></td>
+                            <td  class="name"><g:message code="approval.description.label" default="Description" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: approvalInstance, field: "department")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="approval.approvalFeature.label" default="Approval Feature" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: approvalInstance, field: "approvalFeature")}</td>
+                            <td  class="value">${fieldValue(bean: approvalInstance, field: "description")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="approval.active.label" default="Active" /></td>
+                            <td  class="name"><g:message code="approval.department.label" default="Department" /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: approvalInstance, field: "active")}</td>
+                            <td  class="value">${fieldValue(bean: approvalInstance, field: "department")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="approval.approvalFeature.label" default="Approval Feature" /></td>
+                            
+                            <td  class="value">${fieldValue(bean: approvalInstance, field: "approvalFeature")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="name"><g:message code="approval.active.label" default="Active" /></td>
+                            
+                            <td  class="value">${fieldValue(bean: approvalInstance, field: "active")}</td>
                             
                         </tr>
                     

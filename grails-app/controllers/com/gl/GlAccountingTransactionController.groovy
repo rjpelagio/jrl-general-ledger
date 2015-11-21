@@ -12,6 +12,7 @@ class GlAccountingTransactionController {
     
     def glSearchService;
     def glAcctgTransactionService;
+    def approvalService;
 
     def dataSource;
 
@@ -20,6 +21,7 @@ class GlAccountingTransactionController {
             redirect(uri:"/")
             return false
         }
+
     }
 
     def index = {
@@ -48,50 +50,108 @@ class GlAccountingTransactionController {
             toIndex=result.size()
         }
 
-        [glAccountingTransactionInstanceList: result.subList(offset, toIndex), glAccountingTransactionInstanceTotal: result.size(), glAccountingTransactionInstance: glAccountingTransactionInstance, offset : toIndex]
+        def disableCreate = 'no';
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
+        if (approvalStatus == false) { 
+            flash.errors = "${message(code : 'approval.notFound')}"
+            disableCreate = 'yes';
+        }
+
+        [glAccountingTransactionInstanceList: result.subList(offset, toIndex), glAccountingTransactionInstanceTotal: result.size(), glAccountingTransactionInstance: glAccountingTransactionInstance, offset : toIndex, disableCreate : disableCreate]
     }
 
     def create = {
+
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
+        if (approvalStatus == false) {
+            flash.errors = "${message(code : 'approval.notFound')}"
+            redirect(action:"list")
+        }
+
         def glAccountingTransactionInstance = new GlAccountingTransaction()
         glAccountingTransactionInstance.properties = params
         def glAccounts = [:];
         def debit = 0.00;
         def credit = 0.00;
-        def disableFields = false;
         
-        def approvalStatus = glAcctgTransactionService.checkApproval('Voucher', session.employee.department)
-        println "ApprovalStatus " + approvalStatus
-        if (approvalStatus == false) { 
-            flash.errors = "${message(code : 'approval.notFound')}"
-            disableFields = true;
-        }
-
-
         return [glAccountingTransactionInstance: glAccountingTransactionInstance, 
             glAccounts : glAccounts,
             debit : debit,
             credit : credit,
-            disableFields : disableFields]
+            payeeText : '',
+            tinText : 'N/A']
     }
 
     def submit = {
-            glAcctgTransactionService.submit(params.id)
-            flash.message = "${message(code: 'glAccountingTransaction.submitted', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
-            redirect(action: "show", id: params.id)
+        if (params.formAction == 'create') {
+            def trans = new GlAccountingTransaction(params)
+            trans.status = "Submitted"
+            processSaveSubmit(trans, params)
+        } else if (params.formAction == 'edit') {
+            def trans = GlAccountingTransaction.get(params.transId)
+            trans.status = "Submitted"
+            processUpdateSubmit(trans, params)
+        }
     }
     
     def save = {
-        def glAccountingTransactionInstance = new GlAccountingTransaction(params)
-        def newParty = Party.get(params.party)
-        glAccountingTransactionInstance.organization = session.organization
-        glAccountingTransactionInstance.entryDate = new Date()
-        glAccountingTransactionInstance.party = Party.get(params.partyId)
-        if(params.create=="Submit"){
-            glAccountingTransactionInstance.status = "For Approval"
-        }else{
-            glAccountingTransactionInstance.status = "Active"
+        def trans = new GlAccountingTransaction(params)
+        trans.status = "Active"
+        processSaveSubmit(trans, params)
+    }
+
+    def show = {
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
+
+        if (approvalStatus == false) {
+            flash.errors = "${message(code : 'approval.notFound')}"
+            redirect(action:"list")
         }
-        //Parameters
+        
+        def trans = GlAccountingTransaction.get(params.id)
+        
+        if (!trans) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
+            redirect(action: "list")       
+        } else {
+            
+            def transItems = GlAccountingTransactionDetails.findAllByGlAccountingTransaction(trans);
+            def approvalItems = VoucherApproval.findAllByTransaction(trans, [sort: "sequence", order: "desc"])
+            def showButtons =  true
+
+            if (trans.status == 'Cancelled' || trans.status == 'Closed') {
+                showButtons = false
+            } else if (trans.status == 'Submitted') {
+                def approvalSequence = VoucherApproval.findByTransactionAndPosition(trans, session.employee.position)
+                if (approvalSequence) {
+                    if(approvalSequence.status == 'Submitted') {
+                        showButtons = false
+                    }
+                }
+            }
+
+            [glAccountingTransactionInstance: trans, transItems : transItems, approvalItems : approvalItems, showButtons : showButtons]
+        }
+    }
+
+    def update = {
+        def trans = GlAccountingTransaction.get(params.transId)
+        processUpdateSubmit(trans, params)
+    }
+
+     def processSaveSubmit (GlAccountingTransaction trans, def params) {
+
+        trans.organization = session.organization
+        trans.entryDate = trans.transactionDate
+        trans.party = Party.get(params.partyId)
+        trans.approvalStatus = "Pending Approval"
+        trans.acctgTransType = AcctgTransType.get(params.transType)
+        trans.preparedBy = session.user.party 
+
+        if (!trans.entryDate) {
+             trans.entryDate = new Date()
+        }
+
         def glAccounts = params.glAccounts;
         def glAccountIds = params.glAccountIds;
         def debits = params.debits;
@@ -99,215 +159,230 @@ class GlAccountingTransactionController {
         def debit = params.debit;
         def credit = params.credit;
 
-        def approvalStatus = glAcctgTransactionService.checkApproval('Voucher', session.employee.department)
+         if (trans.validate()) {
 
-        if(Double.parseDouble(debit)<=0 || Double.parseDouble(credit)<=0 || Double.parseDouble(credit)!=Double.parseDouble(debit) || approvalStatus==0) {
-            //GL Account List
-            def glAccountList = [:];
-            glAccountList = GlAccountOrganization.executeQuery("\
-                FROM GlAccountOrganization org\
-                WHERE org.organization LIKE ?\
-                ", [session.organization]);
-            if(Double.parseDouble(debit)<=0 || Double.parseDouble(credit)<=0 || Double.parseDouble(credit)!=Double.parseDouble(debit)){
-                flash.message = "Debit and Credit values are not equal.";
-            }
-            if(approvalStatus==0){
-                flash.message = "${message(code: 'glAccountingTransaction.noApproval', args: ['Voucher', session.employee.department])}"
-            }
+            def msgs = glAcctgTransactionService.validateTransItems(glAccounts, glAccountIds)
+            def approvalMsg = ''
             
-            render(view: "create", model: [glAccountingTransactionInstance: glAccountingTransactionInstance, 
-                glAccountList : glAccountList, 
-                glAccounts : glAccounts,
-                debits : debits,
-                credits : credits,
-                debit : debit,
-                credit : credit]
-            )
-        } else {
-            glAccountingTransactionInstance.entryDate = glAccountingTransactionInstance.transactionDate;
-            //glAccountingTransactionInstance.status = "Active"
-            glAccountingTransactionInstance.save()
-            if (glAccountingTransactionInstance.hasErrors()) {
-                //GL Account List
-                def glAccountList = [:];
-                glAccountList = GlAccountOrganization.executeQuery("\
-                    FROM GlAccountOrganization org\
-                    WHERE org.organization LIKE ?\
-                    ", [session.organization]);
-                
-                render(view: "create", model: [glAccountingTransactionInstance: glAccountingTransactionInstance, 
-                glAccountList : glAccountList, 
-                glAccounts : glAccounts,
-                debits : debits,
-                credits : credits,
-                debit : debit,
-                credit : credit])
-            } else {
-            
-                //Data Entry
-                //glAccountingTransactionInstance.save()
+
+            if (msgs.size() == 0) {
+
+                trans.save(flush:true)
                 glAcctgTransactionService.insertAcctgTrans(
-                    glAccountingTransactionInstance,
-                    glAccounts,
+                    trans,
+                    glAccountIds,
                     debits,
                     credits
                 )
-                glAcctgTransactionService.insertAcctgTransApproval(glAccountingTransactionInstance, session.employee.department, session.user)
-                if(params.create=="Submit"){
-                    flash.message = "${message(code: 'glAccountingTransaction.submitted', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
-                }else{
-                    flash.message = "${message(code: 'default.created.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), glAccountingTransactionInstance.id])}"
+
+                if (trans.status == 'Submitted') {
+                    approvalMsg = glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
                 }
-                redirect(action: "show", id: glAccountingTransactionInstance.id)
-            }
             
-        }
-    }
 
-    def show = {
-        def glAccountingTransactionInstance = GlAccountingTransaction.get(params.id)
-        def db = new Sql(dataSource)
-        if (!glAccountingTransactionInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            //retrieve acctg trans items
-            def transItems = GlAccountingTransactionDetails.findAllByGlAccountingTransaction(glAccountingTransactionInstance);
-            def transApproval = AcctgTransApproval.findAllByAcctgTrans(glAccountingTransactionInstance);
-            def approvalSeq = AcctgTransApproval.findAllByAcctgTrans(glAccountingTransactionInstance);
-            def approverChecker = db.firstRow("SELECT approval_seq.role_id as role\
-                FROM gl_accounting_transaction as trans\
-                LEFT JOIN acctg_trans_approval as approval\
-                ON trans.id = approval.acctg_trans_id\
-                INNER JOIN approval_seq\
-                ON approval_seq.id=approval.approval_seq_id\
-                WHERE acctg_trans_id=? and user_id IS NULL ORDER BY sequence", [params.id])
-            def appRole = null
-            if(approverChecker){
-                appRole = AppRole.get(approverChecker.role)
-            }
-            [glAccountingTransactionInstance: glAccountingTransactionInstance, transItems : transItems, transApproval : transApproval, approverChecker : approverChecker]
-        }
-    }
+            flash.message = "${message(code: 'default.created.message', args: [message(code: 'trans.label', default: 'GlAccountingTransaction'), trans.id])}"
+            redirect(action: "show", id: trans.id)
 
-    def edit = {
-        def glAccountingTransactionInstance = GlAccountingTransaction.get(params.id)
-        if (!glAccountingTransactionInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
-            redirect(action: "list")
-        }
-        else {
-            def transItems = GlAccountingTransactionDetails.findAllByGlAccountingTransaction(glAccountingTransactionInstance);
-            def glAccounts = [];
-            def debits = [];
-            def credits = [];
-            def credit = 0;
-            def debit = 0;
-            for(int i = 0; i < transItems.size(); i++){
-                def acctOrg = GlAccountOrganization.findByGlAccountAndOrganization(transItems[i].glAccount, session.organization);
-                glAccounts.add(acctOrg);
-                if (transItems[i].debitCreditFlag.equalsIgnoreCase("Debit")){
-                    debits.add(transItems[i].amount);
-                    debit = debit + transItems[i].amount
-                    credits.add(0)
-                } else if (transItems[i].debitCreditFlag.equalsIgnoreCase("Credit")){
-                    debits.add(0);
-                    credits.add(transItems[i].amount)
-                    credit = credit + transItems[i].amount
-                }
-            }
+            } else {
 
-            def glAccountList = [:];
-            def glAccountItems = [];
-            def amounts = [];
-            def debitCreditFlags = [];
-            glAccountList = GlAccountOrganization.executeQuery("\
-                FROM GlAccountOrganization org\
-                WHERE org.organization LIKE ?\
-                ", [session.organization]);
-            [glAccountingTransactionInstance: glAccountingTransactionInstance, 
-                transItems : transItems,
-                glAccountList : glAccountList,
+                msgs.add(approvalmsg)
+                flash.batchMsgs = msgs
+
+                render(view: "create", model: [glAccountingTransactionInstance: trans, 
                 glAccounts : glAccounts,
-                glAccountItems : glAccountItems,
+                glAccountIds : glAccountIds,
                 debits : debits,
                 credits : credits,
                 debit : debit,
-                credit : credit
-                ]
+                credit : credit,
+                payeeText : params.payeeText,
+                tinText : params.tinText,
+                rowNumber : params.rowNumber,
+                rowIndex : params.rowIndex])
+            }
+
+        } else {
+
+            render(view: "create", model: [glAccountingTransactionInstance: trans, 
+                glAccounts : glAccounts,
+                glAccountIds : glAccountIds,
+                debits : debits,
+                credits : credits,
+                debit : debit,
+                credit : credit,
+                payeeText : params.payeeText,
+                tinText : params.tinText,
+                rowNumber : params.rowNumber,
+                rowIndex : params.rowIndex])
+
         }
+
     }
-    
-    def update = {
-        def glAccountingTransactionInstance = GlAccountingTransaction.get(params.id)
-        def glAccountItems = params.glAccounts;
+
+    def processUpdateSubmit (GlAccountingTransaction trans, def params) {
+
+        trans.properties = params
+        trans.entryDate = trans.transactionDate
+        trans.party = Party.get(params.partyId)
+        trans.acctgTransType = AcctgTransType.get(params.transType)
+        
+        if (!trans.entryDate) {
+             trans.entryDate = new Date()
+        }
+
+        def glAccounts = params.glAccounts;
+        def glAccountIds = params.glAccountIds;
         def debits = params.debits;
         def credits = params.credits;
         def debit = params.debit;
         def credit = params.credit;
-        def glAccountList = [:];
-        def transItems = [:];
-        glAccountList = GlAccountOrganization.executeQuery("\
-            FROM GlAccountOrganization org\
-            WHERE org.organization LIKE ?\
-            ", [session.organization]); 
-        
-        if (glAccountingTransactionInstance) {
-            if (params.debit != params.credit) {
-                
-                flash.message = "Debit and Credit values are not equal.";
-                render(view: "edit", model: [glAccountingTransactionInstance: glAccountingTransactionInstance, 
-                    glAccountList : glAccountList, 
-                    glAccountItems : glAccountItems,
-                    debits : debits,
-                    credits : credits,
-                    debit : params.debit,
-                    credit : params.credit,
-                    transItems : transItems])
-            
-            } else {
-                if (params.version) {
-                    def version = params.version.toLong()
-                    if (glAccountingTransactionInstance.version > version) {
-                        glAccountingTransactionInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction')] as Object[], "Another user has updated this GlAccountingTransaction while you were editing")
-                        render(view: "edit", model: [glAccountingTransactionInstance: glAccountingTransactionInstance, 
-                            glAccountList : glAccountList, 
-                            glAccountItems : glAccountItems,
-                            credits : credits,
-                            debits : debits,
-                            debit : params.debit,
-                            credit : params.credit,
-                            transItems : transItems])
-                        return
-                    }
-                }
-                //Do the updating
-                if(params.update=="Submit"){
-                    glAccountingTransactionInstance.status = "For Approval"
-                }else{
-                    glAccountingTransactionInstance.status = "Active"
-                }
-                glAccountingTransactionInstance.properties = params
-                glAcctgTransactionService.updateAcctgTrans(
-                    glAccountingTransactionInstance,
-                    glAccountItems,
+
+         if (trans.validate()) {
+
+            def msgs = glAcctgTransactionService.validateTransItems(glAccounts, glAccountIds)
+
+            if (msgs.size() == 0) {
+
+                trans.save(flush:true)
+                //remove old items
+                GlAccountingTransactionDetails.executeUpdate("delete \
+                    GlAccountingTransactionDetails items \
+                    WHERE items.glAccountingTransaction = ?", [trans]);
+                glAcctgTransactionService.insertAcctgTrans(
+                    trans,
+                    glAccountIds,
                     debits,
                     credits
                 )
-                if(params.update=="Submit"){
-                    flash.message = "${message(code: 'glAccountingTransaction.submitted', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
-                }else{
-                    flash.message = "${message(code: 'default.updated.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), glAccountingTransactionInstance.id])}"
+
+                if (trans.status == 'Submitted') {
+                    glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
                 }
-                redirect(action: "show", id: glAccountingTransactionInstance.id)
+
+            flash.message = "${message(code: 'glAccountingTransaction.updated', args: [message(code: 'trans.label', default: 'GlAccountingTransaction'), trans.id])}"
+            redirect(action: "show", id: trans.id)
+
+            } else {
+
+
+                flash.batchMsgs = msgs
+
+                render(view: "edit", model: [glAccountingTransactionInstance: trans, 
+                glAccounts : glAccounts,
+                glAccountIds : glAccountIds,
+                debits : debits,
+                credits : credits,
+                debit : debit,
+                credit : credit,
+                payeeText : params.payeeText,
+                tinText : params.tinText,
+                rowNumber : params.rowNumber,
+                rowIndex : params.rowIndex])
             }
+
+        } else {
+
+            render(view: "edit", model: [glAccountingTransactionInstance: trans, 
+                glAccounts : glAccounts,
+                glAccountIds : glAccountIds,
+                debits : debits,
+                credits : credits,
+                debit : debit,
+                credit : credit,
+                payeeText : params.payeeText,
+                tinText : params.tinText,
+                rowNumber : params.rowNumber,
+                rowIndex : params.rowIndex])
+
+        }
+
+    }
+
+    def cancel = {
+        def trans = GlAccountingTransaction.get(params.transId)
+
+        if (trans) {
+
+            trans.status = 'Cancelled'
+            trans.approvalStatus = 'Denied'
+            trans.save(flush:true);
+
+            params.remarks = (params.remarks!=null && params.remarks.length()>0) ? params.remarks : 'Cancelled by ' + session.party.name
+            def result = VoucherApproval.findAllByTransaction(trans)
+
+            if (result) {
+                for (int i = 0; i < result.size(); i++) {
+                    if (result.get(i).position == session.employee.position) {
+                        result.get(i).remarks = params.remarks
+                        result.get(i).updatedBy = session.party
+                        result.get(i).lastUpdated = new Date()
+                        
+                    }
+                    result.get(i).status = 'Cancelled'
+                    result.get(i).save(flush:true)
+                }
+            }
+
+            flash.message = "${message(code: 'default.cancelled.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), trans.id])}"
+            redirect(action: "show", id: trans.id)
         } else {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
             redirect(action: "list")
         }
+
     }
 
+    def edit = {
+        
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
+        if (approvalStatus == false) {
+            flash.errors = "${message(code : 'approval.notFound')}"
+            redirect(action:"list")
+        }
+
+        def trans = GlAccountingTransaction.get(params.transId)
+        def debits = [:]
+        def credits = [:]
+        def glAccountIds = [:]
+        def glAccounts = [:]
+
+        if (!trans) {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
+            redirect(action: "list")
+        }
+
+        def items = GlAccountingTransactionDetails.findAllByGlAccountingTransaction(trans)
+
+        //prep items for screen entries
+        for (int i = 0; i < items.size() ; i++) { 
+            glAccounts[i] = GlAccount.find(items.get(i).glAccount)
+            glAccountIds[i] = glAccounts[i].id
+            if (items.get(i).debitCreditFlag == 'Debit') {
+                debits[i] = items.get(i).amount
+                credits[i] = 0
+            } else if (items.get(i).debitCreditFlag == 'Credit') {
+                debits[i] = 0
+                credits[i] = items.get(i).amount
+            }
+        }
+
+        //prepare approval items
+
+        def approvalItems = VoucherApproval.findAllByTransaction(trans, [sort: "sequence", order: "desc"])
+
+         render(view: "edit", model: [glAccountingTransactionInstance: trans, 
+            glAccounts : glAccounts, 
+            glAccountIds : glAccountIds,
+            rowNumber : glAccounts.size() - 1, 
+            rowIndex : glAccounts.size(),
+            debits : debits,
+            credits : credits,
+            payeeText : trans.party.name,
+            tinText : trans.party.tin,
+            approvalItems : approvalItems])
+
+    }
+    
     def delete = {
         def glAccountingTransactionInstance = GlAccountingTransaction.get(params.id)
         if (glAccountingTransactionInstance) {
@@ -364,12 +439,6 @@ class GlAccountingTransactionController {
             else {
                 render(view: "edit", model: [glAccountTypeInstance: glAccountTypeInstance])
             }
-    }
-
-    def cancel = {
-        glAcctgTransactionService.cancel(params.id)
-        flash.message = "${message(code: 'glAccountingTransaction.cancelled', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
-        redirect(action: "show", id: params.id)
     }
 
     def consol = {

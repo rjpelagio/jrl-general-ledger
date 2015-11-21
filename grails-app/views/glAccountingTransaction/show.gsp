@@ -20,87 +20,106 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
+            <div class="table-header">
+                    <g:message code="default.button.details.label" args="[entityName]" />
+                </div>
             <div class="dialog">
+
                 <table>
                     <tbody>
                         
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></td>
                             
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "voucherNo")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "voucherNo")}</td>
 
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.transactionDate.label" default="Transaction Date" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.transactionDate.label" default="Transaction Date" /></td>
 
-                            <td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.transactionDate}" /></td>
+                            <td  class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.transactionDate}" /></td>
                         </tr>
 
                         <tr class="prop">
                             
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.postedDate.label" default="Posted Date" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.postedDate.label" default="Posted Date" /></td>
 
-                            <td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.postedDate}" /></td>
+                            <td  class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.postedDate}" /></td>
 
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.entryDate.label" default="Entry Date" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.entryDate.label" default="Entry Date" /></td>
 
-                            <td valign="top" class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.entryDate}" /></td>
+                            <td  class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.entryDate}" /></td>
 
                         </tr>
                         
                         <tr class="prop">
                             
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.status.label" default="Status" /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "status")}</td>
-                            
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.voucherType.label" default="Voucher Type" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.voucherType.label" default="Voucher Type" /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "acctgTransType")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "acctgTransType")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.cdoKg.label" default="CDO Kg" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.cdoKg.label" default="CDO Kg" /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "cdoKg")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "cdoKg")}</td>
 
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.terms.label" default="Terms" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.terms.label" default="Terms" /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "terms")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "terms")}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.checkNo.label" default="Check No." /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.checkNo.label" default="Check No." /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "checkNo")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "checkNo")}</td>
 
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.ckSiDate.label" default="Check/SI Date" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.ckSiDate.label" default="Check/SI Date" /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "ckSiDate")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "ckSiDate")}</td>
 
                         </tr>
 
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.party.label" default="Payee" /></td>
+                            <td  class="name"><g:message code="glAccountingTransaction.party.label" default="Payee" /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "party")}</td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "party")}</td>
 
-                            <td valign="top" class="name"><g:message code="party.tin.label" default="TIN" /></td>
+                            <td  class="name"><g:message code="party.tin.label" default="TIN" /></td>
 
-                            <td valign="top" class="value">${glAccountingTransactionInstance?.party?.tin?:'N/A'}</td>
+                            <td  class="value">${glAccountingTransactionInstance?.party?.tin?:'N/A'}</td>
 
                         </tr>
                         
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.description.label" default="Description" /></td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "description")}</td>
+                            <td  class="name"><g:message code="glAccountingTransaction.preparedBy.label" default="Prepared By" /></td>
 
-                            <td valign="top" class="name"><g:message code="glAccountingTransaction.refDoc.label" default="Reference Doc" /></td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "preparedBy.name")}</td>
 
-                            <td valign="top" class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "refDoc")}</td>
+                          
+                            <td  class="name"><g:message code="glAccountingTransaction.refDoc.label" default="Reference Doc" /></td>
+
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "refDoc")}</td>
                         </tr>
-                    
+
+                        <tr class="prop">
+                            <td  class="name"><g:message code="glAccountingTransaction.status.label" default="Status"/></td>
+                            <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "status")}</td>
+                            <td class="name">Approval Status</td>
+                            <td class="value">
+                              ${fieldValue(bean: glAccountingTransactionInstance, field : "approvalStatus")}
+                            </td>
+
+                        </tr>
+
+                        <tr class="prop">
+                            <td  class="name"><g:message code="glAccountingTransaction.description.label" default="Description" /></td>
+
+                            <td  class="value" style="width:50%">${fieldValue(bean: glAccountingTransactionInstance, field: "description")}</td>
+
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -145,43 +164,48 @@
                       </tr>
                   </tbody>
               </table>
-              <table>
-                <tbody>
-                  <g:each status="j" in ="${transApproval}" var="app">
-                    <tr>
-                      <td valign="top" class="name">${app?.approvalSeq?.remarks}</td>
-                      <td valign="top" class="value">${app?.user?.party}</td>
-                    </tr>
-                  </g:each>
-                </tbody>
-              </table>
             </div>
-            <div class="buttons">
-                <g:form>
-                    <g:hiddenField name="id" value="${glAccountingTransactionInstance?.id}" />
-                      <g:if test="${glAccountingTransactionInstance.status=='Approved'}"></g:if>
-                      <g:elseif test="${glAccountingTransactionInstance.status=='Cancelled'}"></g:elseif>
-                      <g:elseif test="${glAccountingTransactionInstance.status=='For Approval'}"></g:elseif>
-                      <g:else>
-                        <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" /></span>
-                        <span class="button"><g:actionSubmit class="submit" action="submit" value="${message(code: 'default.button.submit.label', default: 'Submit')}" /></span>
-                      </g:else>
-                      <g:if test="${glAccountingTransactionInstance.status=='Approved'}"></g:if>
-                      <g:elseif test="${glAccountingTransactionInstance.status=='Cancelled'}"></g:elseif>
-                      <g:else>
-                        <span class="button"><g:actionSubmit class="cancel" action="cancel" value="${message(code: 'default.button.cancel.label', default: 'Cancel')}" /></span>
-                      </g:else>
-                      <g:if test="${glAccountingTransactionInstance.status=='Active'}"></g:if>
-                      <g:elseif test="${glAccountingTransactionInstance.status=='Cancelled'}"></g:elseif>
-                      <g:elseif test="${glAccountingTransactionInstance.status=='Approved'}"></g:elseif>
-                      <g:elseif test="${approverChecker.role==session.user.role.id}">
-                      <span class="button"><g:actionSubmit class="approve" action="approve" value="${message(code: 'default.button.approve.label', default: 'Approve')}" /></span>
-                      </g:elseif>
-                </g:form>
-            </div>
-        </div>
-        <div class="dialog">
           
+            <g:if test="${approvalItems}">
+              <br/>
+                <div class="list">
+                  <table border="1">
+                      <thead>
+                          <tr>
+                            <th>Approval Remarks</th>
+                            <th>Position</th>
+                            <th>Updated By</th>
+                            <th>Last Updated</th>
+                          </tr>
+                      </thead>
+                      <tbody id="dataTable"><tbody id="dataTable">
+                          <g:each status="i" in="${approvalItems}" var="appr">
+                              <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                                  <td>
+                                      <g:if test="${appr.remarks  == ''}">
+                                          Pending approval from ${appr.position}
+                                      </g:if>
+                                      <g:else>${appr.remarks}</g:else>
+                                  </td>
+                                  <td>${appr.position}</td>
+                                  <td>${appr.updatedBy?.name}</td>
+                                  <td>${appr.lastUpdated}</td>
+                                </tr>
+                          </g:each>
+                      </tbody>
+                  </table>
+                </div>
+            </g:if>
+            <g:if test="${showButtons == true}">
+              <div class="buttons">
+                  <g:form>
+                      <g:hiddenField name="transId" value="${glAccountingTransactionInstance?.id}" />
+                      <span class="button"><g:actionSubmit class="edit" action="edit" value="${message(code: 'default.button.edit.label', default: 'Edit')}" />
+                      <span class="button"><g:actionSubmit class="delete" action="cancel" value="${message(code: 'default.button.cancel.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.cancel.confirm.message', default: 'Are you sure?')}');" /></span>
+                  </g:form>
+              </div>
+            </g:if>
         </div>
+        
     </body>
 </html>

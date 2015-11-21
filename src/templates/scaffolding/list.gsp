@@ -39,10 +39,10 @@
                                     }
                                     if (display) { %>
                             <tr class="prop">
-                                <td valign="top" class="name">
+                                <td  class="name">
                                     <label for="${p.name}"><g:message code="${domainClass.propertyName}.${p.name}.label" default="${p.naturalName}" /></label>
                                 </td>
-                                <td valign="top" class="value \${hasErrors(bean: ${propertyName}, field: '${p.name}', 'errors')}">
+                                <td  class="value \${hasErrors(bean: ${propertyName}, field: '${p.name}', 'errors')}">
                                     ${renderEditor(p)}
                                 </td>
                             </tr>
