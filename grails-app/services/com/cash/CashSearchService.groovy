@@ -51,11 +51,7 @@ class CashSearchService {
         	OR a.date_created = " + params.dateCreated + " \
         	ORDER BY " + params.sort + " " + params.order
 
-        println sqlString
-
         def result = db.rows(sqlString)
-
-        println 'Result : ' + result
 
         return result;
 

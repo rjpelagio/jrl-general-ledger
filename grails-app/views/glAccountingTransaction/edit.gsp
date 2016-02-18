@@ -240,9 +240,9 @@
                               <g:each status="i" in="${approvalItems}" var="appr">
                                   <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                                       <td style="width:65%">
-                                            <g:if test="${appr.updatedBy  == NULL}">
+                                            <g:if test="${appr.status  == 'Active'}">
                                                 <g:if test="${appr.position  == session.employee.position}">
-                                                    <g:textField name="remarks" value="${appr.remarks}" size="100"/>
+                                                    <g:textField name="remarks" value="Pending approval from ${appr.position}" size="100"/>
                                                 </g:if>
                                                 <g:else>
                                                     Pending approval from ${appr.position} 
@@ -263,7 +263,8 @@
                 </g:if>
                 <div class="buttons">
                     <span style="float:right">
-                        <g:actionSubmit id="submit" name="submit" class="save" value="Submit and Approve" action="submit" />
+                        <g:actionSubmit id="save" name="save" class="save" value="Save" action="update" />
+                        <g:actionSubmit id="submit" name="submit" class="save" value="Submit" action="submit" />
                         <g:if test="${approvalItems}">
                         <span class="button"><g:actionSubmit class="delete" action="cancel" value="${message(code: 'default.button.cancel.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.cancel.confirm.message', default: 'Are you sure?')}');" /></span>
                         </g:if>
