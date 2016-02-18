@@ -143,7 +143,8 @@ class CashVoucherController {
             redirect(action: "list")
         }
         else {
-            return [cashVoucherInstance: cashVoucherInstance]
+            def requestedBy = Party.find(cashVoucherInstance.requestedBy)
+            return [cashVoucherInstance: cashVoucherInstance, requestedBy : requestedBy]
         }
     }
 
@@ -153,7 +154,7 @@ class CashVoucherController {
         if (cashVoucherInstance) {
             cashVoucherInstance.properties = params
             if (!cashVoucherInstance.hasErrors() && cashVoucherInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucherInstance.id])}"
+                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucherInstance.cashVoucherNumber])}"
                 redirect(action: "show", id: cashVoucherInstance.id)
             }
             else {
@@ -186,7 +187,7 @@ class CashVoucherController {
                     cashVoucherService.validateVoucherApproval(cashVoucher, session, params.remarks, 'cash_advance')
                 }
 
-                flash.message = "${message(code: 'default.created.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucher.id])}"
+                flash.message = "${message(code: 'default.created.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucher.cashVoucherNumber])}"
                 redirect(action: "show", id: cashVoucher.id)
             }
             else {
@@ -216,4 +217,39 @@ class CashVoucherController {
             render(view: "edit", model : [cashVoucherInstance : cashVoucher])
         }
     }
+
+    def cancel = {
+        def trans = CashVoucher.get(params.transId)
+
+        if (trans) {
+
+            trans.status = 'Cancelled'
+            trans.approvalStatus = 'Denied'
+            trans.save(flush:true);
+
+            params.remarks = (params.remarks!=null && params.remarks.length()>0) ? params.remarks : 'Cancelled by ' + session.party.name
+            def result = CashVoucherApproval.findAllByTransaction(trans)
+
+            if (result) {
+                for (int i = 0; i < result.size(); i++) {
+                    if (result.get(i).position == session.employee.position) {
+                        result.get(i).remarks = params.remarks
+                        result.get(i).updatedBy = session.party
+                        result.get(i).lastUpdated = new Date()
+                        
+                    }
+                    result.get(i).status = 'Cancelled'
+                    result.get(i).save(flush:true)
+                }
+            }
+
+            flash.message = "${message(code: 'default.cancelled.message', args: [message(code: 'cashVoucher.cashVoucherNumber.label', default: 'CashVoucher'), trans.id])}"
+            redirect(action: "show", id: trans.id)
+        } else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
+            redirect(action: "list")
+        }
+
+    }
+
 }

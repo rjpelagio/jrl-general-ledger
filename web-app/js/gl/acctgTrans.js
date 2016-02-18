@@ -121,6 +121,18 @@
                     var msg = '';
                     var valid = 0
 
+                    var debits = document.getElementsByName("debits");
+                    var credits = document.getElementsByName("credits");
+
+                    for (i = 0; i < debits.length; i++) {
+                        if (parseFloat(debits[i].value) == 0 && parseFloat(credits[i].value) == 0) {
+                            valid = 1;
+                            msg = "Debit and Credit must not be both equal to 0.\n\n"
+                            break;
+                        }
+
+                    }
+
                     if ($("input[name='debit']").val() == 0) {
                         valid = 1;
                         msg = "Debit total must not be equal to 0.\n\n"
@@ -133,7 +145,7 @@
 
                     if ($("input[name='credit']").val() != $("input[name='debit']").val()) {
                         valid = 1;
-                        msg = msg + "Debit and Credit values must equal\n\n"
+                        msg = msg + "Debit and Credit values must be equal\n\n"
                     }
 
                     if (valid == 1) {

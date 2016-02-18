@@ -25,74 +25,75 @@
             </div>
             </g:hasErrors>
             <g:form method="post" >
+                <div class="table-header">
+                    <g:message code="default.button.details.label" args="[entityName]" />
+                </div>
                 <g:hiddenField name="id" value="${cashVoucherInstance?.id}" />
                 <g:hiddenField name="version" value="${cashVoucherInstance?.version}" />
                 <div class="dialog">
                     <table>
                         <tbody>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="status"><g:message code="cashVoucher.status.label" default="Status" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'status', 'errors')}">
-                                    <g:select name="status" from="${cashVoucherInstance.constraints.status.inList}" value="${cashVoucherInstance?.status}" valueMessagePrefix="cashVoucher.status"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="approvalStatus"><g:message code="cashVoucher.approvalStatus.label" default="Approval Status" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'approvalStatus', 'errors')}">
-                                    <g:select name="approvalStatus" from="${cashVoucherInstance.constraints.approvalStatus.inList}" value="${cashVoucherInstance?.approvalStatus}" valueMessagePrefix="cashVoucher.approvalStatus"  />
-                                </td>
-                            </tr>
-                        
+
                             <tr class="prop">
                                 <td valign="top" class="name">
                                   <label for="cashVoucherNumber"><g:message code="cashVoucher.cashVoucherNumber.label" default="Cash Voucher Number" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'cashVoucherNumber', 'errors')}">
-                                    <g:textField name="cashVoucherNumber" value="${cashVoucherInstance?.cashVoucherNumber}" />
+                                <td valign="top" class="value">
+                                    ${cashVoucherInstance?.cashVoucherNumber}
+                                    <input type="hidden" name="cashVoucherNumber" value="${cashVoucherInstance?.cashVoucherNumber}"/>
+                                </td>
+
+                                <td valign="top" class="name">
+                                  <label for="status"><g:message code="cashVoucher.status.label" default="Status" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'status', 'errors')}">
+                                    ${cashVoucherInstance?.status}
+                                </td>
+
+                            </tr>
+
+                            <tr class="prop">
+                                <td  class="name">
+                                    <label for="party"><g:message code="default.amount.label" default="Amount" /></label>
+                                </td>
+                                 <td style="text-align:left" ><g:textField id="total" name="total" value="${cashVoucherInstance?.total}" onchange="this.value=validateInteger(this.value)" style="text-align:right" /></td>
+
+                                 <td valign="top" class="name">
+                                  <label for="approvalStatus"><g:message code="cashVoucher.approvalStatus.label" default="Approval Status" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'approvalStatus', 'errors')}">
+                                    ${cashVoucherInstance?.approvalStatus}
+                                </td>
+                            </tr> 
+
+                            <tr class="prop">
+                                <td  class="name">
+                                    <label for="party"><g:message code="cashVoucher.requestedBy.label" default="Party" /></label>
+                                </td>
+                                <td class="value">
+                                    <g:textField name="payeeText" id="payeeText" value="${cashVoucherInstance?.requestedBy?.name}"/>
                                 </td>
                             </tr>
+
                         
                             <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="change"><g:message code="cashVoucher.change.label" default="Change" /></label>
+                                <td  class="name">
+                                    <label for="party"><g:message code="cashVoucher.preparedBy.label" default="Party" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'change', 'errors')}">
-                                    <g:textField name="change" value="${fieldValue(bean: cashVoucherInstance, field: 'change')}" />
+                                <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'preparedBy', 'errors')}">
+                                    ${cashVoucherInstance?.preparedBy?.name}
                                 </td>
                             </tr>
-                        
+
                             <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="party"><g:message code="cashVoucher.party.label" default="Party" /></label>
+                                <td  class="name" >
+                                    <label for="description"><g:message code="cashVoucher.description.label" default="Description" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'party', 'errors')}">
-                                    <g:select name="party.id" from="${com.app.Party.list()}" optionKey="id" value="${cashVoucherInstance?.party?.id}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="total"><g:message code="cashVoucher.total.label" default="Total" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'total', 'errors')}">
-                                    <g:textField name="total" value="${fieldValue(bean: cashVoucherInstance, field: 'total')}" />
+                                <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'description', 'errors')}">
+                                    <g:textArea name="description" value="${fieldValue(bean:cashVoucherInstance, field:'description')}"/>
                                 </td>
                             </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="transType"><g:message code="cashVoucher.transType.label" default="Trans Type" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: cashVoucherInstance, field: 'transType', 'errors')}">
-                                    <g:textField name="transType" value="${cashVoucherInstance?.transType}" />
-                                </td>
-                            </tr>
+
                         
                         </tbody>
                     </table>
@@ -100,6 +101,11 @@
                 <div class="buttons">
                     <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
                     <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
+
+                    <g:actionSubmit id="submit" name="submit" class="save" value="Submit" action="submit" />
+                    <g:if test="${approvalItems}">
+                        <span class="button"><g:actionSubmit class="delete" action="cancel" value="${message(code: 'default.button.cancel.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.cancel.confirm.message', default: 'Are you sure?')}');" /></span>
+                    </g:if>
                 </div>
             </g:form>
         </div>

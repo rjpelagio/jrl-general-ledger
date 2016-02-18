@@ -1,6 +1,7 @@
 
 
 <%@ page import="com.gl.GlAccountingTransaction" %>
+<%@ page import="com.gl.AcctgTransType" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -56,19 +57,10 @@
                             
                             <tr class="prop">
                                 <td class="name">
-                                    <label for="description"><g:message code="glAccountingTransaction.description.label" default="Description" /></label>
-                                </td>
-                                <td >
-                                    <g:textField name="description" value="" />
-                                </td>
-                            </tr>
-                            
-                            <tr class="prop">
-                                <td class="name">
                                     <label for="description"><g:message code="glAccountingTransaction.status.label" default="Status" /></label>
                                 </td>
                                 <td >
-                                    <g:select name="status" from="${glAccountingTransactionInstance.constraints.status.inList}" value="${acctgPeriodInstance?.status}" valueMessagePrefix="acctgPeriod.status" noSelection="['null': '']" />
+                                    <g:select name="status" from="${glAccountingTransactionInstance.constraints.status.inList}" value="${params?.status}" valueMessagePrefix="acctgPeriod.status" noSelection="['null': '']" />
                                 </td>
                             </tr>
                         
@@ -118,10 +110,12 @@
                             <g:sortableColumn property="voucherNo" title="${message(code: 'glAccountingTransaction.voucherNo.label', default: 'Voucher No.')}" />
                         
                             <th>Voucher Type</th>
-
-                            <th>Particulars</th>
                         
                             <th>Status</th>
+
+                            <th>Approval Status</th>
+
+                            <th>Date Created</th>
                             
                             <th>Transaction Date</th>
                         
@@ -138,22 +132,24 @@
                       </tr>
                     </g:if>
                     <g:else>
-                        <g:each in="${glAccountingTransactionInstanceList}" status="i" var="glAccountingTransactionInstance">
+                        <g:each in="${glAccountingTransactionInstanceList}" status="i" var="trans">
                             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                                <td><g:link action="show" id="${glAccountingTransactionInstance.id}">${fieldValue(bean: glAccountingTransactionInstance, field: "voucherNo")}</g:link></td>
+                                <td><g:link action="show" id="${trans.id}">${trans.voucherNo}</g:link></td>
 
-                                <td>${fieldValue(bean: glAccountingTransactionInstance, field: "acctgTransType")}</td>
+                                <td>${trans.voucherType}</td>
 
-                                <td>${fieldValue(bean: glAccountingTransactionInstance, field: "description")}</td>
+                                <td>${trans.status}</td>
 
-                                <td>${fieldValue(bean: glAccountingTransactionInstance, field: "status")}</td>
+                                <td>${trans.approvalStatus}</td>
+
+                                <td><g:formatDate format="yyyy-MM-dd hh:mm:ss a" date="${trans.dateCreated}"/></td>
                                 
-                                <td><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance.transactionDate}" /></td>
+                                <td><g:formatDate format="yyyy-MM-dd" date="${trans.transactionDate}" /></td>
 
-                                <td><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance.postedDate}" /></td>
+                                <td><g:formatDate format="yyyy-MM-dd" date="${trans.postedDate}" /></td>
 
-                                <td><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance.entryDate}" /></td>
+                                <td><g:formatDate format="yyyy-MM-dd" date="${trans.entryDate}" /></td>
                                 
 
                                 

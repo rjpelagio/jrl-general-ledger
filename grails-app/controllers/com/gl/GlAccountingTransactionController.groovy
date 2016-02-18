@@ -1,3 +1,4 @@
+
 package com.gl
 
 import grails.converters.deep.JSON
@@ -34,13 +35,12 @@ class GlAccountingTransactionController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 25, 100)
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def glAccountingTransactionInstance = new GlAccountingTransaction()
         def offset = 0
         
-        def result = glSearchService.getAcctgTrans(
-            session.organization, params.description, params.voucherNo, params.status, params.acctgTransType, params.transactionDate, params.entryDate
-        )
+        def result = glSearchService.getAcctgTrans(session.organization, params)
+        
 
         if(params.offset){
             offset = Math.min(params.offset ? params.int('offset') : 0, result.size())
@@ -136,21 +136,29 @@ class GlAccountingTransactionController {
 
     def update = {
         def trans = GlAccountingTransaction.get(params.transId)
+        if (trans.status == "Submitted") {
+            /* for updating already submitted transactions */
+            params.formAction = "updateSubmitted"
+        }
         processUpdateSubmit(trans, params)
     }
 
      def processSaveSubmit (GlAccountingTransaction trans, def params) {
 
-        trans.organization = session.organization
-        trans.entryDate = trans.transactionDate
-        trans.party = Party.get(params.partyId)
-        trans.approvalStatus = "Pending Approval"
-        trans.acctgTransType = AcctgTransType.get(params.transType)
-        trans.preparedBy = session.user.party 
+        if (!GlAccountingTransaction.find(trans)) {
+            trans.organization = session.organization
+            trans.entryDate = trans.transactionDate
+            
+            trans.approvalStatus = "Pending Approval"
+            trans.acctgTransType = AcctgTransType.get(params.transType)
+            trans.preparedBy = session.user.party 
 
-        if (!trans.entryDate) {
+            if (!trans.entryDate) {
              trans.entryDate = new Date()
+            }
         }
+
+        trans.party = Party.get(params.partyId)
 
         def glAccounts = params.glAccounts;
         def glAccountIds = params.glAccountIds;
@@ -175,10 +183,10 @@ class GlAccountingTransactionController {
                     credits
                 )
 
-                if (trans.status == 'Submitted') {
-                    approvalMsg = glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
-                }
-            
+                
+                approvalMsg = glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher', params.formAction)
+                
+        
 
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'trans.label', default: 'GlAccountingTransaction'), trans.id])}"
             redirect(action: "show", id: trans.id)
@@ -256,7 +264,7 @@ class GlAccountingTransactionController {
                 )
 
                 if (trans.status == 'Submitted') {
-                    glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher')
+                    glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher', params.formAction)
                 }
 
             flash.message = "${message(code: 'glAccountingTransaction.updated', args: [message(code: 'trans.label', default: 'GlAccountingTransaction'), trans.id])}"

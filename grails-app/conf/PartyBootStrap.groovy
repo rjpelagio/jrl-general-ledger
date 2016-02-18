@@ -1,6 +1,9 @@
 import grails.util.GrailsUtil
 import com.app.*
 import com.gl.*
+import groovy.sql.Sql
+import org.codehaus.groovy.grails.commons.ConfigurationHolder as CH
+import org.codehaus.groovy.grails.commons.ApplicationHolder
 
 class PartyBootStrap {
 
@@ -49,105 +52,14 @@ class PartyBootStrap {
             }
         }
 
-        def empContactMechPostalEntry = new ContactMech (contactMechType : "POSTAL_ADDRESS")
-        empContactMechPostalEntry.save()
-
-        def empPartyPostalContact = new PartyContactMech(contactMech : ContactMech.get(empContactMechPostalEntry.id),
-                                        party : Party.find(empParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail",
-                                        contactMechType: "POSTAL_ADDRESS")
-        if(!PartyContactMech.find(empPartyPostalContact)){
-            empPartyPostalContact.save()
-            if(empPartyPostalContact.hasErrors()){
-                println empPartyPostalContact.errors
-            }
-        } 
-
-        def empAddress = new PostalAddress(addressLine1 : "357 St Mark Street",
-                                        addressLine2 : "St Augustine Village, Lawa",
-                                        city : "Calamba",
-                                        province : "Laguna",
-                                        postalCode : "4027",
-                                        contactMech : ContactMech.get(empContactMechPostalEntry.id))
-        if(!PostalAddress.find(empAddress) && ContactMech.get(empContactMechPostalEntry.id)){
-            empAddress.save()
-            if(empAddress.hasErrors()){
-                println empAddress.errors
-            }
-        }
-
-        def empContactMechTelEntry = new ContactMech (contactMechType : "PHONE_INFO")
-        empContactMechTelEntry.save()
-
-        def empPartyPhoneContact = new PartyContactMech(contactMech : ContactMech.get(empContactMechTelEntry.id),
-                                        party : Party.find(empParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail",
-                                        contactMechType: "PHONE_INFO")
-        if(!PartyContactMech.find(empPartyPhoneContact)){
-            empPartyPhoneContact.save()
-            if(empPartyPhoneContact.hasErrors()){
-                println empPartyPhoneContact.errors
-            }
-        }
-
-        def empTelInfo = new TeleInfo(areaCode: "049",
-                                    contactNumber : "5022597",
-                                    contactMech : ContactMech.get(empContactMechTelEntry.id),
-                                    contactPerson : "Jephy",
-                                    mobileNumber : "09174729235")
-        if(!TeleInfo.find(empTelInfo) && ContactMech.get(empContactMechTelEntry.id)){
-            empTelInfo.save()
-            if(empTelInfo.hasErrors()){
-                println empTelInfo.errors
-            }
-        }
-
-        def empEmailEntry = new ContactMech(contactMechType : "EMAIL_ADDRESS")
-        empEmailEntry.save()
-
-        def empPartyEmailContact = new PartyContactMech(contactMech : ContactMech.get(empEmailEntry.id),
-                                        party : Party.find(empParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail",
-                                        contactMechType: "EMAIL_ADDRESS")
-        if(!PartyContactMech.find(empPartyEmailContact)){
-            empPartyEmailContact.save()
-            if(empPartyEmailContact.hasErrors()){
-                println empPartyEmailContact.errors
-            }
-        }
-
-        def empEmailInfo = new ElecAddress (emailString: "rjpelagio@gmail.com",
-                                    contactMech : ContactMech.get(empEmailEntry.id))
-        if(!ElecAddress.find(empEmailInfo) && ContactMech.get(empEmailEntry.id)){
-            empEmailInfo.save()
-            if(empEmailInfo.hasErrors()){
-                println empEmailInfo.errors
-            }
-        }
-
-        def empPartyRole = new PartyRole ( Party : empParty,
-                        fromDate : new Date(),
-                        status : "Active",
-                        role : AppRole.findByRoleCode("EMP")
-                        )
-        if(!PartyRole.find(empPartyRole)) {
-            empPartyRole.save()
-            if(empPartyRole.hasErrors()){
-                println empPartyRole.errors
-            }
-        }
-
         def empLogin = new AppUser(username:"rjpelagio",
                     password:"rjpelagio",
                     dateCreated: new Date(),
                     lastLogin: new Date(),
                     lastUpdated : new Date(),
-                    role:AppRole.get(6),
-                    party:Party.get(3))
-        if(!AppUser.find(empLogin)){
+                    role:AppRole.findByRoleCode('EMP'),
+                    party:Party.find(empParty))
+        if(!AppUser.findByUsername("rjpelagio")){
             empLogin.save()
             if(empLogin.hasErrors()){
                 println empLogin.errors
@@ -199,105 +111,14 @@ class PartyBootStrap {
             }
         }
 
-        def supContactMechPostalEntry = new ContactMech (contactMechType : "POSTAL_ADDRESS")
-        supContactMechPostalEntry.save()
-
-        def supPartyPostalContact = new PartyContactMech(contactMech : ContactMech.get(supContactMechPostalEntry.id),
-                                        party : Party.find(supParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail 2",
-                                        contactMechType: "POSTAL_ADDRESS")
-        if(!PartyContactMech.find(supPartyPostalContact)){
-            supPartyPostalContact.save()
-            if(supPartyPostalContact.hasErrors()){
-                println supPartyPostalContact.errors
-            }
-        } 
-
-        def supAddress = new PostalAddress(addressLine1 : "41 Binondo Drive",
-                                        addressLine2 : "P Tuazon corner Edsa",
-                                        city : "Mandaluyong City",
-                                        province : "Manila",
-                                        postalCode : "4027",
-                                        contactMech : ContactMech.get(supContactMechPostalEntry.id))
-        if(!PostalAddress.find(supAddress) && ContactMech.get(supContactMechPostalEntry.id)){
-            supAddress.save()
-            if(supAddress.hasErrors()){
-                println supAddress.errors
-            }
-        }
-
-        def supContactMechTelEntry = new ContactMech (contactMechType : "PHONE_INFO")
-        supContactMechTelEntry.save()
-
-        def supPartyPhoneContact = new PartyContactMech(contactMech : ContactMech.get(supContactMechTelEntry.id),
-                                        party : Party.find(supParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail",
-                                        contactMechType: "PHONE_INFO")
-        if(!PartyContactMech.find(supPartyPhoneContact)){
-            supPartyPhoneContact.save()
-            if(supPartyPhoneContact.hasErrors()){
-                println supPartyPhoneContact.errors
-            }
-        }
-
-        def supTelInfo = new TeleInfo(areaCode: "02",
-                                    contactNumber : "8475521",
-                                    contactMech : ContactMech.get(supContactMechTelEntry.id),
-                                    contactPerson : "Jephy",
-                                    mobileNumber : "09174729235")
-        if(!TeleInfo.find(supTelInfo) && ContactMech.get(supContactMechTelEntry.id)){
-            supTelInfo.save()
-            if(supTelInfo.hasErrors()){
-                println supTelInfo.errors
-            }
-        }
-
-        def supEmailEntry = new ContactMech(contactMechType : "EMAIL_ADDRESS")
-        supEmailEntry.save()
-
-        def supPartyEmailContact = new PartyContactMech(contactMech : ContactMech.get(supEmailEntry.id),
-                                        party : Party.find(supParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail",
-                                        contactMechType: "EMAIL_ADDRESS")
-        if(!PartyContactMech.find(supPartyEmailContact)){
-            supPartyEmailContact.save()
-            if(supPartyEmailContact.hasErrors()){
-                println supPartyEmailContact.errors
-            }
-        }
-
-        def supEmailInfo = new ElecAddress (emailString: "rjpelagio@gmail.com",
-                                    contactMech : ContactMech.get(supEmailEntry.id))
-        if(!ElecAddress.find(supEmailInfo) && ContactMech.get(supEmailEntry.id)){
-            supEmailInfo.save()
-            if(supEmailInfo.hasErrors()){
-                println supEmailInfo.errors
-            }
-        }
-
-        def supPartyRole = new PartyRole ( Party : supParty,
-                        fromDate : new Date(),
-                        status : "Active",
-                        role : AppRole.findByRoleCode("EMP")
-                        )
-        if(!PartyRole.find(supPartyRole)) {
-            supPartyRole.save()
-            if(supPartyRole.hasErrors()){
-                println supPartyRole.errors
-            }
-        }
-
         def supLogin = new AppUser(username:"ynamacaspac",
                     password:"ynamacaspac",
                     dateCreated: new Date(),
                     lastLogin: new Date(),
                     lastUpdated : new Date(),
-                    role:AppRole.get(6),
+                    role:AppRole.findByRoleCode('EMP'),
                     party:Party.find(supParty))
-        if(!AppUser.find(supLogin)){
+        if(!AppUser.findByUsername("ynamacaspac")){
             supLogin.save()
             if(supLogin.hasErrors()){
                 println supLogin.errors
@@ -349,105 +170,14 @@ class PartyBootStrap {
             }
         }
 
-        def cleContactMechPostalEntry = new ContactMech (contactMechType : "POSTAL_ADDRESS")
-        cleContactMechPostalEntry.save()
-
-        def clePartyPostalContact = new PartyContactMech(contactMech : ContactMech.get(cleContactMechPostalEntry.id),
-                                        party : Party.find(cleParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail 2",
-                                        contactMechType: "POSTAL_ADDRESS")
-        if(!PartyContactMech.find(clePartyPostalContact)){
-            clePartyPostalContact.save()
-            if(clePartyPostalContact.hasErrors()){
-                println clePartyPostalContact.errors
-            }
-        } 
-
-        def cleAddress = new PostalAddress(addressLine1 : "22nd Street",
-                                        addressLine2 : "Corazon Ave",
-                                        city : "Marikina City",
-                                        province : "Manila",
-                                        postalCode : "4022",
-                                        contactMech : ContactMech.get(cleContactMechPostalEntry.id))
-        if(!PostalAddress.find(cleAddress) && ContactMech.get(cleContactMechPostalEntry.id)){
-            cleAddress.save()
-            if(cleAddress.hasErrors()){
-                println cleAddress.errors
-            }
-        }
-
-        def cleContactMechTelEntry = new ContactMech (contactMechType : "PHONE_INFO")
-        cleContactMechTelEntry.save()
-
-        def clePartyPhoneContact = new PartyContactMech(contactMech : ContactMech.get(cleContactMechTelEntry.id),
-                                        party : Party.find(cleParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail",
-                                        contactMechType: "PHONE_INFO")
-        if(!PartyContactMech.find(clePartyPhoneContact)){
-            clePartyPhoneContact.save()
-            if(clePartyPhoneContact.hasErrors()){
-                println clePartyPhoneContact.errors
-            }
-        }
-
-        def cleTelInfo = new TeleInfo(areaCode: "02",
-                                    contactNumber : "2036021",
-                                    contactMech : ContactMech.get(cleContactMechTelEntry.id),
-                                    contactPerson : "Jephy",
-                                    mobileNumber : "09174729235")
-        if(!TeleInfo.find(cleTelInfo) && ContactMech.get(cleContactMechTelEntry.id)){
-            cleTelInfo.save()
-            if(cleTelInfo.hasErrors()){
-                println cleTelInfo.errors
-            }
-        }
-
-        def cleEmailEntry = new ContactMech(contactMechType : "EMAIL_ADDRESS")
-        cleEmailEntry.save()
-
-        def clePartyEmailContact = new PartyContactMech(contactMech : ContactMech.get(cleEmailEntry.id),
-                                        party : Party.find(cleParty),
-                                        fromDate : new Date(),
-                                        purpose : "Contact Detail",
-                                        contactMechType: "EMAIL_ADDRESS")
-        if(!PartyContactMech.find(clePartyEmailContact)){
-            clePartyEmailContact.save()
-            if(clePartyEmailContact.hasErrors()){
-                println clePartyEmailContact.errors
-            }
-        }
-
-        def cleEmailInfo = new ElecAddress (emailString: "rjpelagio@gmail.com",
-                                    contactMech : ContactMech.get(cleEmailEntry.id))
-        if(!ElecAddress.find(cleEmailInfo) && ContactMech.get(cleEmailEntry.id)){
-            cleEmailInfo.save()
-            if(cleEmailInfo.hasErrors()){
-                println cleEmailInfo.errors
-            }
-        }
-
-        def clePartyRole = new PartyRole ( Party : cleParty,
-                        fromDate : new Date(),
-                        status : "Active",
-                        role : AppRole.findByRoleCode("EMP")
-                        )
-        if(!PartyRole.find(clePartyRole)) {
-            clePartyRole.save()
-            if(clePartyRole.hasErrors()){
-                println clePartyRole.errors
-            }
-        }
-
         def cleLogin = new AppUser(username:"claram",
                     password:"claram",
                     dateCreated: new Date(),
                     lastLogin: new Date(),
                     lastUpdated : new Date(),
-                    role:AppRole.get(6),
+                    role:AppRole.findByRoleCode('EMP'),
                     party:Party.find(cleParty))
-        if(!AppUser.find(cleLogin)){
+        if(!AppUser.findByUsername("claram")){
             cleLogin.save()
             if(cleLogin.hasErrors()){
                 println cleLogin.errors
@@ -455,6 +185,14 @@ class PartyBootStrap {
         }
 
         /** END CLERK SAMPLE DATA ENTRY **/
+
+        def sql = Sql.newInstance(CH.config.dataSource.url, CH.config.dataSource.username,
+        CH.config.dataSource.password, CH.config.dataSource.driverClassName)
+
+        String sqlFilePath =  ApplicationHolder.application.parentContext.servletContext.getRealPath("/data/seed_employee.sql")
+        String sqlString = new File(sqlFilePath).text
+        
+        sql.execute(sqlString)
 
 	}
 

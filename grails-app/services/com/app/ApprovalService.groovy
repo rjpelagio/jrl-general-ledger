@@ -75,13 +75,15 @@ class ApprovalService {
     	}
     }
 
-    def approveTransaction (def trans, def transType) {
+    def approveTransaction (def trans, def transType, def formAction) {
 
     	//This will close the transaction when the final approver submits it
     	switch(transType) {
     		case 'voucher' : def transaction = GlAccountingTransaction.get(trans.id)
     						 if (transaction) {
-    						 	transaction.approvalStatus = 'Approved'
+                                if (formAction != 'updateSubmitted') {
+    						 	    transaction.approvalStatus = 'Approved'
+                                }
     						 	transaction.save(flush:true)
     						 }
     						 def result = VoucherApproval.findAllByTransaction(trans)
@@ -96,7 +98,9 @@ class ApprovalService {
     						 break;
             case 'cash_advance' : def transaction = CashVoucher.get(trans.id)
                              if (transaction) {
-                                transaction.approvalStatus = 'Approved'
+                                if (formAction != 'updateSubmitted') {
+                                    transaction.approvalStatus = 'Approved'
+                                }
                                 transaction.save(flush:true)
                              }
                              def result = CashVoucherApproval.findAllByTransaction(trans)
@@ -138,8 +142,9 @@ class ApprovalService {
 
     			map.save(flush:true)
 
+                def formAction = 'save'
     			if (session.employee.position == map.position && map.sequence == 1) {
-					approveTransaction (map.transaction, 'voucher') 
+					approveTransaction (map.transaction, 'voucher', formAction) 
 				}
 			}
     	}

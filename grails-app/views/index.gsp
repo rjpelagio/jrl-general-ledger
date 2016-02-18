@@ -10,7 +10,7 @@
           content="text/html; charset=UTF-8"/>
     <meta name="layout" content="main" />
     <g:if test="${session?.user == null && request.getSession(false)}">
-      <title>Login</title>
+      <title>JRL Endaya Inc.</title>
     </g:if>
     <g:else>
       <title>Main</title>
@@ -68,17 +68,11 @@
       </div>
     </div>
     </g:if>
-  <!--
-    
-    
-  -->
+
   <g:if test="${session.user != null}">
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
     </g:if>
-    
-
-    
   </g:if>
 </body>
 </html>
