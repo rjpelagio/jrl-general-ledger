@@ -16,7 +16,7 @@ class CashVoucherService {
 
 	def approvalService
 
-	def validateVoucherApproval (CashVoucher trans, def session, def remarks, def transType) {
+	def validateVoucherApproval (CashVoucher trans, def session, def remarks, def transType, def formAction) {
 
         //Initializing remarks for new approval records, coz remarks is only available when updating
         remarks = (remarks!=null && remarks.length()>0) ? remarks : ''
@@ -39,16 +39,23 @@ class CashVoucherService {
             def approvalMap = criteriaResult.get(0)
 
             approvalMap.remarks = remarks
-            if (remarks == '') {
+            if (remarks == '' && formAction != 'updateSubmitted') {
               approvalMap.remarks = 'Approved by ' + session.party
             }
+            
             approvalMap.lastUpdated = new Date()
             approvalMap.updatedBy = session.party
-            approvalMap.status = 'Submitted'
+
+            if (formAction == 'updateSubmitted') {
+              approvalMap.status = 'Active'
+            } else {
+              approvalMap.status = 'Submitted'
+            }
+
             approvalMap.save(flush:true)
 
             if (approvalMap.sequence == 1) {
-              approvalService.approveTransaction(trans, transType)
+              approvalService.approveTransaction(trans, transType, formAction)
             }
           }
 

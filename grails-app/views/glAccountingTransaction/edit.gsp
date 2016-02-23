@@ -242,7 +242,7 @@
                                       <td style="width:65%">
                                             <g:if test="${appr.status  == 'Active'}">
                                                 <g:if test="${appr.position  == session.employee.position}">
-                                                    <g:textField name="remarks" value="Pending approval from ${appr.position}" size="100"/>
+                                                    <g:textField name="remarks" value="${appr.remarks}" size="100"/>
                                                 </g:if>
                                                 <g:else>
                                                     Pending approval from ${appr.position} 

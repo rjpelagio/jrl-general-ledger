@@ -102,13 +102,19 @@ class CashVoucherController {
             trans.status = "Submitted"
             processSaveSubmit(trans, params)
         } else if (params.formAction == 'edit') {
-            def trans = CashVoucher.get(params.transId)
+            def trans = CashVoucher.get(params.id)
             trans.status = "Submitted"
             processUpdateSubmit(trans, params)
         }
     }
 
     def show = {
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'CASH_ADVANCE')
+
+        if (approvalStatus == false) {
+            flash.errors = "${message(code : 'approval.notFound')}"
+            redirect(action:"list")
+        }
 
         def cashVoucherInstance = CashVoucher.get(params.id)
         if (!cashVoucherInstance) {
@@ -137,34 +143,26 @@ class CashVoucherController {
 
     def edit = {
 
-        def cashVoucherInstance = CashVoucher.get(params.id)
-        if (!cashVoucherInstance) {
+        def trans = CashVoucher.get(params.id)
+        if (!trans) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), params.id])}"
             redirect(action: "list")
         }
         else {
-            def requestedBy = Party.find(cashVoucherInstance.requestedBy)
-            return [cashVoucherInstance: cashVoucherInstance, requestedBy : requestedBy]
+            def requestedBy = Party.find(trans.requestedBy)
+            def approvalItems = CashVoucherApproval.findAllByTransaction(trans, [sort: "sequence", order: "desc"])
+            return [cashVoucherInstance: trans, requestedBy : requestedBy, approvalItems : approvalItems]
         }
     }
 
     def update = {
 
-        def cashVoucherInstance = CashVoucher.get(params.id)
-        if (cashVoucherInstance) {
-            cashVoucherInstance.properties = params
-            if (!cashVoucherInstance.hasErrors() && cashVoucherInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucherInstance.cashVoucherNumber])}"
-                redirect(action: "show", id: cashVoucherInstance.id)
-            }
-            else {
-                render(view: "edit", model: [cashVoucherInstance: cashVoucherInstance])
-            }
+        def trans = CashVoucher.get(params.id)
+        if (trans.status == "Submitted") {
+            /* for updating already submitted transactions */
+            params.formAction = "updateSubmitted"
         }
-        else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), params.id])}"
-            redirect(action: "list")
-        }
+        processUpdateSubmit(trans, params)
     }
 
     def processSaveSubmit (CashVoucher cashVoucher, def params) {
@@ -184,7 +182,7 @@ class CashVoucherController {
                 
 
                 if (cashVoucher.status == 'Submitted') {
-                    cashVoucherService.validateVoucherApproval(cashVoucher, session, params.remarks, 'cash_advance')
+                    cashVoucherService.validateVoucherApproval(cashVoucher, session, params.remarks, 'cash_advance', params.formAction)
                 }
 
                 flash.message = "${message(code: 'default.created.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucher.cashVoucherNumber])}"
@@ -203,11 +201,12 @@ class CashVoucherController {
 
         if (cashVoucher.validate()) {
             if (cashVoucher.save(flush: true)) {
-                flash.message = "${message(code: 'default.created.message', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucherInstance.id])}"
-                redirect(action: "show", id: cashVoucherInstance.id)
+                flash.message = "${message(code: 'cashVoucher.updated', args: [message(code: 'cashVoucher.label', default: 'CashVoucher'), cashVoucher.cashVoucherNumber])}"
+                redirect(action: "show", id: cashVoucher.id)
 
-                if (trans.status == 'Submitted') {
-                    cashVoucherService.validateVoucherApproval(trans, session, params.remarks, 'cash_advance')
+                if (cashVoucher.status == 'Submitted') {
+                    println 'entered'
+                    cashVoucherService.validateVoucherApproval(cashVoucher, session, params.remarks, 'cash_advance', params.formAction)
                 } 
             }
             else {

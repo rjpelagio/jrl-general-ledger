@@ -183,8 +183,9 @@ class GlAccountingTransactionController {
                     credits
                 )
 
-                
-                approvalMsg = glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher', params.formAction)
+                if (trans.status == 'Submitted') {
+                    approvalMsg = glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher', params.formAction)
+                }
                 
         
 

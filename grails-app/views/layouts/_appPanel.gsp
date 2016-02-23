@@ -75,7 +75,7 @@
         <li><g:link controller="cashVoucher" action="list">Petty Cash</g:link>
           <ul>
             <li><g:link controller="cashVoucher" action="list">Cash Advance</g:link></li>
-            <li><a href="#">Reimbursement</a></li>
+            <li><g:link controller="reimbursement" action="list">Reimbursement</g:link></li>
           </ul>
         </li>
         <li><a href="#">Disbursement</a></li>

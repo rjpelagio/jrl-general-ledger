@@ -179,8 +179,9 @@ class ApprovalService {
                     map.printErrors
                 }
 
+                def formAction = "save"
                 if (session.employee.position == map.position && map.sequence == 1) {
-                    approveTransaction (map.transaction, 'cash_advance') 
+                    approveTransaction (map.transaction, 'cash_advance', formAction) 
                 }
             }
         }

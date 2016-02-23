@@ -25,6 +25,7 @@
             </div>
             </g:hasErrors>
             <g:form method="post" >
+                <input type="hidden" name="formAction" value="edit"/>
                 <div class="table-header">
                     <g:message code="default.button.details.label" args="[entityName]" />
                 </div>
@@ -98,14 +99,52 @@
                         </tbody>
                     </table>
                 </div>
+                <g:if test="${approvalItems}">
+                  <br/>
+                    <div class="list">
+                      <table border="1">
+                          <thead>
+                              <tr>
+                                <th>Approval Remarks</th>
+                                <th>Position</th>
+                                <th>Updated By</th>
+                                <th>Last Updated</th>
+                              </tr>
+                          </thead>
+                          <tbody id="dataTable"><tbody id="dataTable">
+                              <g:each status="i" in="${approvalItems}" var="appr">
+                                  <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                                      <td style="width:65%">
+                                            <g:if test="${appr.status  == 'Active'}">
+                                                <g:if test="${appr.position  == session.employee.position}">
+                                                    <g:textField name="remarks" value="${appr.remarks}" size="100"/>
+                                                </g:if>
+                                                <g:else>
+                                                    Pending approval from ${appr.position} 
+                                                </g:else>
+                                            </g:if>
+                                            <g:else>
+                                                ${appr.remarks}
+                                            </g:else>
+                                      </td>
+                                      <td>${appr.position}</td>
+                                      <td>${appr.updatedBy?.name}</td>
+                                      <td>${appr.lastUpdated}</td>
+                                    </tr>
+                              </g:each>
+                          </tbody>
+                      </table>
+                    </div>
+                </g:if>
                 <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-
-                    <g:actionSubmit id="submit" name="submit" class="save" value="Submit" action="submit" />
+                    <span class="button">
+                        <g:actionSubmit class="save" action="update" value="${message(code: 'default.button.save.label', default: 'Save')}" />
+                        <g:actionSubmit id="submit" name="submit" class="save" value="Submit" action="submit" />
+                    
                     <g:if test="${approvalItems}">
-                        <span class="button"><g:actionSubmit class="delete" action="cancel" value="${message(code: 'default.button.cancel.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.cancel.confirm.message', default: 'Are you sure?')}');" /></span>
+                        <g:actionSubmit class="delete" action="cancel" value="${message(code: 'default.button.cancel.label', default: 'Cancel')}" onclick="return confirm('${message(code: 'default.button.cancel.confirm.message', default: 'Are you sure?')}');" />
                     </g:if>
+                    </span>
                 </div>
             </g:form>
         </div>

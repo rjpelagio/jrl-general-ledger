@@ -45,6 +45,7 @@
             </div>
             </g:hasErrors>
             <g:form>
+                <input type="hidden" name="formAction" value="create"/>
                 <div class="table-header">
                     <g:message code="default.button.details.label" args="[entityName]" />
                 </div>
@@ -98,9 +99,8 @@
                     </table>
                 </div>
                 <div class="buttons">
-                    <input type="hidden" name="formAction" value="create"/>
                     <g:actionSubmit id="save" name="create" class="save" action="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
-                    <g:actionSubmit id="submit" name="submit" class="save" action="submit" value="Submit"  onclick="return confirm('Are you sure you want to submit?')"/>
+                    <g:actionSubmit id="submit" name="submit" class="save" action="submit" value="Submit"/>
                 </div>
             </g:form>
         </div>

@@ -32,7 +32,7 @@ class CashSearchService {
 
         def db = new Sql(dataSource)
 
-        params.order = (params.order) ? params.order : 'asc'
+        params.order = (params.order) ? params.order : 'desc'
         params.sort = (params.sort) ? params.sort : 'cash_voucher_number'
 
         def fields = [:]
