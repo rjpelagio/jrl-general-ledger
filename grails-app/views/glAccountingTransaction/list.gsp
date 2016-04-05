@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <g:if test="${disableCreate == 'no'}">
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
             </g:if>
@@ -33,7 +33,7 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                                <td valign="middle" class="name">
+                                <td valign="middle" class="sub">
                                     <g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." />
                                 </td>
                                 <td >
@@ -42,7 +42,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="acctgTransType"><g:message code="glAccountingTransaction.acctgTransType.label" default="Voucher Type" /></label>
                                 </td>
                                 <td >
@@ -56,7 +56,7 @@
                             </tr>
                             
                             <tr class="prop">
-                                <td class="name">
+                                <td class="sub">
                                     <label for="description"><g:message code="glAccountingTransaction.status.label" default="Status" /></label>
                                 </td>
                                 <td >
@@ -65,7 +65,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name" >
+                                <td  class="sub" >
                                     <label for="status"><g:message code="glAccountingTransactionInstance.transactionDate.label" default="Transaction Date" /></label>
                                 </td>
                                 <td >
@@ -74,7 +74,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="postedDate"><g:message code="glAccountingTransaction.postedDate.label" default="Posted Date" /></label>
                                 </td>
                                 <td >
@@ -83,7 +83,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="entryDate"><g:message code="glAccountingTransaction.entryDate.label" default="Entry Date" /></label>
                                 </td>
                                 <td >

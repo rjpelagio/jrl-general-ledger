@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -23,35 +23,35 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appRole.roleCode.label" default="Role Code" /></td>
+                            <td  class="sub"><g:message code="appRole.roleCode.label" default="Role Code" /></td>
                             
                             <td  class="value">${fieldValue(bean: appRoleInstance, field: "roleCode")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appRole.roleName.label" default="Role Name" /></td>
+                            <td  class="sub"><g:message code="appRole.roleName.label" default="Role Name" /></td>
                             
                             <td  class="value">${fieldValue(bean: appRoleInstance, field: "roleName")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appRole.parent.label" default="Parent" /></td>
+                            <td  class="sub"><g:message code="appRole.parent.label" default="Parent" /></td>
                             
                             <td  class="value"><g:link controller="appRole" action="show" id="${appRoleInstance?.parent?.id}">${appRoleInstance?.parent?.encodeAsHTML()}</g:link></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appRole.dateCreated.label" default="Date Created" /></td>
+                            <td  class="sub"><g:message code="appRole.dateCreated.label" default="Date Created" /></td>
                             
                             <td  class="value"><g:formatDate date="${appRoleInstance?.dateCreated}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appRole.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="sub"><g:message code="appRole.lastUpdated.label" default="Last Updated" /></td>
                             
                             <td  class="value"><g:formatDate date="${appRoleInstance?.lastUpdated}" /></td>
                             

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
@@ -29,7 +29,7 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="party"><g:message code="appUser.party.label" default="Employee" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appUserInstance, field: 'party', 'errors')}">
@@ -38,7 +38,7 @@
                             </tr>
                             
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="username"><g:message code="appUser.username.label" default="Username" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appUserInstance, field: 'username', 'errors')}">
@@ -47,7 +47,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="password"><g:message code="appUser.password.label" default="Password" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appUserInstance, field: 'password', 'errors')}">
@@ -56,7 +56,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="role"><g:message code="appUser.role.label" default="Role" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">

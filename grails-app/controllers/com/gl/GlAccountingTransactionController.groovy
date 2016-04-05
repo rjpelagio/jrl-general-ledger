@@ -143,7 +143,7 @@ class GlAccountingTransactionController {
         processUpdateSubmit(trans, params)
     }
 
-     def processSaveSubmit (GlAccountingTransaction trans, def params) {
+    def processSaveSubmit (GlAccountingTransaction trans, def params) {
 
         if (!GlAccountingTransaction.find(trans)) {
             trans.organization = session.organization

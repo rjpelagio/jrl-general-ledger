@@ -1,6 +1,7 @@
 package com.cash
 
 import com.app.*
+import com.gl.GlAccount
 
 class CashVoucherController {
 
@@ -20,15 +21,8 @@ class CashVoucherController {
             return false
         }
 
-        approvalCheck = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
-        if (approvalCheck == false) {
-            flash.errors = "${message(code : 'approval.notFound')}"
-            redirect(action: "list", params: params)
-        }
-
+        flash.errors = null
     }
-
-
 
     def index = {
         redirect(action: "list", params: params)
@@ -38,8 +32,8 @@ class CashVoucherController {
 
         def disableCreate = 'yes'
 
-        //if (!approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')) {
-        if (!approvalCheck) {
+        if (!approvalService.checkApproval(session.employee.department, session.employee.position, 'CASH_ADVANCE')) {
+        //if (!approvalCheck) {
             flash.errors = "${message(code : 'approval.notFound')}"
         } else {
             disableCreate = 'no'
@@ -55,7 +49,7 @@ class CashVoucherController {
         //def result = CashVoucher.list()
         //println 'Controller Result : ' + result
 
-        params.max = Math.min(params.max ? params.int('max') : 25, 100)
+        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         def offset = 0
 
         if(params.offset){
@@ -78,6 +72,11 @@ class CashVoucherController {
     }
 
     def create = {
+
+        if (!approvalService.checkApproval(session.employee.department, session.employee.position, 'CASH_ADVANCE')) {
+            flash.errors = "${message(code : 'approval.notFound')}"
+            redirect(action:"list")
+        }
 
         def cashVoucherInstance = new CashVoucher()
         cashVoucherInstance.properties = params
@@ -109,9 +108,9 @@ class CashVoucherController {
     }
 
     def show = {
-        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'CASH_ADVANCE')
+        
 
-        if (approvalStatus == false) {
+        if (!approvalService.checkApproval(session.employee.department, session.employee.position, 'CASH_ADVANCE')) {
             flash.errors = "${message(code : 'approval.notFound')}"
             redirect(action:"list")
         }
@@ -142,6 +141,11 @@ class CashVoucherController {
     }
 
     def edit = {
+
+        if (!approvalService.checkApproval(session.employee.department, session.employee.position, 'CASH_ADVANCE')) {
+            flash.errors = "${message(code : 'approval.notFound')}"
+            redirect(action:"list")
+        }
 
         def trans = CashVoucher.get(params.id)
         if (!trans) {
@@ -176,6 +180,9 @@ class CashVoucherController {
         cashVoucher.requestedBy = Party.get(params.requestedBy)
         cashVoucher.cashVoucherNumber =  now.format("yyMMddHHmmss")
         cashVoucher.description = params.description
+        cashVoucher.glAccount = GlAccount.get(params.glAccountId)
+        cashVoucher.payee = Party.get(params.payee)
+        cashVoucher.change = Double.parseDouble(params.change)
 
         if (cashVoucher.validate()) {
             if (cashVoucher.save(flush: true)) {
@@ -198,6 +205,13 @@ class CashVoucherController {
 
 
     def processUpdateSubmit (def cashVoucher, def params) {
+
+        cashVoucher.total = Double.parseDouble(params.total);
+        cashVoucher.requestedBy = Party.get(params.requestedBy)
+        cashVoucher.description = params.description
+        cashVoucher.glAccount = GlAccount.get(params.glAccountId)
+        cashVoucher.payee = Party.get(params.payee)
+        cashVoucher.change = Double.parseDouble(params.change)
 
         if (cashVoucher.validate()) {
             if (cashVoucher.save(flush: true)) {

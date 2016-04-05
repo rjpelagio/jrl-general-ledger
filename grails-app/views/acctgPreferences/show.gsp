@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -23,49 +23,49 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="acctgPreferences.id.label" default="Id" /></td>
+                            <td  class="sub"><g:message code="acctgPreferences.id.label" default="Id" /></td>
                             
                             <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="acctgPreferences.jvPrefix.label" default="Jv Prefix" /></td>
+                            <td  class="sub"><g:message code="acctgPreferences.jvPrefix.label" default="Jv Prefix" /></td>
                             
                             <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "jvPrefix")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="acctgPreferences.amtRounding.label" default="Amt Rounding" /></td>
+                            <td  class="sub"><g:message code="acctgPreferences.amtRounding.label" default="Amt Rounding" /></td>
                             
                             <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "amtRounding")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="acctgPreferences.priceRounding.label" default="Price Rounding" /></td>
+                            <td  class="sub"><g:message code="acctgPreferences.priceRounding.label" default="Price Rounding" /></td>
                             
                             <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "priceRounding")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="acctgPreferences.docLineLimit.label" default="Doc Line Limit" /></td>
+                            <td  class="sub"><g:message code="acctgPreferences.docLineLimit.label" default="Doc Line Limit" /></td>
                             
                             <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "docLineLimit")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="acctgPreferences.docFormat.label" default="Doc Format" /></td>
+                            <td  class="sub"><g:message code="acctgPreferences.docFormat.label" default="Doc Format" /></td>
                             
                             <td  class="value">${fieldValue(bean: acctgPreferencesInstance, field: "docFormat")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="acctgPreferences.organizationCode.label" default="Organization Code" /></td>
+                            <td  class="sub"><g:message code="acctgPreferences.organizationCode.label" default="Organization Code" /></td>
                             
                             <td  class="value"><g:link controller="appOrganization" action="show" id="${acctgPreferencesInstance?.organizationCode?.id}">${acctgPreferencesInstance?.organizationCode?.encodeAsHTML()}</g:link></td>
                             

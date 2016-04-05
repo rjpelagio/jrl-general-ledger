@@ -20,6 +20,7 @@ class ApprovalService {
 
         def approvalFeature = Approval.createCriteria()
 
+
         def result = approvalFeature {
           and {
             eq ("position", position)
@@ -27,6 +28,7 @@ class ApprovalService {
             eq ("approvalFeature", feature)
           }
         }
+
 
         if (result.size() > 0){
             def approvalSeq = ApprovalSeq.findByApproval(result.get(0))

@@ -39,7 +39,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -78,14 +78,14 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Voucher No"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'voucherNo', 'errors')}" style="width:35%">
                                     ${glAccountingTransactionInstance?.voucherNo}
                                      <input type="hidden" name="voucherNo" value="${glAccountingTransactionInstance?.voucherNo}"/>
                                 </td>
-                                <td  class="name" style="width:20%">
+                                <td  class="sub" style="width:20%">
                                     <label for="Transaction Date"><g:message code="glAccountingTransaction.transactionDate.label" default="Transaction Date" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'transactionDate', 'errors')}" >
@@ -93,13 +93,13 @@
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Ref Doc"><g:message code="glAccountingTransaction.refDoc.label" default="Reference Doc" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'partyId', 'errors')}">
                                     <g:textField name="refDoc" value="${glAccountingTransactionInstance?.refDoc}" />
                                 </td>
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Voucher Type"><g:message code="glAccountingTransaction.acctgTransType.label" default="Voucher Type" /></label>
                                 </td>
                                 <td >
@@ -107,13 +107,13 @@
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="CDO Kg"><g:message code="glAccountingTransaction.cdoKg.label" default="CDO Kg" /></label>
                                 </td>
                                 <td >
                                     <g:textField name="cdoKg" value="${glAccountingTransactionInstance?.cdoKg}" />
                                 </td>
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Terms"><g:message code="glAccountingTransaction.terms.label" default="Terms" /></label>
                                 </td>
                                 <td >
@@ -126,13 +126,13 @@
                             </tr>
 
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Check No"><g:message code="glAccountingTransaction.checkNo.label" default="Check No." /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'checkNo', 'errors')}">
                                     <g:textField name="checkNo" value="${glAccountingTransactionInstance?.checkNo}" />
                                 </td>
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Check Date"><g:message code="glAccountingTransaction.ckSiDate.label" default="Check/SI Date" /></label>
                                 </td>
                                 <td >
@@ -141,14 +141,14 @@
                             </tr>
 
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Payee"><g:message code="glAccountingTransaction.partyId.label" default="Payee" /></label>
                                 </td>
                                 <td class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'party', 'errors')}">
                                     <g:textField name="payeeText" value="${payeeText}" id="payeeText"/>
                                     <input type="hidden" name="partyId" id="partyId" value="${glAccountingTransactionInstance?.party?.id}"/>
                                 </td>
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="Tin"><g:message code="party.tin.label" default="TIN" /></label>
                                 </td>
                                 <td class="value">
@@ -157,7 +157,7 @@
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td  class="name" style="vertical-align:top">
+                                <td  class="sub" style="vertical-align:top">
                                     <label for="Description"><g:message code="glAccountingTransaction.description.label" default="Description" /></label>
                                 </td>
                                 <td colspan="3"  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'description', 'errors')}">

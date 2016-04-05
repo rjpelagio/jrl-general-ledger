@@ -65,8 +65,8 @@ class AppUserController {
 
                     user.lastLogin = new Date();
                     user.save()
-                    flash.message = "Hello ${party.name}!"
-                    redirect(uri:"/glAccountingTransaction/list")
+                    
+                    redirect(controller: "dashBoard", action: "list")
                 } else {
                     flash.message =
                     "Sorry, ${params.username}. Password is incorrect."

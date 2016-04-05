@@ -67,6 +67,79 @@ class CashVoucherService {
     }
 
 
+    def validateReimbursementItems (def params) {
+
+        ArrayList<String> msgs = new ArrayList<String>();
+
+        for (int i = 0; i < params.payeeIds.size(); i++) {
+          if (params.payeeIds[i].isInteger()) { 
+              if(!Party.get(params.payeeIds[i].toInteger())) {
+                  msgs.add('Invalid Payee on row ' + (i+1))
+              }
+          } else {
+            msgs.add('Invalid Payee on row ' + (i+1))
+          }
+        }
+
+        if (params.department == 'Finance') {
+          for (int i = 0; i < params.glAccountIds.size(); i++) {
+            if (params.glAccountIds[i].toInteger()) {
+              if(!GlAccount.get(params.glAccountIds[i].toInteger())) {
+                msgs.add('Invalid GL Account on row ' + (i+1))
+              } 
+            } else {
+              msgs.add('Invalid GL Account on row ' + (i+1))
+            } 
+            
+          } 
+        }
+
+        return msgs;
+    }
+
+
+    def insertReimbursementItems (CashVoucher trans, def payeeIds, def amounts, 
+        def descriptions, def refDocs, def glAccountIds, def department) {
+
+        
+
+        if (payeeIds.size() > 1) {
+
+          for (int i = 0; i < payeeIds.size(); i++) { 
+              def item = new CashVoucherItems();
+              item.payee = Party.get(payeeIds[i]);
+              item.description = descriptions[i];
+              item.amount = Double.parseDouble(amounts[i]);
+              item.referenceDoc = refDocs[i];
+              if (department == 'Finance') {
+                item.glAccount = GlAccount.get(glAccountIds[i]);
+                println 'Gl Account Item : ' + item.glAccount
+              }
+              item.cashVoucher = trans;
+
+              item.save(flush:true);
+              if (item.hasErrors()) {
+                  println item.errors
+              }
+          }
+        } else {
+          def item = new CashVoucherItems();
+          item.description = descriptions
+          item.referenceDoc = refDocs
+          item.amount = Double.parseDouble(amounts)
+          item.cashVoucher = trans
+          item.payee = Party.get(payeeIds)
+          if (department == 'Finance') {
+            item.glAccount = GlAccount.get(glAccountIds);
+            println 'Gl Account Item : ' + item.glAccount
+          }
+          item.save(flush:true)
+          if (item.hasErrors()) {
+              println item.errors
+          }
+        }
+
+    }
 }
 
 

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
@@ -29,7 +29,7 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="parentGlAccount"><g:message code="glAccount.parentGlAccount.label" default="Main GL Account" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'parentGlAccount', 'errors')}">
@@ -38,7 +38,7 @@
                             </tr>
                             
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="glAccount"><g:message code="glAccount.glAccount.label" default="GL Account" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccount', 'errors')}">
@@ -47,7 +47,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="description"><g:message code="glAccount.description.label" default="Description" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'description', 'errors')}">
@@ -56,7 +56,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="glAccountType"><g:message code="glAccount.glAccountType.label" default="Account Type" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccountType', 'errors')}">
@@ -64,7 +64,7 @@
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="organization"><g:message code="glAccount.organization.label" default="Organization" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: Organization, field: 'organization', 'errors')}">

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <g:if test="${disableCreate == 'no'}">
             <span class="menuButton"><g:link class="create" action="create"><g:message code="cashVoucher.new.label"/></g:link></span>
             </g:if>
@@ -32,7 +32,7 @@
                         <tbody>
 
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="cashVoucherNumber"><g:message code="cashVoucher.cashVoucherNumber.label" default="Cash Voucher Number" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'cashVoucherNumber', 'errors')}">
@@ -41,7 +41,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="status"><g:message code="cashVoucher.status.label" default="Status" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'status', 'errors')}">
@@ -50,7 +50,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="approvalStatus"><g:message code="cashVoucher.approvalStatus.label" default="Approval Status" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'approvalStatus', 'errors')}">
@@ -60,7 +60,7 @@
                             </tr>
 
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="approvalStatus"><g:message code="cashVoucher.dateCreated.label" default="Approval Status" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'approvalStatus', 'errors')}">

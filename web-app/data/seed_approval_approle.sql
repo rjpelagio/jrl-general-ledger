@@ -4,6 +4,28 @@ BEGIN
 
 	DECLARE @generatedId INT 
 
+	IF NOT EXISTS (SELECT 1 FROM dbo.approval WHERE approval_feature = 'CASH_ADVANCE' 
+		AND department = 'Sales' AND position = 'Clerk')
+	BEGIN
+		INSERT INTO dbo.approval (version, description, department, approval_feature, status, position)
+		VALUES (1, 'Salesman approval template for cash', 'Sales', 'CASH_ADVANCE', 'Active', 'Clerk')
+
+		SET @generatedId = SCOPE_IDENTITY()
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Manager', 1)
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Supervisor', 2)
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Clerk', 3)
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Clerk', 4)
+	END
+
+
 	IF NOT EXISTS (SELECT 1 FROM dbo.approval WHERE approval_feature = 'VOUCHER' 
 		AND department = 'Finance' AND position = 'Clerk')
 	BEGIN

@@ -11,7 +11,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -29,22 +29,22 @@
                     <tbody>
                         
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." /></td>
                             
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "voucherNo")}</td>
 
-                            <td  class="name"><g:message code="glAccountingTransaction.transactionDate.label" default="Transaction Date" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.transactionDate.label" default="Transaction Date" /></td>
 
                             <td  class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.transactionDate}" /></td>
                         </tr>
 
                         <tr class="prop">
                             
-                            <td  class="name"><g:message code="glAccountingTransaction.postedDate.label" default="Posted Date" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.postedDate.label" default="Posted Date" /></td>
 
                             <td  class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.postedDate}" /></td>
 
-                            <td  class="name"><g:message code="glAccountingTransaction.entryDate.label" default="Entry Date" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.entryDate.label" default="Entry Date" /></td>
 
                             <td  class="value"><g:formatDate format="yyyy-MM-dd" date="${glAccountingTransactionInstance?.entryDate}" /></td>
 
@@ -53,40 +53,40 @@
                         <tr class="prop">
                             
 
-                            <td  class="name"><g:message code="glAccountingTransaction.voucherType.label" default="Voucher Type" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.voucherType.label" default="Voucher Type" /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "acctgTransType")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccountingTransaction.cdoKg.label" default="CDO Kg" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.cdoKg.label" default="CDO Kg" /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "cdoKg")}</td>
 
-                            <td  class="name"><g:message code="glAccountingTransaction.terms.label" default="Terms" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.terms.label" default="Terms" /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "terms")}</td>
                             
                         </tr>
 
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccountingTransaction.checkNo.label" default="Check No." /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.checkNo.label" default="Check No." /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "checkNo")}</td>
 
-                            <td  class="name"><g:message code="glAccountingTransaction.ckSiDate.label" default="Check/SI Date" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.ckSiDate.label" default="Check/SI Date" /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "ckSiDate")}</td>
 
                         </tr>
 
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccountingTransaction.party.label" default="Payee" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.party.label" default="Payee" /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "party")}</td>
 
-                            <td  class="name"><g:message code="party.tin.label" default="TIN" /></td>
+                            <td  class="sub"><g:message code="party.tin.label" default="TIN" /></td>
 
                             <td  class="value">${glAccountingTransactionInstance?.party?.tin?:'N/A'}</td>
 
@@ -94,20 +94,20 @@
                         
                         <tr class="prop">
 
-                            <td  class="name"><g:message code="glAccountingTransaction.preparedBy.label" default="Prepared By" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.preparedBy.label" default="Prepared By" /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "preparedBy.name")}</td>
 
                           
-                            <td  class="name"><g:message code="glAccountingTransaction.refDoc.label" default="Reference Doc" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.refDoc.label" default="Reference Doc" /></td>
 
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "refDoc")}</td>
                         </tr>
 
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccountingTransaction.status.label" default="Status"/></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.status.label" default="Status"/></td>
                             <td  class="value">${fieldValue(bean: glAccountingTransactionInstance, field: "status")}</td>
-                            <td class="name">Approval Status</td>
+                            <td class="sub">Approval Status</td>
                             <td class="value">
                               ${fieldValue(bean: glAccountingTransactionInstance, field : "approvalStatus")}
                             </td>
@@ -115,7 +115,7 @@
                         </tr>
 
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccountingTransaction.description.label" default="Description" /></td>
+                            <td  class="sub"><g:message code="glAccountingTransaction.description.label" default="Description" /></td>
 
                             <td  class="value" style="width:50%">${fieldValue(bean: glAccountingTransactionInstance, field: "description")}</td>
 

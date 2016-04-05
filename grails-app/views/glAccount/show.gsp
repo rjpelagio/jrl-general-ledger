@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -23,47 +23,47 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccount.parentGlAccount.label" default="Main GL Account" /></td>
+                            <td  class="sub"><g:message code="glAccount.parentGlAccount.label" default="Main GL Account" /></td>
 
                             <td  class="value"><g:link controller="glAccount" action="show" id="${glAccountInstance?.parentGlAccount?.id}">${glAccountInstance?.parentGlAccount?.encodeAsHTML()}</g:link></td>
 
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccount.glAccount.label" default="GL Account" /></td>
+                            <td  class="sub"><g:message code="glAccount.glAccount.label" default="GL Account" /></td>
                             
                             <td  class="value">${fieldValue(bean: glAccountInstance, field: "glAccount")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccount.description.label" default="Description" /></td>
+                            <td  class="sub"><g:message code="glAccount.description.label" default="Description" /></td>
                             
                             <td  class="value">${fieldValue(bean: glAccountInstance, field: "description")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccount.glAccountType.label" default="GL Account Type" /></td>
+                            <td  class="sub"><g:message code="glAccount.glAccountType.label" default="GL Account Type" /></td>
                             
                             <td  class="value">${glAccountInstance?.glAccountType?.encodeAsHTML()}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccount.dateCreated.label" default="Date Created" /></td>
+                            <td  class="sub"><g:message code="glAccount.dateCreated.label" default="Date Created" /></td>
                             
                             <td  class="value"><g:formatDate date="${glAccountInstance?.dateCreated}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="glAccount.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="sub"><g:message code="glAccount.lastUpdated.label" default="Last Updated" /></td>
                             
                             <td  class="value"><g:formatDate date="${glAccountInstance?.lastUpdated}" /></td>
                             
                         <tr class="prop">
-                            <td  class="name">
+                            <td  class="sub">
                               <label for="organization"><g:message code="glAccount.organization.label" default="Organization" /></label>
                             </td>
 

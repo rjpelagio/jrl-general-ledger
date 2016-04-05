@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -32,7 +32,7 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="organizationCode"><g:message code="appOrganization.organizationCode.label" default="Organization Code" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appOrganizationInstance, field: 'organizationCode', 'errors')}">
@@ -41,7 +41,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="organizationName"><g:message code="appOrganization.organizationName.label" default="Organization Name" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appOrganizationInstance, field: 'organizationName', 'errors')}">
@@ -50,7 +50,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="organizationType"><g:message code="appOrganization.organizationType.label" default="Organization Type" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appOrganizationInstance, field: 'organizationType', 'errors')}">
@@ -59,7 +59,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="party"><g:message code="appOrganization.party.label" default="Party" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appOrganizationInstance, field: 'party', 'errors')}">

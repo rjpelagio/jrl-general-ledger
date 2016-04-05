@@ -107,7 +107,8 @@ p
   padding: 0;
   left:0px;
   top:98px;
-  border:double #3C5326;
+  border:solid  #3C5326;
+  border-width: 1px;
 }
 
 .rightnav{    
@@ -125,7 +126,8 @@ p
   padding: 0;
   right:0px;
   top:98px;
-  border:double #3C5326;
+  border:solid  #3C5326;
+  border-width: 1px;
 }
 
 #mainwrapper
@@ -303,7 +305,7 @@ ul#menu li a:hover
     font: 70%/100% Trebuchet MS, Helvetica, sans-serif;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
     color:#666666;
-    background:#6DC8FD;
+    background:#eeeeee;
     border:1px solid #3C5326;
 }
 

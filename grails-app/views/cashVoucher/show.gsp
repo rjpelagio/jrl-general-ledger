@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -26,17 +26,33 @@
                     <tbody>
 
                         <tr class="prop">
-                            <td  class="name"><g:message code="cashVoucher.cashVoucherNumber.label" default="Cash Voucher Number" /></td>
+                            <td  class="sub"><g:message code="cashVoucher.cashVoucherNumber.label" default="Cash Voucher Number" /></td>
                             
                             <td  class="value" style="width:25%">${fieldValue(bean: cashVoucherInstance, field: "cashVoucherNumber")}</td>
+
+                            <td  class="sub"><g:message code="cashVoucher.total.label" default="Amount" /></td>
                             
-                            <td  class="name"><g:message code="cashVoucher.status.label" default="Status" /></td>
+                            <td  class="value">
+                                <g:formatNumber number="${cashVoucherInstance.total}" format="###,##0.00"  />
+                            </td>
+
+                            <td  class="sub"><g:message code="cashVoucher.change.label" default="Change" /></td>
                             
-                            <td  class="value">${fieldValue(bean: cashVoucherInstance, field: "status")}</td>
+                            <td  class="value">
+                                <g:formatNumber number="${cashVoucherInstance.change}" format="###,##0.00"  />
+                            </td>
+                            
+                            
+                            
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name">
+
+                            <td  class="sub"><g:message code="cashVoucher.glAccount.label" default="" /></td>
+                            
+                            <td  class="value">${cashVoucherInstance?.glAccount}</td>
+
+                            <td  class="sub">
                                 <g:message code="cashVoucher.dateCreated.label" default="Date Created" />
                             </td>
                             
@@ -45,42 +61,45 @@
                                     date="${cashVoucherInstance?.dateCreated}" />
                             </td>
 
-                            <td  class="name">
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td  class="sub"><g:message code="cashVoucher.party.label" default="Requested By" /></td>
+                            
+                            <td  class="value">${cashVoucherInstance?.requestedBy}</td>
+
+                            <td  class="sub"><g:message code="cashVoucher.payee.label" default="Payee" /></td>
+                            
+                            <td  class="value">${cashVoucherInstance?.payee}</td>
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            <td  class="sub"><g:message code="cashVoucher.party.label" default="Prepared By" /></td>
+                            
+                            <td  class="value">${cashVoucherInstance?.preparedBy}</td>
+
+                            
+                        </tr>
+
+                        <tr class="prop">
+                            
+
+                            <td  class="sub"><g:message code="cashVoucher.status.label" default="Status" /></td>
+                            
+                            <td  class="value">${fieldValue(bean: cashVoucherInstance, field: "status")}</td>
+
+                            <td  class="sub">
                                 <g:message code="cashVoucher.approvalStatus.label" default="Approval Status" />
                             </td>
                             
                             <td  class="value">
                                 ${fieldValue(bean: cashVoucherInstance, field: "approvalStatus")}
                             </td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td  class="name"><g:message code="cashVoucher.party.label" default="Requested By" /></td>
-                            
-                            <td  class="value">${cashVoucherInstance?.requestedBy}</td>
-
-                            <td  class="name"><g:message code="cashVoucher.party.label" default="Prepared By" /></td>
-                            
-                            <td  class="value">${cashVoucherInstance?.preparedBy}</td>
-                            
-                        </tr>
-
-                        <tr class="prop">
-                            <td  class="name"><g:message code="cashVoucher.total.label" default="Amount" /></td>
-                            
-                            <td  class="value">
-                                <g:formatNumber number="${cashVoucherInstance.total}" format="###,##0.00"  />
-                            </td>
-                            <g:if test="${cashVoucherInstance.transType == 'REIMBURSEMENT'}">
-                                <td  class="name"><g:message code="cashVoucher.change.label" default="Change" /></td>
-                                
-                                <td  class="value">${fieldValue(bean: cashVoucherInstance, field: "change")}</td>
-                            </g:if>
                                
                         </tr>
                         <tr class="prop">
-                            <td  class="name"><g:message code="cashVoucher.description.label" default="Description" /></td>
+                            <td  class="sub"><g:message code="cashVoucher.description.label" default="Description" /></td>
 
                             <td  class="value">${fieldValue(bean: cashVoucherInstance, field: "description")}</td>
 
