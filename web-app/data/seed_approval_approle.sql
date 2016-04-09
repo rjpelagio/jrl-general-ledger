@@ -4,6 +4,53 @@ BEGIN
 
 	DECLARE @generatedId INT 
 
+	IF NOT EXISTS (SELECT 1 FROM dbo.approval WHERE approval_feature = 'DISBURSEMENT' 
+		AND department = 'Finance' AND position = 'Clerk')
+	BEGIN
+		INSERT INTO dbo.approval (version, description, department, approval_feature, status, position)
+		VALUES (1, 'Clerk approval template for Disbursement', 'Finance', 'DISBURSEMENT', 'Active', 'Clerk')
+
+		SET @generatedId = SCOPE_IDENTITY()
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Manager', 1)
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Supervisor', 2)
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Clerk', 3)
+	END
+
+	IF NOT EXISTS (SELECT 1 FROM dbo.approval WHERE approval_feature = 'DISBURSEMENT' 
+		AND department = 'Finance' AND position = 'Supervisor')
+	BEGIN
+		INSERT INTO dbo.approval (version, description, department, approval_feature, status, position)
+		VALUES (1, 'Supervisor approval template for Disbursement', 'Finance', 'DISBURSEMENT', 'Active', 'Supervisor')
+
+		SET @generatedId = SCOPE_IDENTITY()
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Manager', 1)
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (1, @generatedId, 'Supervisor', 2)
+	END
+
+	IF NOT EXISTS (SELECT 1 FROM dbo.approval WHERE approval_feature = 'DISBURSEMENT' 
+		AND department = 'Finance' AND position = 'Manager')
+	BEGIN
+		
+		INSERT INTO dbo.approval (version, description, department, approval_feature, status, position)
+		VALUES (1, 'Manager approval template for Disbursement', 'Finance', 'DISBURSEMENT', 'Active', 'Manager')
+
+		SET @generatedId = SCOPE_IDENTITY()
+
+		INSERT INTO dbo.approval_seq (version, approval_id, position, sequence)
+		VALUES (0, @generatedId, 'Manager', 1)
+	END
+
+	-- Salesman cash advance and reimbursement approval
 	IF NOT EXISTS (SELECT 1 FROM dbo.approval WHERE approval_feature = 'CASH_ADVANCE' 
 		AND department = 'Sales' AND position = 'Clerk')
 	BEGIN

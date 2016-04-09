@@ -123,9 +123,9 @@
                                 </td>
                                  <td style="text-align:left" ><g:textField id="total" name="total" onchange="this.value=validateInteger(this.value)" style="text-align:right" value="${params.amount}"/></td>
                                  <td  class="sub">
-                                    <label for="party"><g:message code="default.change.label" default="Change" /></label>
+                                    
                                 </td>
-                                 <td style="text-align:left" ><g:textField id="change" name="change" onchange="this.value=validateInteger(this.value)" style="text-align:right" value="${params.change}"/></td>
+                                 <td style="text-align:left" ><input type="hidden" name="change" id="change" value="0"></td>
                             </tr> 
 
                             <tr class="prop">

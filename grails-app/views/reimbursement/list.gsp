@@ -45,7 +45,7 @@
                                     <label for="status"><g:message code="cashVoucher.status.label" default="Status" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'status', 'errors')}">
-                                    <g:select name="status" from="${cashVoucherInstance.constraints.status.inList}" value="${cashVoucherInstance?.status}" valueMessagePrefix="cashVoucher.status" noSelection="['null':'']" />
+                                    <g:select name="status" from="${cashVoucherInstance.constraints.status.inList}" value="${cashVoucherInstance?.status}" valueMessagePrefix="cashVoucher.status" noSelection="['':'']" />
                                 </td>
                             </tr>
                         
@@ -55,7 +55,7 @@
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'approvalStatus', 'errors')}">
 
-                                    <g:select name="approvalStatus" from="${cashVoucherInstance.constraints.approvalStatus.inList}" value="${cashVoucherInstance?.approvalStatus}" valueMessagePrefix="cashVoucher.approvalStatus" noSelection="['null':'']" />
+                                    <g:select name="approvalStatus" from="${cashVoucherInstance.constraints.approvalStatus.inList}" value="${cashVoucherInstance?.approvalStatus}" valueMessagePrefix="cashVoucher.approvalStatus" noSelection="['':'']" />
                                 </td>
                             </tr>
 

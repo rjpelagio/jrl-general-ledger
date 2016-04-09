@@ -151,13 +151,10 @@
                                         style="text-align:right" />
                                 </td>
                                 <td  class="sub">
-                                    <label for="party"><g:message code="default.change.label" default="Change" /></label>
+                                    
                                 </td>
                                  <td style="text-align:left" >
-                                    <g:textField id="change" name="change" 
-                                        value="${cashVoucherInstance?.change}" 
-                                        onchange="this.value=validateInteger(this.value)" 
-                                        style="text-align:right" />
+                                    <input type="hidden" name="change" id="change" value="0"/>
                                 </td>
                                  
 

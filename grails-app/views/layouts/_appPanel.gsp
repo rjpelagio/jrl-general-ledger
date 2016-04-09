@@ -79,7 +79,7 @@
             <li><g:link controller="liquidation" action="list">Liquidation</g:link></li>
           </ul>
         </li>
-        <li><a href="#">Disbursement</a></li>
+        <li><g:link controller="disbursement" action="list">Disbursement</g:link></li>
         <li><a href="#">Replenishment</a></li>
       </ul>
     </li>

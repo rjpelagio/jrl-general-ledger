@@ -65,6 +65,18 @@ input {
     font: 100%/100% Trebuchet MS, Helvetica, sans-serif;
 }
 
+.checkbox {
+    margin : 0;
+    padding: 0;
+    height: 15px;
+    -moz-border-radius : 0px;
+    -webkit-border-radius : 0px;
+    border-radius : 0px;
+    -moz-box-shadow: 0px;
+    -webkit-box-shadow: 0px;
+    box-shadow:  0px;
+}
+
 textarea {
     background-color: #fcfcfc;
     border: 1px solid #3C5326;
@@ -352,6 +364,14 @@ th.desc a {
     width:15%;
     font-style:normal;
     vertical-align: middle;
+}
+
+.prop .subTop {
+    text-align: left;
+    padding-left : 1cm;
+    width:15%;
+    font-style:normal;
+    vertical-align: top;
 }
 
 .prop .value {

@@ -36,11 +36,6 @@
                                 <g:formatNumber number="${cashVoucherInstance.total}" format="###,##0.00"  />
                             </td>
 
-                            <td  class="sub"><g:message code="cashVoucher.change.label" default="Change" /></td>
-                            
-                            <td  class="value">
-                                <g:formatNumber number="${cashVoucherInstance.change}" format="###,##0.00"  />
-                            </td>
                             
                             
                             
