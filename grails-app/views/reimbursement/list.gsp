@@ -7,6 +7,12 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'reimburse.label', default: 'Reimbursement')}" />
         <title>Reimbursement</title>
+        <script type="text/javascript">
+            //This function ensures the passing of date parameters during pagination.
+            function passDate (date) {
+                $("#date").val(date)
+            }
+        </script>
     </head>
     <body>
         <div class="nav">
@@ -27,6 +33,7 @@
               <g:message code="default.button.search.label" args="[entityName]" />
             </div>
             <g:form action="list">
+                <input type="hidden" name="date" id="date" value="${params.date}"/>
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -64,7 +71,7 @@
                                     <label for="approvalStatus"><g:message code="cashVoucher.dateCreated.label" default="Approval Status" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'approvalStatus', 'errors')}">
-                                    <calendar:datePicker name="dateCreated" precision="day" value="${cashVoucherInstance?.dateCreated}"  />
+                                    <calendar:datePicker name="dateCreated" precision="day" value="${params?.dateCreated}" onChange="javascript:passDate(this.value)"/>
                                 </td>
                             </tr>
                         
@@ -122,7 +129,17 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${cashVoucherInstanceTotal}" />
+                <g:paginate total="${cashVoucherInstanceTotal}" 
+                    params="${[date : params.date,
+                        dateCreated_value : params.date,
+                        dateCreated_year : params.dateCreated_year,
+                        dateCreated_month : params.dateCreated_month,
+                        dateCreated_day : params.dateCreated_day, 
+                        cashVoucherNumber : params.cashVoucherNumber,
+                        status : params.status,
+                        approvalStatus : params.approvalStatus,
+                        offset : params.offset,
+                        max : params.max]}"/>
             </div>
         </div>
     </body>

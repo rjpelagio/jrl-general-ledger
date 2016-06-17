@@ -52,11 +52,15 @@ class GlAccountController {
     }
 
     def save = {
-        def glAccountInstance = new GlAccount(params)
+        //def glAccountInstance = new GlAccount(params)
         def organizationCheck = params.organizationCheck
         def organizationVal = params.organizationVal
 
-        println "Organization Check val " + organizationCheck
+        def glAccountInstance = new GlAccount()
+        glAccountInstance.description = params.description
+        glAccountInstance.glAccount = params.glAccount
+        glAccountInstance.glAccountType = GlAccountType.get(params.glAccountType.id)
+        glAccountInstance.parentGlAccount = GlAccount.get(params.parentGlAccountId)
         
         if (glAccountInstance.save(flush: true)) {
             flash.message = "${message(code: 'glAccount.created', args: [message(code: 'glAccount.label', default: 'GlAccount'), glAccountInstance.id])}"
@@ -113,8 +117,6 @@ class GlAccountController {
                     FROM gl_accounting_transaction_details\
                     WHERE gl_account_id='"+ glAccountInstance.id +"')) as trans\
             ON organization.organization_id=trans.trans_organization_id")
-
-        println glAccountOrganizationInstance
         
         if (!glAccountInstance) {
             flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccount.label', default: 'GlAccount'), params.id])}"
@@ -126,12 +128,10 @@ class GlAccountController {
     }
 
     def update = {
-        def db = new Sql(dataSource)
+        
         def glAccountInstance = GlAccount.get(params.id)
         def organization = params.organization
         def organizationList = AppOrganization.list()
-
-        println "Org List: " + organization
 
         def organizationInstance = GlAccountOrganization.executeQuery("\
             FROM GlAccountOrganization glo\
@@ -142,33 +142,24 @@ class GlAccountController {
             WHERE glo.glAccount = ?", [glAccountInstance])
 
 
-        if (glAccountInstance) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (glAccountInstance.version > version) {
-                    
-                    glAccountInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'glAccount.label', default: 'GlAccount')] as Object[], "Another user has updated this GlAccount while you were editing")
-                    render(view: "edit", model: [glAccountInstance: glAccountInstance])
-                    return
-                }
-            }
-            glAccountInstance.properties = params
-            if (!glAccountInstance.hasErrors() && glAccountInstance.save(flush: true)) {
-                flash.message = "${message(code: 'glAccount.updated', args: [message(code: 'glAccount.label', default: 'GlAccount'), glAccountInstance.id])}"
-                glAccountService.updateAccount(
-                    glAccountInstance,
-                    organization,
-                    glAccountOrganizationInstance
-                )
-                redirect(action: "show", id: glAccountInstance.id)
-            }
-            else {
-                render(view: "edit", model: [glAccountInstance: glAccountInstance])
-            }
+        //glAccountInstance.properties = params
+        glAccountInstance.description = params.description
+        glAccountInstance.glAccountType = GlAccountType.get(params.glAccountType.id)
+        glAccountInstance.parentGlAccount = GlAccount.get(params.parentGlAccountId)
+
+        
+
+        if (glAccountInstance.save(flush: true)) {
+            flash.message = "${message(code: 'glAccount.updated', args: [message(code: 'glAccount.label', default: 'GlAccount'), glAccountInstance.description])}"
+            glAccountService.updateAccount(
+                glAccountInstance,
+                organization,
+                glAccountOrganizationInstance
+            )
+            redirect(action: "show", id: glAccountInstance.id)
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccount.label', default: 'GlAccount'), params.id])}"
-            redirect(action: "list")
+            render(view: "edit", model: [glAccountInstance: glAccountInstance])
         }
     }
 

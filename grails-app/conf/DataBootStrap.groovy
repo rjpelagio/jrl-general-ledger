@@ -14,9 +14,8 @@ class DataBootStrap {
 
         String sqlFilePath =  ApplicationHolder.application.parentContext.servletContext.getRealPath("/data/seed_approval_approle.sql")
         String sqlString = new File(sqlFilePath).text
-        
-        sql.execute(sqlString)
 
+        sql.execute(sqlString)
 	}
 
 	def destroy = {

@@ -65,17 +65,7 @@ input {
     font: 100%/100% Trebuchet MS, Helvetica, sans-serif;
 }
 
-.checkbox {
-    margin : 0;
-    padding: 0;
-    height: 15px;
-    -moz-border-radius : 0px;
-    -webkit-border-radius : 0px;
-    border-radius : 0px;
-    -moz-box-shadow: 0px;
-    -webkit-box-shadow: 0px;
-    box-shadow:  0px;
-}
+
 
 textarea {
     background-color: #fcfcfc;
@@ -114,6 +104,18 @@ textarea {
 
 input:focus, select:focus, textarea:focus {
     border: 1px solid #b2d1ff;
+}
+
+.checkbox {
+    margin : 0;
+    padding: 0;
+    height: 15px;
+    -moz-border-radius : 0px;
+    -webkit-border-radius : 0px;
+    border-radius : 0px;
+    -moz-box-shadow: 0px;
+    -webkit-box-shadow: 0px;
+    box-shadow:  0px;
 }
 
 .body {
@@ -342,7 +344,19 @@ th.desc a {
     color:#3C5326;
 }
 
+.total table {
+    border-collapse : collapse;
+    border-left: 1px solid #3C5326;
+    border-right:1px solid #3C5326;
+    border-bottom:1px solid #3C5326;
+    border-top:1px solid #3C5326;
+    color:#3C5326;
+}
 
+.total tr {
+    border-left : 1px solid #3C5326;
+    border-right : 1px solid #3C5326;
+}
 
 .prop {
     padding: 0px;
@@ -536,4 +550,19 @@ a.header-main:link, a.header-main:visited {
     padding: 4px 3px;
     font-weight: bold;
     font-family : Trebuchet MS;
+}
+
+input.load {
+    padding: 2px 6px;
+    padding-left: 25px;
+    overflow: visible;
+    border: 0;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+    margin-left: 3px;0;
+    border-color: 1.5px solid #3C5326;
+    background: white url(../images/skin/database_save.png) 5px 50% no-repeat;
+    border-color: 1.5px solid #3C5326;
+    padding-left: 28px;
 }

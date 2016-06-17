@@ -43,6 +43,8 @@ class ReimbursementController {
         def map = new CashVoucher(params)
         params.dateCreated = map.dateCreated
 
+        params.organization = session.organization.id
+
         def result = cashSearchService.reimbursmentSearchService(params)
         //def result = CashVoucher.list()
         //println 'Controller Result : ' + result
@@ -60,7 +62,6 @@ class ReimbursementController {
 
         def cashVoucherInstance = new CashVoucher()
 
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [cashVoucherInstanceList: result.subList(offset, toIndex), 
             cashVoucherInstanceTotal: result.size(),
             cashVoucherInstance : cashVoucherInstance,
@@ -104,11 +105,15 @@ class ReimbursementController {
         trans.properties = params
         def payeeIds = [:]
 
-        return [cashVoucherInstance: trans, payeeIds : payeeIds]
+        def setup = CashSetup.get(1)
+
+        return [cashVoucherInstance: trans, payeeIds : payeeIds, setup : setup]
 
     }
 
     def save = {
+
+        
         def trans = new CashVoucher()
         trans.status = "Active"
         processSaveSubmit(trans, params)
@@ -135,7 +140,6 @@ class ReimbursementController {
         processUpdateSubmit(trans, params)
     }
 
-    
 
     def processSaveSubmit (CashVoucher trans, def params) {
         
@@ -144,33 +148,51 @@ class ReimbursementController {
         trans.approvalStatus = 'Pending Approval'
         trans.transType = 'REIMBURSEMENT'
         trans.preparedBy = session.user.party
-        trans.total = params.total.length() > 0 ? Double.parseDouble(params.total) : 0
-        params.total = trans.total
         trans.requestedBy = Party.get(params.requestedBy)
-        trans.cashVoucherNumber =  now.format("yyMMddHHmmss")
+        trans.cashVoucherNumber = "RI" + now.format("yyMMddHHmmss")
         trans.description = params.description
         trans.glAccount = GlAccount.get(params.glAccountId)
         trans.payee = Party.get(params.payee)
+        //trans.total = params.total.length() > 0 ? Float.parseFloat(params.total) : 0
+        if (params.rowIndex.toInteger() > 1) {
+            for (int i = 0; i < params.amounts.size(); i++) {
+                try {
+                    if (params.amounts[i].toFloat()) {
+                        trans.total += params.amounts[i].toFloat()
+                    } else {
+                        trans.total += 0;
+                    }
+                } catch (all) {
+                    trans.total += 0;
+                } 
+            }
+        } else {
+            trans.total = Float.parseFloat(params.amounts)
+        }
+        params.total = trans.total
+        trans.organization = session.organization
 
-
+        //def transItems= cashVoucherItems.findAllByCashVoucher(trans) 
         def glAccountIds = [:]
         def glAccounts = [:]
         if (params.department == 'Finance') {
-            glAccountIds = params.glAccountIds
-            glAccounts = params.glAccounts
+            glAccountIds = params.list('glAccountIds')
+            glAccounts = params.list('glAccounts')
         }
-        def descriptions = params.descriptions;
-        def payees = params.payees;
-        def payeeIds = params.payeeIds;
-        def refDocs = params.refDocs;
-        def tintexts = params.tintexts;
-        def amounts = params.amounts;
+        def descriptions = params.list('descriptions');
+        def payees = params.list('payees');
+        def payeeIds = params.list('payeeIds');
+        def refDocs = params.list('refDocs');
+        def tintexts = params.list('tintexts'); 
+        def amounts = params.list('amounts');
+
+
 
         def approvalMsg = ''
+
         if (trans.validate()) {
 
             def msgs = cashVoucherService.validateReimbursementItems(params)
-            
             
             if (msgs.size() == 0) {
                 if (trans.save(flush:true)) {
@@ -184,7 +206,7 @@ class ReimbursementController {
                     )
 
                     if (trans.status == 'Submitted') {
-                        approvalMsg = cashVoucherService.validateVoucherApproval(trans, session, params.remarks, 'cash_advance', params.formAction)
+                        cashVoucherService.validateVoucherApproval(trans, session, params.remarks, 'cash_advance', params.formAction)
                     }
                 }
                 
@@ -194,7 +216,7 @@ class ReimbursementController {
 
             } else {
 
-                msgs.add(approvalMsg)
+
                 flash.batchMsgs = msgs
 
 
@@ -231,14 +253,30 @@ class ReimbursementController {
     }
 
     def processUpdateSubmit (CashVoucher trans, def params) {
-
-        trans.total = params.total.length() > 0 ? Double.parseDouble(params.total) : 0
-        params.total = trans.total
+        
         trans.requestedBy = Party.get(params.requestedBy)
         trans.description = params.description
         trans.glAccount = GlAccount.get(params.glAccountId)
         trans.payee = Party.get(params.payee)
-        
+        //trans.total = params.total.length() > 0 ? Float.parseFloat(params.total) : 0
+        //if (params.rowIndex.toInteger() > 1) {
+        //    for (int i = 0; i < params.amounts.size(); i++) {
+        //        try {
+        //            if (params.amounts[i].toFloat()) {
+       //                 trans.total += params.amounts[i].toFloat()
+       //             } else {
+        //                trans.total += 0;
+       //             }
+        //        } catch (all) {
+        //            trans.total += 0;
+      //          } 
+        //    }
+    //    } else {
+      //      trans.total = Float.parseFloat(params.amounts)
+      //  }
+        trans.total = Float.parseFloat(params.total) ? Float.parseFloat(params.total) : 0
+        //params.total = trans.total3
+
         def glAccountIds = [:]
         def glAccounts = [:]
         if (params.department == 'Finance') {
@@ -252,6 +290,8 @@ class ReimbursementController {
         def tintexts = params.tintexts;
         def amounts = params.amounts;
 
+        def transItems = CashVoucherItems.findAllByCashVoucher(trans)
+
           if (trans.validate()) {
 
             def msgs = cashVoucherService.validateReimbursementItems(params)
@@ -259,11 +299,6 @@ class ReimbursementController {
             
             if (msgs.size() == 0) {
                 if (trans.save(flush:true)) {
-
-                    //remove previously recorded reimbursement items
-                    CashVoucherItems.executeUpdate("delete \
-                    CashVoucherItems items \
-                    WHERE items.cashVoucher = ?", [trans]);
 
                     cashVoucherService.insertReimbursementItems(trans,
                         payeeIds,
@@ -339,6 +374,45 @@ class ReimbursementController {
 
             [cashVoucherInstance: cashVoucherInstance, approvalItems : approvalItems, showButtons : showButtons, transItems : transItems]
         }
+    }
+
+    def cancel = {
+        def trans = CashVoucher.get(params.id)
+
+        if (trans) {
+
+            trans.status = 'Cancelled'
+            trans.approvalStatus = 'Denied'
+            trans.save(flush:true)
+
+            if (trans.hasErrors()) {
+                println trans.errors
+
+            }
+
+            params.remarks = (params.remarks!=null && params.remarks.length()>0) ? params.remarks : 'Cancelled by ' + session.party.name
+            def result = CashVoucherApproval.findAllByTransaction(trans)
+
+            if (result) {
+                for (int i = 0; i < result.size(); i++) {
+                    if (result.get(i).position == session.employee.position) {
+                        result.get(i).remarks = params.remarks
+                        result.get(i).updatedBy = session.party
+                        result.get(i).lastUpdated = new Date()
+                        
+                    }
+                    result.get(i).status = 'Cancelled'
+                    result.get(i).save(flush:true)
+                }
+            }
+
+            flash.message = "${message(code: 'default.cancelled.message', args: [message(code: 'cashVoucher.cashVoucherNumber.label', default: 'CashVoucher'), trans.id])}"
+            redirect(action: "show", id: trans.id)
+        } else {
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'cashVoucher.cashVoucherNumber.label', default: 'CashVoucher'), trans.id])}"
+            redirect(action: "list")
+        }
+
     }
 
 }

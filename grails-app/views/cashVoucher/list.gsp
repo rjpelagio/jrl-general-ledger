@@ -7,6 +7,12 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'cashVoucher.label', default: 'CashVoucher')}" />
         <title>Cash Advance</title>
+        <script type="text/javascript">
+            //This function ensures the passing of date parameters during pagination.
+            function passDate (date) {
+                $("#date").val(date)
+            }
+        </script>
     </head>
     <body>
         <div class="nav">
@@ -26,7 +32,8 @@
             <div class="table-header">
               <g:message code="default.button.search.label" args="[entityName]" />
             </div>
-            <g:form action="list">
+            <g:form action="list"> 
+                <input type="hidden" name="date" id="date" value="${params.date}"/>
                 <div class="dialog">
                     <table>
                         <tbody>
@@ -64,7 +71,7 @@
                                     <label for="approvalStatus"><g:message code="cashVoucher.dateCreated.label" default="Approval Status" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'approvalStatus', 'errors')}">
-                                    <calendar:datePicker name="dateCreated" precision="day" value="${cashVoucherInstance?.dateCreated}"  />
+                                    <calendar:datePicker name="dateCreated" precision="day" value="${params?.dateCreated}" onChange="javascript:passDate(this.value)" />
                                 </td>
                             </tr>
                         
@@ -83,19 +90,12 @@
                 <table>
                     <thead>
                         <tr>
-                            <g:sortableColumn property="cashVoucherNumber" title="${message(code: 'cashAdvance.number', default: 'Cash Voucher Number')}" />
-                        
-                        
-                            <g:sortableColumn property="status" title="${message(code: 'cashVoucher.status.label', default: 'Status')}" />
-                        
-                            <g:sortableColumn property="approvalStatus" title="${message(code: 'cashVoucher.approvalStatus.label', default: 'Approval Status')}" />
-                        
-                        
-                            <g:sortableColumn property="dateCreated" title="${message(code: 'cashVoucher.dateCreated.label', default: 'Date Created')}" />
-
-                            <th><g:message code="cashVoucher.preparedBy.label" default="Status" /></th>
-
-                            <th><g:message code="cashVoucher.requestedBy.label" default="Status" /></th>
+                            <th><g:message code="cashVoucher.cashVoucherNumber.label"/></th>
+                            <th><g:message code="status.label"/></th>
+                            <th><g:message code="approvalStatus.label"/></th>
+                            <th><g:message code="cashVoucher.dateCreated.label"/></th>
+                            <th><g:message code="cashVoucher.preparedBy.label"/></th>
+                            <th><g:message code="cashVoucher.requestedBy.label"/></th>
 
                         </tr>
                     </thead>
@@ -103,7 +103,7 @@
                     <g:each in="${cashVoucherInstanceList}" status="i" var="cashVoucherInstance">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                         
-                            <td><g:link action="show" id="${cashVoucherInstance.id}">
+                            <td><g:link action="show" id="${cashVoucherInstance?.id}">
                                 ${cashVoucherInstance?.cashVoucherNumber}</g:link></td>
                         
                             <td>${cashVoucherInstance?.status}</td>
@@ -122,7 +122,17 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${cashVoucherInstanceTotal}" />
+                <g:paginate total="${cashVoucherInstanceTotal}" 
+                    params="${[date : params.date,
+                        dateCreated_value : params.date,
+                        dateCreated_year : params.dateCreated_year,
+                        dateCreated_month : params.dateCreated_month,
+                        dateCreated_day : params.dateCreated_day, 
+                        cashVoucherNumber : params.cashVoucherNumber,
+                        status : params.status,
+                        approvalStatus : params.approvalStatus,
+                        offset : params.offset,
+                        max : params.max]}"/>
             </div>
         </div>
     </body>

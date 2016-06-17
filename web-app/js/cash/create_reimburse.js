@@ -21,12 +21,16 @@
                 var totalCredit = 0.00;
 
                 for (i = 0; i < amounts.length; i++) {
+                    if (isNaN(parseFloat(amounts[i].value))) {
+                        amounts[i].value = parseFloat(0);
+                    }
                     totalAmount = totalAmount + parseFloat(amounts[i].value);
                 }
                 
-                $("input[name='total']").val(totalAmount.toFixed(2));
-                span = document.getElementById("totalDisplay");
-                span.innerHTML = totalAmount.toFixed(2);
+                $("input[name='total']").val(parseFloat(totalAmount.toFixed(2)));
+                //span = document.getElementById("totalDisplay");
+                //span.innerHTML = parseFloat(totalAmount.toFixed(2));
+                $("#totalDisplay").html(parseFloat(totalAmount.toFixed(2)));
                 
             }
             
@@ -156,12 +160,69 @@
 
                 $("#save, #submit").click(function(event) {
 
+                    var payeeInvalid = 0;
+                    var glInvalid = 0;
+                    var descInvalid = 0;
+                    var refInvalid = 0;
+                    var payeeIds = document.getElementsByName("payeeIds");
+                    var glAccountIds = document.getElementsByName("glAccountIds");
+                    var descriptions = document.getElementsByName("descriptions");
+                    var refDocs = document.getElementsByName("refDocs");
                     var msg = '';
-                    var valid = 0
 
-                    if (valid == 1) {
-                        alert (msg);
+
+                    for (i = 0; i < payeeIds.length; i++) {
+                        if (isNaN(parseInt(payeeIds[i].value))) {
+                            payeeInvalid = 1;
+                            $("#payee_"+i).css("border", "1px solid red");
+                        }
+                    }
+
+                    var department = $("#department").val();
+                    if (department == 'Finance') {
+                        for (i = 0; i < glAccountIds.length; i++) {
+                            if (isNaN(parseInt(glAccountIds[i].value))) {
+                                glInvalid = 1;
+                                $("#glAccounts_"+i).css("border", "1px solid red");
+                            }
+                        }
+                    } else {
+                        glInvalid = 0;
+                    }
+
+                    for (i = 0; i < descriptions.length; i++) {
+                        if (descriptions[i].value == '') {
+                            descInvalid = 1;
+                            $("#description_"+i).css("border", "1px solid red");
+                        }
+                    }
+
+                    for (i = 0; i < refDocs.length; i++) {
+                        if (refDocs[i].value == '') {
+                            refInvalid = 1;
+                            $("#refDoc_"+i).css("border", "1px solid red");
+                        }
+                    }
+
+                    if (glInvalid == 1 || payeeInvalid == 1 || refInvalid == 1 || descInvalid == 1) {
+                        $("#dialog-message").append("<p>Please fill up the red highlighted fields on the list.</p>")
+                        $("#dialog-message").dialog( "open" );
                         return false;
+                    }
+
+                });
+
+                $( "#dialog-message" ).dialog({
+                    modal: true,
+                    autoOpen : false,
+                    draggable: false,
+                    resizable: false,
+                    closeOnEscape: false,
+                    buttons: {
+                        OK: function() {
+                            $("#dialog-message").html("");
+                            $( this ).dialog( "close" );
+                        }
                     }
                 });
 

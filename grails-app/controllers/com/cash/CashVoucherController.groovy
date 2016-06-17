@@ -28,6 +28,11 @@ class CashVoucherController {
         redirect(action: "list", params: params)
     }
 
+    def setup = {
+
+
+    }
+
     def list = {
 
         def disableCreate = 'yes'
@@ -42,14 +47,13 @@ class CashVoucherController {
         //Convert params.dateCreated to proper date string
         def map = new CashVoucher(params)
         params.dateCreated = map.dateCreated
-        println params.sort 
-        println params.order
+        params.organization = session.organization.id
 
         def result = cashSearchService.cashVoucherSearchService(params)
         //def result = CashVoucher.list()
         //println 'Controller Result : ' + result
 
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        params.max = Math.min(params.max ? params.int('max') : 10, 10)
         def offset = 0
 
         if(params.offset){
@@ -62,7 +66,6 @@ class CashVoucherController {
 
         def cashVoucherInstance = new CashVoucher()
 
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [cashVoucherInstanceList: result.subList(offset, toIndex), 
             cashVoucherInstanceTotal: result.size(),
             cashVoucherInstance : cashVoucherInstance,
@@ -78,9 +81,12 @@ class CashVoucherController {
             redirect(action:"list")
         }
 
+        def setup = CashSetup.get(1)
+
         def cashVoucherInstance = new CashVoucher()
         cashVoucherInstance.properties = params
-        return [cashVoucherInstance: cashVoucherInstance]
+        params.total = 0.00
+        return [cashVoucherInstance: cashVoucherInstance, setup : setup]
 
     }
 
@@ -133,6 +139,8 @@ class CashVoucherController {
                     if(approvalSequence.status == 'Submitted') {
                         showButtons = false
                     }
+                } else {
+                    showButtons = false
                 }
             }
 
@@ -176,18 +184,19 @@ class CashVoucherController {
         cashVoucher.approvalStatus = 'Pending Approval'
         cashVoucher.transType = 'CASH_ADVANCE'
         cashVoucher.preparedBy = session.user.party
-        cashVoucher.total = Double.parseDouble(params.total);
+        cashVoucher.total = params.total.length() > 0 ? Float.parseFloat(params.total) : 0
         cashVoucher.requestedBy = Party.get(params.requestedBy)
-        cashVoucher.cashVoucherNumber =  now.format("yyMMddHHmmss")
+        cashVoucher.cashVoucherNumber =  "CA" + now.format("yyMMddHHmmss")
         cashVoucher.description = params.description
         cashVoucher.glAccount = GlAccount.get(params.glAccountId)
         cashVoucher.payee = Party.get(params.payee)
-        cashVoucher.change = Double.parseDouble(params.change)
+        cashVoucher.change = 0.00
+        cashVoucher.dateCreated = now
+        cashVoucher.organization = session.organization
 
         if (cashVoucher.validate()) {
             if (cashVoucher.save(flush: true)) {
                 
-
                 if (cashVoucher.status == 'Submitted') {
                     cashVoucherService.validateVoucherApproval(cashVoucher, session, params.remarks, 'cash_advance', params.formAction)
                 }
@@ -206,12 +215,12 @@ class CashVoucherController {
 
     def processUpdateSubmit (def cashVoucher, def params) {
 
-        cashVoucher.total = Double.parseDouble(params.total);
+        cashVoucher.total = params.total.length() > 0 ? Float.parseFloat(params.total) : 0
         cashVoucher.requestedBy = Party.get(params.requestedBy)
         cashVoucher.description = params.description
         cashVoucher.glAccount = GlAccount.get(params.glAccountId)
         cashVoucher.payee = Party.get(params.payee)
-        cashVoucher.change = Double.parseDouble(params.change)
+        cashVoucher.change = 0.00
 
         if (cashVoucher.validate()) {
             if (cashVoucher.save(flush: true)) {
@@ -232,13 +241,18 @@ class CashVoucherController {
     }
 
     def cancel = {
-        def trans = CashVoucher.get(params.transId)
+        def trans = CashVoucher.get(params.id)
 
         if (trans) {
 
             trans.status = 'Cancelled'
             trans.approvalStatus = 'Denied'
-            trans.save(flush:true);
+            trans.save(flush:true)
+
+            if (trans.hasErrors()) {
+                println trans.errors
+
+            }
 
             params.remarks = (params.remarks!=null && params.remarks.length()>0) ? params.remarks : 'Cancelled by ' + session.party.name
             def result = CashVoucherApproval.findAllByTransaction(trans)
@@ -259,8 +273,75 @@ class CashVoucherController {
             flash.message = "${message(code: 'default.cancelled.message', args: [message(code: 'cashVoucher.cashVoucherNumber.label', default: 'CashVoucher'), trans.id])}"
             redirect(action: "show", id: trans.id)
         } else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction'), params.id])}"
+            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'cashVoucher.cashVoucherNumber.label', default: 'CashVoucher'), trans.id])}"
             redirect(action: "list")
+        }
+
+    }
+
+    def disbursement = {
+
+        
+
+        if (params.msg != null) {
+            flash.message = params.msg
+        }
+
+        def disableCreate = 'no'
+
+        if (!approvalService.checkApproval(session.employee.department, session.employee.position, 'CASH_ADVANCE')) {
+            flash.errors = "${message(code : 'approval.notFound')}"
+            disableCreate = 'yes'
+        }
+
+        def result = cashSearchService.retrieveDisbursableTransactions(session.organization.id)
+
+        def cashHistory = CashHistory.createCriteria()
+        def history = cashHistory.list () {
+            maxResults(1)
+            order("id", "desc")
+        }
+
+        if (!cashVoucherService.checkForOpenReplenishments(session.organization.id)){
+            flash.errors = "Unable to create a new Disbursement transaction. Resolve any open Replenishment transactions first."
+            disableCreate = 'yes'
+        }   
+            
+        [list: result, cashHistory : history.get(0), disableCreate : disableCreate]
+        
+        
+    }
+
+    def disburse = {
+
+        def result = cashSearchService.retrieveDisbursableTransactions(session.organization.id)
+
+        if (params.flags != null) {
+            
+            def valid = false
+            for (int i = 0; i < params.flags.size(); i++) {
+                if (params.flags[i] == '1') {
+                    valid = true
+                }
+            }
+
+            if (valid) {
+                cashVoucherService.disburseVouchers(params, result)
+            }
+
+            def cashHistory = CashHistory.createCriteria()
+            def history = cashHistory.list () {
+                maxResults(1)
+                order("id", "desc")
+            }
+            
+            //render(view: "disbursement", model : [list: result, cashHistory : history.get(0)])
+            redirect (action : "disbursement", params : [msg: "Disbursement successful."]);
+
+        } else {
+
+            redirect (action : "disbursement");
+
         }
 
     }

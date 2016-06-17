@@ -19,7 +19,4 @@ class GlAccountOrganization {
         thruDate (blank : false, nullable : true, display : false)
     }
 
-     String toString(){
-        return "${GlAccount.find(glAccount).glAccount} -- ${GlAccount.find(glAccount).description}"
-    }
 }

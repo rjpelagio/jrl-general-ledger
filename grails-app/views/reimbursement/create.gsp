@@ -59,9 +59,10 @@
                     </ul>
                 </div>
             </g:if>
+
             <g:form>
                 <input type="hidden" name="formAction" value="create"/>
-                <input type="hidden" name="department" value="${session.employee.department}"/>
+                <input type="hidden" name="department" id="department" value="${session.employee.department}"/>
                 <div class="table-header">
                     <g:message code="default.button.details.label" args="[entityName]" />
                 </div>
@@ -79,7 +80,6 @@
                                 </td>
                                 <td  class="sub">
                                     <label for="tin">Tin</label>
-                                    
                                 </td>
                                 <td  class="value">
                                     <span name="tin" id="tin">${params.tinText}</span>
@@ -111,9 +111,9 @@
                                     <label for="party"><g:message code="cashVoucher.glAccount.label" default="Account" /></label>
                                 </td>
                                  <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'glAccount', 'errors')}">
-                                    <g:textField id="glAccount" name="glAccount" size="40" value="${params.glAccount}"/>
+                                    <g:textField id="glAccount" name="glAccount" size="40" value="${params?.glAccount ? params?.glAccount : setup?.reimbursementAcctTitle}"/>
                                     <input type="hidden" id="glAccountId" name="glAccountId"
-                                        value="${params.glAccountId}"/>
+                                        value="${params?.glAccountId ? params?.glAccountId : setup?.reimbursementAcctTitle?.id}"/>
                                 </td>
                             </tr>
                         
@@ -163,185 +163,131 @@
                                 </tr>
                             </thead>
                             <tbody id="dataTable">
+                               
                                 <g:if test="${payeeIds.size() > 0}">
-                                    <g:if test="${payeeIds.size() > 1}">
-                                        <input type="hidden" id="rowIndex" name="rowIndex" value="${rowIndex}"/>
-                                        <input type="hidden" id="rowNumber" name="rowNumber" value="${rowNumber}"/>
-                                        <g:each status="i" in="${payeeIds}" var="acct">
-                                            <tr id="row_${i}">
-
-
-
-                                                <g:if test="${session.employee.department == 'Finance'}">
-                                                    <td style="width:20%">
-                                                        <g:textField id="glAccounts_${i}"
-                                                            name="glAccounts"
-                                                            size="30"
-                                                            value="${GlAccount.get(glAccountIds[i])}"
-                                                            onkeypress="getAccounts(${i})"/> 
-                                                        <input type="hidden" id="glAccountId_${i}" name="glAccountIds"
-                                                            value="${glAccountIds[i]}"/>
-                                                    </td>
-                                                    <td style="width:20%"><g:textField id="description_${i}"
-                                                                 name="descriptions" size="35"
-                                                                 value="${descriptions[i]}"/>
-                                                    </td>
-                                                    <td style="width:15%">
-                                                        <g:textField id="payee_${i}"
-                                                                     name="payees"
-                                                                     value="${payees[i]}"
-                                                                     onkeypress="getPayees(${i})"/>
-                                                        <input type="hidden" id="payeeId_${i}" 
-                                                                     name="payeeIds"
-                                                                     value="${payeeIds[i]}"
-                                                                     />
-                                                    </td>
-                                                    <td style="width:10%">
-                                                        <span id="tinText_${i}">${Party.get(payeeIds[i])?.tin}</span>
-                                                    </td>
-                                                    <td style="width:15%"><g:textField id="refDoc_${i}"
-                                                                     name="refDocs"
-                                                                     value="${refDocs[i]}" size="20"/>
-                                                    </td>
-                                                    <td style="text-align:right;width:5%">
-                                                        <g:textField id="amount_${i}"
-                                                             name="amounts"
-                                                             value="${amounts[i]}"
-                                                             onchange="this.value=validateInteger(this.value);recomputeAmount(${i})"
-                                                             style="text-align:right" size="10"/>
-                                                    </td>
-                                                    <td>
-                                                      <input type="button" id="delete_${i}" value="Delete" onClick="deleteRow(${i});"/>
-                                                    </td>
-                                                </g:if>
-
-
-
-                                                <g:else>
-                                                    <td style="width:25%"><g:textField id="description_${i}"
-                                                                     name="descriptions" size="55"
-                                                                     value="${descriptions[i]}"/></td>
-                                                    <td style="width:15%">
-                                                        <g:textField id="payee_${i}"
-                                                                     name="payees"
-                                                                     value="${payees[i]}"
-                                                                     onkeypress="getPayees(${i})"/>
-                                                        <input type="hidden" id="payeeId_${i}" 
-                                                                     name="payeeIds"
-                                                                     value="${payeeIds[i]}"
-                                                                     />
-                                                    </td>
-                                                    <td style="width:15%">
-                                                        <span id="tinText_${i}">${Party.get(payeeIds[i])?.tin}</span>
-                                                    </td>
-                                                    
-                                                    <td style="width:25%"><g:textField id="refDoc_${i}"
-                                                                     name="refDocs"
-                                                                     value="${refDocs[i]}"/></td>
-                                                    <td style="text-align:right;width:5%"><g:textField id="amount_${i}"
-                                                                     name="amounts"
-                                                                     value="${amounts[i]}"
-                                                                     onchange="this.value=validateInteger(this.value);recomputeAmount(${i})"
-                                                                     style="text-align:right" size="10"/></td>
-                                                    <td>
-                                                      <input type="button" id="delete_${i}" value="Delete" onClick="deleteRow(${i});"/>
-                                                    </td>
-                                                </g:else>
-
-
-                                            </tr>
-                                        </g:each>
-                                    </g:if>
-                                    <g:if test="${payeeIds.size() == 1}">
-                                        <tr id="row_0">
-                                            <input type="hidden" id="rowIndex" name="rowIndex" value="1"/>
-                                            <input type="hidden" id="rowNumber" name="rowNumber" value="0"/>
-
-
+                                    <input type="hidden" id="rowIndex" name="rowIndex" value="${rowIndex}"/>
+                                    <input type="hidden" id="rowNumber" name="rowNumber" value="${rowNumber}"/>
+                                    <g:each status="i" in="${payeeIds}" var="acct">
+                                        <tr id="row_${i}">
                                             <g:if test="${session.employee.department == 'Finance'}">
                                                 <td style="width:20%">
-                                                        <g:textField id="glAccounts_0"
-                                                            name="glAccounts"
-                                                            size="30"
-                                                            value="${glAccounts}"
-                                                            onkeypress="getAccounts(0)"/>  
-                                                        <input type="hidden" id="glAccountIds_0" name="glAccountIds" 
-                                                            value="${glAccountIds}"/>  
+                                                    <g:textField id="glAccounts_${i}"
+                                                        name="glAccounts"
+                                                        size="30"
+                                                        value="${GlAccount.get(glAccountIds[i])}"
+                                                        onkeypress="getAccounts(${i})"/> 
+                                                    <input type="hidden" id="glAccountId_${i}" name="glAccountIds"
+                                                        value="${glAccountIds[i]}"/>
                                                 </td>
-                                                <td style="width:20%">
-                                                <g:textField id="description_0" name="descriptions" size="35" 
-                                                    value="${params.descriptions}"/>
+                                                <td style="width:20%"><g:textField id="description_${i}"
+                                                             name="descriptions" size="35"
+                                                             value="${descriptions[i]}"/>
                                                 </td>
                                                 <td style="width:15%">
-                                                    <g:textField id="payee_0" name="payees" onkeypress="getPayees(0)" 
-                                                        value="${params.payees}"/>
-                                                    <input type="hidden" id="payeeId_0" name="payeeIds" value="${payeeIds}" />
+                                                    <g:textField id="payee_${i}"
+                                                                 name="payees"
+                                                                 value="${payees[i]}"
+                                                                 onkeypress="getPayees(${i})"/>
+                                                    <input type="hidden" id="payeeId_${i}" 
+                                                                 name="payeeIds"
+                                                                 value="${payeeIds[i]}"
+                                                                 />
                                                 </td>
-                                                <td style="width:10%"><span id="tinText_0">${Party.get(payeeIds)?.tin}</span></td>
-                                                <td style="width:15%">
-                                                    <g:textField id="refDoc_0" name="refDocs" size="20"
-                                                        value="${refDocs}"/>
+                                                <td style="width:10%">
+                                                    <span id="tinText_${i}">${Party.get(payeeIds[i])?.tin}</span>
+                                                </td>
+                                                <td style="width:15%"><g:textField id="refDoc_${i}"
+                                                                 name="refDocs"
+                                                                 value="${refDocs[i]}" size="20"/>
                                                 </td>
                                                 <td style="text-align:right;width:5%">
-                                                    <g:textField id="amount_0" name="amounts" onchange="this.value=validateInteger(this.value);recomputeAmount(0)" style="text-align:right" value="${params.amounts}" size="10"/></td>
-                                                <td>
-                                                    <input type="button" id="delete_0" value="Delete" onClick="deleteRow(0);"/>
+                                                    <g:textField id="amount_${i}"
+                                                         name="amounts"
+                                                         value="${amounts[i]}"
+                                                         onchange="this.value=validateInteger(this.value);recomputeAmount(${i})"
+                                                         style="text-align:right" size="10"/>
                                                 </td>
-                                            </g:if> 
-
-
+                                                <td>
+                                                  <input type="button" id="delete_${i}" value="Delete" onClick="deleteRow(${i});"/>
+                                                </td>
+                                            </g:if>
                                             <g:else>
-                                                <td style="width:25%">
-                                                    <g:textField id="description_0" name="descriptions" size="55" 
-                                                        value="${params.descriptions}"/>
+                                               
+                                                <td style="width:25%"><g:textField id="description_${i}"
+                                                                 name="descriptions" size="55"
+                                                                 value="${descriptions[i]}"/></td>
+                                                <td style="width:15%">
+                                                    <g:textField id="payee_${i}"
+                                                                 name="payees"
+                                                                 value="${payees[i]}"
+                                                                 onkeypress="getPayees(${i})"/>
+                                                    <input type="hidden" id="payeeId_${i}" 
+                                                                 name="payeeIds"
+                                                                 value="${payeeIds[i]}"
+                                                                 />
                                                 </td>
                                                 <td style="width:15%">
-                                                    <g:textField id="payee_0" name="payees" onkeypress="getPayees(0)" 
-                                                        value="${params.payees}"/>
-                                                    <input type="hidden" id="payeeId_0" name="payeeIds" value="${payeeIds}" />
+                                                    <span id="tinText_${i}">${Party.get(payeeIds[i])?.tin}</span>
                                                 </td>
-                                                <td style="width:15%"><span id="tinText_0">${Party.get(payeeIds)?.tin}</span></td>
-                                                <td style="width:25%">
-                                                    <g:textField id="refDoc_0" name="refDocs" size="35"
-                                                        value="${refDocs}"/>
-                                                </td>
-                                                <td style="text-align:right;width:5%">
-                                                    <g:textField id="amount_0" name="amounts" onchange="this.value=validateInteger(this.value);recomputeAmount(0)" style="text-align:right" value="${params.amounts}" size="10"/></td>
+                                                
+                                                <td style="width:25%"><g:textField id="refDoc_${i}"
+                                                                 name="refDocs"
+                                                                 value="${refDocs[i]}"/></td>
+                                                <td style="text-align:right;width:5%"><g:textField id="amount_${i}"
+                                                                 name="amounts"
+                                                                 value="${amounts[i]}"
+                                                                 onchange="this.value=validateInteger(this.value);recomputeAmount(${i})"
+                                                                 style="text-align:right" size="10"/></td>
                                                 <td>
-                                                    <input type="button" id="delete_0" value="Delete" onClick="deleteRow(0);"/>
+                                                  <input type="button" id="delete_${i}" value="Delete" onClick="deleteRow(${i});"/>
                                                 </td>
                                             </g:else>
-
                                         </tr>
-                                    </g:if>
+                                    </g:each>
                                 </g:if>
                                 <g:else>
-                                <input type="hidden" id="rowIndex" name="rowIndex" value="1"/>
-                                <input type="hidden" id="rowNumber" name="rowNumber" value="0"/> 
-
+                                    <input type="hidden" id="rowIndex" name="rowIndex" value="1"/>
+                                    <input type="hidden" id="rowNumber" name="rowNumber" value="0"/> 
                                     <tr id="row_0">
                                         <g:if test="${session.employee.department == 'Finance'}">
                                             <td style="width:20%">
                                                 <g:textField id="glAccounts_0"
                                                     name="glAccounts"
                                                     size="30"
-                                                    value="${glAccounts}"
-                                                    onkeypress="getAccounts(0)"/>
-                                                <input type="hidden" id="glAccountIds_0" name="glAccountIds"/>    
+                                                    onkeypress="getAccounts(0)"
+                                                    value="${glAccounts}"/>
+                                                <input type="hidden" id="glAccountIds_0" name="glAccountIds" value="${glAccountIds}"/>    
                                             </td>
                                             <td style="width:20%">
-                                                <g:textField id="description_0" name="descriptions" size="35"/>
+                                                <g:textField id="description_0" name="descriptions" size="35"
+                                                    value="${descriptions}"/>
                                             </td>
                                             <td style="width:15%">
-                                                <g:textField id="payee_0" name="payees" onkeypress="getPayees(0)" />
-                                                <input type="hidden" id="payeeId_0" name="payeeIds" />
+                                                <g:textField id="payee_0" name="payees" onkeypress="getPayees(0)" value="${payees}" />
+                                                <input type="hidden" id="payeeId_0" name="payeeIds" value="${payeeIds}"/>
                                             </td>
-                                            <td style="width:10%"><span id="tinText_0"></span></td>
+                                            <td style="width:10%">
+                                                <span id="tinText_0">
+                                                    <g:if test="${payeeIds != [:]}">
+                                                        ${Party?.get(payeeIds)?.tin}
+                                                    </g:if>        
+                                                </span>
+                                            </td>
                                             <td style="width:15%">
-                                                <g:textField id="refDoc_0" name="refDocs" size="20"/>
+                                                <g:textField id="refDoc_0" name="refDocs" size="20" value="${refDocs}"/>
                                             </td>
                                             <td style="text-align:right;width:5%">
-                                                <g:textField id="amount_0" name="amounts" onchange="this.value=validateInteger(this.value);recomputeAmount(0)" style="text-align:right" value="0.00" size="10"/>
+                                                <g:if test="${amounts != null}">
+                                                     <g:textField id="amount_0" name="amounts" 
+                                                        onchange="this.value=validateInteger(this.value);recomputeAmount(0)" 
+                                                            style="text-align:right" value="${amounts}" size="10"/>
+                                                </g:if>
+                                                <g:else>
+                                                    <g:textField id="amount_0" name="amounts" 
+                                                        onchange="this.value=validateInteger(this.value);recomputeAmount(0)" 
+                                                            style="text-align:right" value="0.00" size="10"/>
+                                                </g:else>
+                                               
                                             </td>
                                             <td>
                                                 <input type="button" id="delete_0" value="Delete" onClick="deleteRow(0);"/>
@@ -349,27 +295,38 @@
                                         </g:if>
                                         <g:else>
                                             <td style="width:25%">
-                                                    <g:textField id="description_0" name="descriptions" size="55" 
-                                                        value="${params.descriptions}"/>
-                                                </td>
-                                                <td style="width:15%">
-                                                    <g:textField id="payee_0" name="payees" onkeypress="getPayees(0)" 
-                                                        value="${params.payees}"/>
-                                                    <input type="hidden" id="payeeId_0" name="payeeIds" value="${payeeIds}" />
-                                                </td>
-                                                <td style="width:15%"><span id="tinText_0"></span></td>
-                                                <td style="width:25%">
-                                                    <g:textField id="refDoc_0" name="refDocs" size="35"
-                                                        value="${refDocs}"/>
-                                                </td>
-                                                <td style="text-align:right;width:5%">
-                                                    <g:textField id="amount_0" name="amounts" onchange="this.value=validateInteger(this.value);recomputeAmount(0)" style="text-align:right" value="${params.amounts}" size="10"/></td>
-                                                <td>
-                                                    <input type="button" id="delete_0" value="Delete" onClick="deleteRow(0);"/>
-                                                </td>
+                                                <g:textField id="description_0" name="descriptions" size="55" 
+                                                    value="${descriptions}"/>
+                                            </td>
+                                            <td style="width:15%">
+                                                <g:textField id="payee_0" name="payees" onkeypress="getPayees(0)" 
+                                                    value="${payees}"/>
+                                                <input type="hidden" id="payeeId_0" name="payeeIds" value="${payeeIds}" />
+                                            </td>
+                                            <td style="width:15%"><span id="tinText_0">${Party?.get(payeeIds)?.tin}</span></td>
+                                            <td style="width:25%">
+                                                <g:textField id="refDoc_0" name="refDocs" size="35"
+                                                    value="${refDocs}"/>
+                                            </td>
+                                            <td style="text-align:right;width:5%">
+                                                <g:if test="${amounts != null}">
+                                                     <g:textField id="amount_0" name="amounts" 
+                                                        onchange="this.value=validateInteger(this.value);recomputeAmount(0)" 
+                                                            style="text-align:right" value="${amounts}" size="10"/>
+                                                </g:if>
+                                                <g:else>
+                                                    <g:textField id="amount_0" name="amounts" 
+                                                        onchange="this.value=validateInteger(this.value);recomputeAmount(0)" 
+                                                            style="text-align:right" value="0.00" size="10"/>
+                                                </g:else>
+                                            <td>
+                                                <input type="button" id="delete_0" value="Delete" onClick="deleteRow(0);"/>
+                                            </td>
                                         </g:else>
                                     </tr>
                                 </g:else>
+
+                                
                                 <tr id="totals">
                                     <g:if test="${session.employee.department == 'Finance'}">
                                         <td></td>
@@ -379,8 +336,8 @@
                                     <td></td>
                                     <td style="text-align:right">Total : </td>
                                     <td style="text-align:right">
-                                        <span id="totalDisplay"></span> 
-                                        <input type="hidden" name="total" id="total"/>
+                                        <span id="totalDisplay">${params?.total}</span> 
+                                        <input type="hidden" name="total" id="total" value="${params?.total}"/>
                                     </td>
                                     <td></td>
                                 </tr>
@@ -407,6 +364,9 @@
                     <g:actionSubmit id="submit" name="submit" class="save" action="submit" value="Submit"/>
                 </div>
             </g:form>
+        </div>
+        <div id="dialog-message" title="Incomplete List">
+           
         </div>
     </body>
 </html>

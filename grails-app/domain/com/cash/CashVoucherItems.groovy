@@ -5,7 +5,6 @@ import com.app.*
 
 class CashVoucherItems implements Serializable {
     
-    static auditable = true
     String description
     BigDecimal amount = 0.00
     String referenceDoc

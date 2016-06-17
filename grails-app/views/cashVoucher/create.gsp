@@ -118,14 +118,14 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                                <td  class="sub">
+                                <td class="sub">
                                     <label for="party"><g:message code="default.amount.label" default="Amount" /></label>
                                 </td>
-                                 <td style="text-align:left" ><g:textField id="total" name="total" onchange="this.value=validateInteger(this.value)" style="text-align:right" value="${params.amount}"/></td>
-                                 <td  class="sub">
-                                    
+                                <td class="value ${hasErrors(bean: cashVoucherInstance, field: 'total', 'errors')}">
+                                    <g:textField id="total" name="total" 
+                                        onchange="this.value=validateInteger(this.value)" 
+                                            style="text-align:right" value="${params.total}"/>
                                 </td>
-                                 <td style="text-align:left" ><input type="hidden" name="change" id="change" value="0"></td>
                             </tr> 
 
                             <tr class="prop">
@@ -174,10 +174,11 @@
                                 <td  class="sub">
                                     <label for="party"><g:message code="cashVoucher.glAccount.label" default="Account" /></label>
                                 </td>
-                                 <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'glAccount', 'errors')}">
-                                    <g:textField id="glAccount" name="glAccount" size="40"/>
+                                <td  class="value ${hasErrors(bean: cashVoucherInstance, field: 'glAccount', 'errors')}">
+                                    <g:textField id="glAccount" name="glAccount" size="40" 
+                                        value="${params?.glAccount ? params?.glAccount : setup?.cashVoucherAcctTitle}"/>
                                     <input type="hidden" id="glAccountId" name="glAccountId"
-                                        value="${fieldValue(bean:cashVoucherInstance, field:'glAccount')}"/>
+                                        value="${cashVoucherInstance?.glAccount?.id ? cashVoucherInstance?.glAccount?.id : setup?.cashVoucherAcctTitle?.id}"/>
                                 </td>
                                 <td  class="sub">
                                     <label for="party"><g:message code="cashVoucher.preparedBy.label" default="Party" /></label>

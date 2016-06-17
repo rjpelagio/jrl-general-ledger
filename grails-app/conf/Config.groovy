@@ -54,7 +54,7 @@ grails.exceptionresolver.params.exclude = ['password']
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://www.${appName}.com"
+        grails.serverURL = "http://www.localhost:80/${appName}"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
@@ -72,6 +72,13 @@ log4j = {
     //
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    //}
+
+    //appenders {
+    //    file name:'file', file: '/var/log/tomcat6/mylog.log'
+    //}
+    //root {
+    //    info 'stdout', 'file'
     //}
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers

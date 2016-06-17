@@ -16,7 +16,8 @@ class CashVoucher implements Serializable {
 	String referenceNumber
 	String description
 
-	static belongsTo = [preparedBy : Party, requestedBy : Party, payee : Party, glAccount : GlAccount]
+	static belongsTo = [preparedBy : Party, requestedBy : Party, payee : Party, 
+			glAccount : GlAccount, organization : AppOrganization]
 
 	static mapping = {
         preparedBy column: "preparedBy"
@@ -24,12 +25,13 @@ class CashVoucher implements Serializable {
     }
 
 	static constraints = {
-        status (blank : false, nullable : false, inList : ['Active', 'Submitted', 'Closed', 'Released', 'Liquidated'])
-        approvalStatus (blank : false, nullable : false, inList : ['Pending Approval', 'Approved', 'Cancelled'])
+        status (blank : false, nullable : false, inList : ['Active', 'Submitted', 'Closed', 'Disbursed', 'Liquidated', 'Cancelled'])
+        approvalStatus (blank : false, nullable : false, inList : ['Pending Approval', 'Approved', 'Denied'])
     	cashVoucherNumber (blank : false, nullable : false, unique : true)
-    	transType (blank : false, nullable : false, inList : ['CASH_ADVANCE', 'REIMBURSEMENT', 'LIQUIDATION'])
+    	transType (blank : false, nullable : false, inList : ['CASH_ADVANCE', 'REIMBURSEMENT'])
     	referenceNumber (blank : true, nullable : true)
     	description (blank : false, nullable : false)
+    	total (blank : false, nullable : false, min : 0.01)
     }
 
 }

@@ -7,6 +7,57 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'glAccount.label', default: 'GlAccount')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#parentGlAccount").autocomplete({
+                    source: function(request, response){
+                            $.ajax({
+                                url: "/jrl/lookup/glAccount",
+                                data: request,
+                                success: function(data) {
+                                    response(data);
+                                }
+                            });
+                    },
+                    minLength: 3,
+                    selectFirst: true,
+                    autoFocus: true,
+                    select : function(event,ui) {
+
+                        if (ui != null) {
+
+                            $("#parentGlAccountId").val(ui.item.id);
+                            $("#parentGlAccount").val(ui.item.value);
+
+                            var TABKEY = 9;
+
+                            if (event.keyCode == TABKEY) { 
+                                event.preventDefault();
+                                $("#parentGlAccountId").val(ui.item.id);
+                                $("#parentGlAccount").val(ui.item.value);
+                                $("#parentGlAccount").focus();
+                            }
+
+                        } else {
+
+                            $("#parentGlAccountId"+rowIndex).val("");
+                            $("#parentGlAccount"+rowIndex).val("");
+
+                            var TABKEY = 9;
+
+                            if (event.keyCode == TABKEY) { 
+                                event.preventDefault();
+                                $("#parentGlAccountId").val("");
+                                $("#parentGlAccount").val("");
+                                $("#parentGlAccount").focus();
+                            }
+
+                        }
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="nav">
@@ -33,7 +84,9 @@
                                     <label for="parentGlAccount"><g:message code="glAccount.parentGlAccount.label" default="Main GL Account" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'parentGlAccount', 'errors')}">
-                                    <g:select name="parentGlAccount.id" from="${com.gl.GlAccount.list()}" optionKey="id" value="${glAccountInstance?.parentGlAccount?.id}" noSelection="['null': '']" />
+                                    <g:textField id="parentGlAccount" name="parentGlAccount" size="40"/>
+                                    <input type="hidden" id="parentGlAccountId" name="parentGlAccountId"
+                                        value="${glAccountInstance?.parentGlAccount?.id}"/>
                                 </td>
                             </tr>
                             

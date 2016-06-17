@@ -123,10 +123,13 @@ class GlAccountingTransactionController {
                 showButtons = false
             } else if (trans.status == 'Submitted') {
                 def approvalSequence = VoucherApproval.findByTransactionAndPosition(trans, session.employee.position)
+                println 'Seq ' + approvalSequence
                 if (approvalSequence) {
                     if(approvalSequence.status == 'Submitted') {
                         showButtons = false
                     }
+                } else {
+                    showButtons = false
                 }
             }
 
@@ -170,7 +173,6 @@ class GlAccountingTransactionController {
          if (trans.validate()) {
 
             def msgs = glAcctgTransactionService.validateTransItems(glAccounts, glAccountIds)
-            def approvalMsg = ''
             
 
             if (msgs.size() == 0) {
@@ -184,7 +186,7 @@ class GlAccountingTransactionController {
                 )
 
                 if (trans.status == 'Submitted') {
-                    approvalMsg = glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher', params.formAction)
+                    glAcctgTransactionService.validateVoucherApproval(trans, session, params.remarks, 'voucher', params.formAction)
                 }
                 
         
@@ -194,7 +196,6 @@ class GlAccountingTransactionController {
 
             } else {
 
-                msgs.add(approvalmsg)
                 flash.batchMsgs = msgs
 
                 render(view: "create", model: [glAccountingTransactionInstance: trans, 

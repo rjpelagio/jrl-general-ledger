@@ -182,6 +182,17 @@ class BootStrap {
             }
         }
 
+        def cashAcctgTransType = new AcctgTransType(
+                acctgTransCode : 'CV',
+                acctgTransName : 'Cash Voucher'
+            )
+        if(!AcctgTransType.find(cashAcctgTransType)){
+            cashAcctgTransType.save();
+            if(cashAcctgTransType.hasErrors()){
+                println cashAcctgTransType.errors
+            }
+        }
+
     }
     def destroy = {
     }

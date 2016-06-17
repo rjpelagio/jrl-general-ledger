@@ -13,14 +13,15 @@
           <li><g:link controller="party" action="list">Payee</g:link></li>
           <li><g:link controller="employee" action="list">Employee</g:link></li>
           <li><g:link controller="appUser" action="list">Users</g:link></li>
-          <li><g:link controller="approval" action="list">Approval Setup</g:link></li>
-          <li>
+          <!--<li><g:link controller="approval" action="list">Approval Setup</g:link></li>-->
+          <!--<li>
             <a href="#">Customer</a>
             <ul>
               <li><g:link controller="customerArea" action="list">Customer Area</g:link></li>
               <li><g:link controller="customer" action="list">Customer Info</g:link></li>
             </ul>
-          </li>
+          </li>-->
+          <!--
           <li> 
             <a href="#">Salesman</a>
             <ul>
@@ -29,6 +30,7 @@
             </ul>
           </li>
           <li><g:link controller="area" action="list">Area</g:link></li>
+          -->
         </ul>
     </li>
     </g:if>
@@ -72,15 +74,18 @@
 
     <li><a href="#">Cash</a>
       <ul>
+        <g:if test="${session?.employee?.position == 'Manager'}">
+          <li><g:link controller="cashSetup" action="setup">Cash Setup</g:link>
+        </g:if>
         <li><g:link controller="cashVoucher" action="list">Petty Cash</g:link>
           <ul>
             <li><g:link controller="cashVoucher" action="list">Cash Advance</g:link></li>
             <li><g:link controller="reimbursement" action="list">Reimbursement</g:link></li>
+            <li><g:link controller="cashVoucher" action="disbursement">Disbursement</g:link></li>
             <li><g:link controller="liquidation" action="list">Liquidation</g:link></li>
           </ul>
         </li>
-        <li><g:link controller="disbursement" action="list">Disbursement</g:link></li>
-        <li><a href="#">Replenishment</a></li>
+        <li><g:link controller="replenishment" action="list">Replenishment</g:link></li>
       </ul>
     </li>
 

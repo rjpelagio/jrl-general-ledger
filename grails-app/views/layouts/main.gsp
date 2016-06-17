@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="${resource(dir:'css/custom-theme',file:'jquery-ui-1.8.16.custom.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <calendar:resources lang="en" theme="tiger"/>
+        <g:javascript library="accounting"/>
         <g:javascript library="application" />
         <g:javascript library="jquery-1.6.2.min"/>
         <g:javascript library="jquery-ui-1.8.16.custom.min"/>

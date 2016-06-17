@@ -62,7 +62,7 @@
             </g:if>
             <g:form method="post" >
                 <input type="hidden" name="formAction" value="edit"/>
-                <input type="hidden" name="department" value="${session.employee.department}"/>
+                <input type="hidden" name="department" id="department" value="${session.employee.department}"/>
                 <div class="table-header">
                     <g:message code="default.button.details.label" args="[entityName]" />
                 </div>
@@ -215,11 +215,9 @@
                                     <g:each status="i" in="${transItems}" var="item">
                                             <tr id="row_${i}">
 
-
-
                                                 <g:if test="${session.employee.department == 'Finance'}">
                                                     <td style="width:20%">
-                                                        <g:textField id="glAccount_${i}"
+                                                        <g:textField id="glAccounts_${i}"
                                                             name="glAccounts"
                                                             size="30"
                                                             value="${item.glAccount}"
@@ -252,7 +250,7 @@
                                                         <g:textField id="amount_${i}"
                                                              name="amounts"
                                                              value="${item.amount}"
-                                                             onchange="this.value=validateInteger(this.value);recomputeCredit(${i})"
+                                                             onchange="this.value=validateInteger(this.value);recomputeAmount(${i})"
                                                              style="text-align:right" size="10"/>
                                                     </td>
                                                     <td>
@@ -286,7 +284,7 @@
                                                     <td style="text-align:right;width:5%"><g:textField id="amount_${i}"
                                                                      name="amounts"
                                                                      value="${item.amount}"
-                                                                     onchange="this.value=validateInteger(this.value);recomputeCredit(${i})"
+                                                                     onchange="this.value=validateInteger(this.value);recomputeAmount(${i})"
                                                                      style="text-align:right" size="10"/></td>
                                                     <td>
                                                       <input type="button" id="delete_${i}" value="Delete" onClick="deleteRow(${i});"/>
@@ -308,7 +306,7 @@
                                 <td style="text-align:right">Total : </td>
                                 <td style="text-align:right">
                                     <span id="totalDisplay">${cashVoucherInstance.total}</span> 
-                                    <input type="hidden" name="total" id="total"/>
+                                    <input type="hidden" name="total" id="total" value="${cashVoucherInstance?.total}"/>
                                 </td>
                                 <td></td>
                             </tr>
@@ -368,7 +366,7 @@
                 </g:if>
                 <div class="buttons">
                     <span class="button">
-                        <g:actionSubmit class="save" action="update" value="${message(code: 'default.button.save.label', default: 'Save')}" />
+                        <g:actionSubmit id="save" class="save" action="update"  value="${message(code: 'default.button.save.label', default: 'Save')}" />
                         <g:actionSubmit id="submit" name="submit" class="save" value="Submit" action="submit" />
                     
                     <g:if test="${approvalItems}">
@@ -377,6 +375,9 @@
                     </span>
                 </div>
             </g:form>
+        </div>
+        <div id="dialog-message" title="Incomplete List">
+           
         </div>
     </body>
 </html>
