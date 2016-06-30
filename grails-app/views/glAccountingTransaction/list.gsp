@@ -8,10 +8,16 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'glAccountingTransaction.label', default: 'GlAccountingTransaction')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
+        <script type="text/javascript">
+            //This function ensures the passing of date parameters during pagination.
+            function passDate (date) {
+                $("#date").val(date)
+            }
+        </script>
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <g:if test="${disableCreate == 'no'}">
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
             </g:if>
@@ -33,7 +39,7 @@
                     <table>
                         <tbody>
                             <tr class="prop">
-                                <td valign="middle" class="name">
+                                <td valign="middle" class="sub">
                                     <g:message code="glAccountingTransaction.voucherNo.label" default="Voucher No." />
                                 </td>
                                 <td >
@@ -42,55 +48,43 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="acctgTransType"><g:message code="glAccountingTransaction.acctgTransType.label" default="Voucher Type" /></label>
                                 </td>
                                 <td >
-                                    <select name="acctgTransType">
-                                        <option value="null"></option>
-                                        <option value="JV">JV</option>
-                                        <option value="CKV">CKV</option>
-                                        <option value="AJV">AJV</option>
-                                    </select>
+                                    <g:select name="transType" from="${com.gl.AcctgTransType.list()}" optionKey="id" value="${glAccountingTransactionInstance?.acctgTransType?.id}"  />
                                 </td>
                             </tr>
                             
                             <tr class="prop">
-                                <td class="name">
+                                <td class="sub">
                                     <label for="description"><g:message code="glAccountingTransaction.status.label" default="Status" /></label>
                                 </td>
                                 <td >
-                                    <g:select name="status" from="${glAccountingTransactionInstance.constraints.status.inList}" value="${params?.status}" valueMessagePrefix="acctgPeriod.status" noSelection="['null': '']" />
+                                    <g:select name="status" from="${glAccountingTransactionInstance.constraints.status.inList}" value="${params?.status}" valueMessagePrefix="glAccountingTransactionInstance.status" noSelection="['null': '']" />
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td  class="sub">
+                                    <label for="approvalStatus"><g:message code="glAccountingTransactionInstance.approvalStatus.label" default="Approval Status" /></label>
+                                </td>
+                                <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'approvalStatus', 'errors')}">
+
+                                    <g:select name="approvalStatus" from="${glAccountingTransactionInstance.constraints.approvalStatus.inList}" value="${glAccountingTransactionInstance?.approvalStatus}" valueMessagePrefix="glAccountingTransactionInstance.approvalStatus" noSelection="['':'']" />
                                 </td>
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name" >
-                                    <label for="status"><g:message code="glAccountingTransactionInstance.transactionDate.label" default="Transaction Date" /></label>
+                                <td  class="sub">
+                                    <label for="dateCreated"><g:message code="dateCreated.label" default="Approval Status" /></label>
                                 </td>
-                                <td >
-                                    <calendar:datePicker name="transactionDate" precision="day" value=""  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td  class="name">
-                                    <label for="postedDate"><g:message code="glAccountingTransaction.postedDate.label" default="Posted Date" /></label>
-                                </td>
-                                <td >
-                                    <calendar:datePicker name="postedDate" precision="day" value="${glAccountingTransactionInstance?.postedDate}" default="none" noSelection="['': '']" />
+                                <td  class="value ${hasErrors(bean: glAccountingTransactionInstance, field: 'dateCreated', 'errors')}">
+                                    <calendar:datePicker name="dateCreated" precision="day" value="${params?.dateCreated}" onChange="javascript:passDate(this.value)" />
                                 </td>
                             </tr>
                         
-                            <tr class="prop">
-                                <td  class="name">
-                                    <label for="entryDate"><g:message code="glAccountingTransaction.entryDate.label" default="Entry Date" /></label>
-                                </td>
-                                <td >
-                                    <calendar:datePicker name="entryDate" precision="day" value=""  />
-                                </td>
-                            </tr>
-                        
+                            
                             <tr>
                                 <td></td>
                                 <td>

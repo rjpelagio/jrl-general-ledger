@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -23,35 +23,35 @@
                     <tbody>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="periodType.id.label" default="Id" /></td>
+                            <td  class="sub"><g:message code="periodType.id.label" default="Id" /></td>
                             
                             <td  class="value">${fieldValue(bean: periodTypeInstance, field: "id")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="periodType.periodTypeId.label" default="Period Type Id" /></td>
+                            <td  class="sub"><g:message code="periodType.periodTypeId.label" default="Period Type Id" /></td>
                             
                             <td  class="value">${fieldValue(bean: periodTypeInstance, field: "periodTypeId")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="periodType.periodName.label" default="Period Name" /></td>
+                            <td  class="sub"><g:message code="periodType.periodName.label" default="Period Name" /></td>
                             
                             <td  class="value">${fieldValue(bean: periodTypeInstance, field: "periodName")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="periodType.dateCreated.label" default="Date Created" /></td>
+                            <td  class="sub"><g:message code="periodType.dateCreated.label" default="Date Created" /></td>
                             
                             <td  class="value"><g:formatDate date="${periodTypeInstance?.dateCreated}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="periodType.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="sub"><g:message code="periodType.lastUpdated.label" default="Last Updated" /></td>
                             
                             <td  class="value"><g:formatDate date="${periodTypeInstance?.lastUpdated}" /></td>
                             

@@ -9,7 +9,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -21,7 +21,7 @@
             <div class="dialog">
                 <table>
                     <tr class="prop">
-                            <td  class="name"><g:message code="appUser.party.label" default="Party" /></td>
+                            <td  class="sub"><g:message code="appUser.party.label" default="Party" /></td>
                             
                             <td >${appUserInstance?.party?.encodeAsHTML()}</td>
                             
@@ -31,49 +31,49 @@
                         
                         
                         <tr class="prop">
-                            <td  class="name"><g:message code="appUser.username.label" default="Username" /></td>
+                            <td  class="sub"><g:message code="appUser.username.label" default="Username" /></td>
                             
                             <td  class="value">${fieldValue(bean: appUserInstance, field: "username")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appUser.firstName.label" default="First Name" /></td>
+                            <td  class="sub"><g:message code="appUser.firstName.label" default="First Name" /></td>
                             
                             <td  class="value">${appUserInstance?.party?.firstName}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appUser.lastName.label" default="Last Name" /></td>
+                            <td  class="sub"><g:message code="appUser.lastName.label" default="Last Name" /></td>
                             
                             <td  class="value">${appUserInstance?.party?.lastName}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appUser.role.label" default="Role" /></td>
+                            <td  class="sub"><g:message code="appUser.role.label" default="Role" /></td>
                             
                             <td  class="value">${appUserInstance?.role?.encodeAsHTML()}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appUser.lastLogin.label" default="Last Login" /></td>
+                            <td  class="sub"><g:message code="appUser.lastLogin.label" default="Last Login" /></td>
                             
                             <td  class="value"><g:formatDate date="${appUserInstance?.lastLogin}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appUser.dateCreated.label" default="Date Created" /></td>
+                            <td  class="sub"><g:message code="appUser.dateCreated.label" default="Date Created" /></td>
                             
                             <td  class="value"><g:formatDate date="${appUserInstance?.dateCreated}" /></td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td  class="name"><g:message code="appUser.lastUpdated.label" default="Last Updated" /></td>
+                            <td  class="sub"><g:message code="appUser.lastUpdated.label" default="Last Updated" /></td>
                             
                             <td  class="value"><g:formatDate date="${appUserInstance?.lastUpdated}" /></td>
                             

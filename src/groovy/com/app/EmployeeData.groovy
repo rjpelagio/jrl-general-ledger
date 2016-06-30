@@ -59,7 +59,7 @@ class EmployeeData implements Serializable {
 	    lastName(blank: false, bindable: true)
 	    birthdate(blank: false, nullable : false, bindable: true)
 	    gender (blank: false, bindable: true, inList : ["Male", "Female"])
-	    maritalStatus (blank: false, bindable: true, inList : ["Married", "Divorced", "Separated", "Widowed"])
+	    maritalStatus (blank: false, bindable: true, inList : ["Single","Married", "Divorced", "Separated", "Widowed"])
 	    tin(blank: false, bindable: true)
 	    department (blank: false, nullable: false, bindable: true, inList : ["Administration", "Finance", "HR", "Sales"])
         position (blank: false, nullable: false, bindable: true, inList : ['Clerk', 'Supervisor', 'Manager'])

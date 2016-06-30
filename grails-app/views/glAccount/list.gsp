@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
@@ -27,7 +27,7 @@
                         <tbody>
                             
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="glAccount"><g:message code="glAccount.glAccount.label" default="GL Account Code" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccount', 'errors')}">
@@ -36,7 +36,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="description"><g:message code="glAccount.description.label" default="GL Account Name" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'description', 'errors')}">
@@ -45,7 +45,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="glAccountType"><g:message code="glAccount.glAccountType.label" default="GL Account Type" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccountType', 'errors')}">

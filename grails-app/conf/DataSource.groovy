@@ -27,11 +27,12 @@ environments {
             pooled = true
             driverClassName = "com.microsoft.sqlserver.jdbc.SQLServerDriver"
             //dialect = "org.hibernate.dialect.SQLServerDialect"
-            username = "sa2"
-            password = "admin"
-            dbCreate = "create-drop"
+            username = "sa"
+            password = "admin123"
+            dbCreate = "update"
             //url = "jdbc:sqlserver://locahost:3306;databaseName=jrlsystem_dev"
-            url = "jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=jrlsystem_dev"
+            //url = "jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=jrlsystem_dev"
+            url = "jdbc:sqlserver://localhost:1433;instanceName=SQLEXPRESS;databaseName=jrlsystem_prod"
         }
     }
 }

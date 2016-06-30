@@ -35,8 +35,9 @@ class AppUserController {
     
     def authenticate = {
         if(!params.username) {
+            flash.message =
+                    "Sorry, username ${params.username} is not valid."
             redirect(uri:"/")
-            return false
         }
 
         else{
@@ -51,8 +52,11 @@ class AppUserController {
                 def party = Party.find(user.party)
                 def employee = Employee.findByParty(party)
                 def organization = AppOrganization.get(params.organization.id);
+                println 'params.password : ' + params.password
+                println 'encoded : ' + params.passwor
                 if (user.password == params.password.encodeAsSHA()){
                     user.password = params.password
+                    println 'Encoded pass : ' + user.password
                     session.user = user
                     session.organization = organization
                     session.employee = employee
@@ -65,11 +69,12 @@ class AppUserController {
 
                     user.lastLogin = new Date();
                     user.save()
-                    flash.message = "Hello ${party.name}!"
-                    redirect(uri:"/glAccountingTransaction/list")
+                    
+                    redirect(controller: "dashBoard", action: "list")
                 } else {
                     flash.message =
                     "Sorry, ${params.username}. Password is incorrect."
+
                     redirect(uri:"/")
                 }
             }
@@ -116,7 +121,7 @@ class AppUserController {
         if(offset>result.size()){
             offset = result.size()
         }
-        
+d        
         [appUserInstanceList: result, appUserInstanceTotal: result.size(), appUserInstance: appUserInstance, 
             employeeDropDown : employeeDropDown, recordCount : offset, roleList : roleList]
     }

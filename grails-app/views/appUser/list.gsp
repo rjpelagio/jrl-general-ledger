@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body" style="width:65%">
@@ -27,7 +27,7 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="party"><g:message code="appUser.party.label" default="Employee" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appUserInstance, field: 'party', 'errors')}">
@@ -36,7 +36,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="role">Access Type</label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appUserInstance, field: 'role', 'errors')}">

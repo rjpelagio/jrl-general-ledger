@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -32,7 +32,7 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="jvPrefix"><g:message code="acctgPreferences.jvPrefix.label" default="Jv Prefix" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'jvPrefix', 'errors')}">
@@ -41,7 +41,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="amtRounding"><g:message code="acctgPreferences.amtRounding.label" default="Amt Rounding" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'amtRounding', 'errors')}">
@@ -50,7 +50,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="priceRounding"><g:message code="acctgPreferences.priceRounding.label" default="Price Rounding" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'priceRounding', 'errors')}">
@@ -59,7 +59,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="docLineLimit"><g:message code="acctgPreferences.docLineLimit.label" default="Doc Line Limit" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'docLineLimit', 'errors')}">
@@ -68,7 +68,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="docFormat"><g:message code="acctgPreferences.docFormat.label" default="Doc Format" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'docFormat', 'errors')}">
@@ -77,7 +77,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="organizationCode"><g:message code="acctgPreferences.organizationCode.label" default="Organization Code" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPreferencesInstance, field: 'organizationCode', 'errors')}">

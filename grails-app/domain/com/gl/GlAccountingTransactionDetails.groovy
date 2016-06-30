@@ -2,7 +2,6 @@ package com.gl
 
 class GlAccountingTransactionDetails {
     
-    static auditable = true
     String debitCreditFlag
     BigDecimal amount
     int sequenceId

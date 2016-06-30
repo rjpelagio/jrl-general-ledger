@@ -7,10 +7,61 @@
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'glAccount.label', default: 'GlAccount')}" />
         <title><g:message code="default.create.label" args="[entityName]" /></title>
+        <script type="text/javascript">
+            $(document).ready(function () {
+
+                $("#parentGlAccount").autocomplete({
+                    source: function(request, response){
+                            $.ajax({
+                                url: "/jrl/lookup/glAccount",
+                                data: request,
+                                success: function(data) {
+                                    response(data);
+                                }
+                            });
+                    },
+                    minLength: 3,
+                    selectFirst: true,
+                    autoFocus: true,
+                    select : function(event,ui) {
+
+                        if (ui != null) {
+
+                            $("#parentGlAccountId").val(ui.item.id);
+                            $("#parentGlAccount").val(ui.item.value);
+
+                            var TABKEY = 9;
+
+                            if (event.keyCode == TABKEY) { 
+                                event.preventDefault();
+                                $("#parentGlAccountId").val(ui.item.id);
+                                $("#parentGlAccount").val(ui.item.value);
+                                $("#parentGlAccount").focus();
+                            }
+
+                        } else {
+
+                            $("#parentGlAccountId"+rowIndex).val("");
+                            $("#parentGlAccount"+rowIndex).val("");
+
+                            var TABKEY = 9;
+
+                            if (event.keyCode == TABKEY) { 
+                                event.preventDefault();
+                                $("#parentGlAccountId").val("");
+                                $("#parentGlAccount").val("");
+                                $("#parentGlAccount").focus();
+                            }
+
+                        }
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
@@ -29,16 +80,18 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="parentGlAccount"><g:message code="glAccount.parentGlAccount.label" default="Main GL Account" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'parentGlAccount', 'errors')}">
-                                    <g:select name="parentGlAccount.id" from="${com.gl.GlAccount.list()}" optionKey="id" value="${glAccountInstance?.parentGlAccount?.id}" noSelection="['null': '']" />
+                                    <g:textField id="parentGlAccount" name="parentGlAccount" size="40"/>
+                                    <input type="hidden" id="parentGlAccountId" name="parentGlAccountId"
+                                        value="${glAccountInstance?.parentGlAccount?.id}"/>
                                 </td>
                             </tr>
                             
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="glAccount"><g:message code="glAccount.glAccount.label" default="GL Account" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccount', 'errors')}">
@@ -47,7 +100,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="description"><g:message code="glAccount.description.label" default="Description" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'description', 'errors')}">
@@ -56,7 +109,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="glAccountType"><g:message code="glAccount.glAccountType.label" default="Account Type" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: glAccountInstance, field: 'glAccountType', 'errors')}">
@@ -64,7 +117,7 @@
                                 </td>
                             </tr>
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="organization"><g:message code="glAccount.organization.label" default="Organization" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: Organization, field: 'organization', 'errors')}">

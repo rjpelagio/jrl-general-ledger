@@ -5,7 +5,6 @@ import com.app.*
 
 class CashVoucherItems implements Serializable {
     
-    static auditable = true
     String description
     BigDecimal amount = 0.00
     String referenceDoc
@@ -15,7 +14,7 @@ class CashVoucherItems implements Serializable {
 
     static constraints = {
         cashVoucher (blank : false)
-        glAccount(blank : false)
+        glAccount(blank : true, nullable : true)
         payee(blank : false)
         amount(min : 0.0)
         referenceDoc(blank : true)

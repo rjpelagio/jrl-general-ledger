@@ -104,12 +104,12 @@ class GlAcctgTransactionService {
         def seq = 1;
         
         for (int i = 0; i < glAccounts.size(); i++) {
-            if((Double.parseDouble(debits[i])>0)){
+            if((Float.parseFloat(debits[i])>0)){
                 
                 insertAcctgTransItem(glAccounts[i], debits[i],
                 "Debit", seq, acctgTrans);
                 seq++;
-            } else if (Double.parseDouble(credits[i]) > 0) {
+            } else if (Float.parseFloat(credits[i]) > 0) {
                 insertAcctgTransItem(glAccounts[i], credits[i],
                 "Credit", seq, acctgTrans);
                 seq++;
@@ -132,7 +132,7 @@ class GlAcctgTransactionService {
             WHERE items.glAccountingTransaction = ?", [acctgTrans]);
         
         for (int i = 0; i < glAccounts.size(); i++) {
-            if((Double.parseDouble(debits[i])>0)){
+            if((Float.parseFloat(debits[i])>0)){
                 insertAcctgTransItem(glAccounts[i], debits[i],
                 "Debit", seq, acctgTrans);
                 seq++;
@@ -140,7 +140,7 @@ class GlAcctgTransactionService {
         }
 
         for (int i = 0; i < glAccounts.size(); i++) {
-            if((Double.parseDouble(credits[i])>0)){
+            if((Float.parseFloat(credits[i])>0)){
                 insertAcctgTransItem(glAccounts[i], credits[i],
                 "Credit", seq, acctgTrans);
                 seq++;
@@ -156,7 +156,7 @@ class GlAcctgTransactionService {
         def glAcctOrg = GlAccountOrganization.get(glAccountId);
         acctgTransItem.sequenceId = sequenceId;
         acctgTransItem.glAccount = GlAccount.get(glAcctOrg.glAccount.id);
-        acctgTransItem.amount = Double.parseDouble(amount);
+        acctgTransItem.amount = Float.parseFloat(amount);
         acctgTransItem.debitCreditFlag = debitCreditFlag;
         acctgTransItem.glAccountingTransaction = glAcctgTrans;
         acctgTransItem.save();

@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
         </div>
@@ -32,7 +32,7 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="acctgPeriodNum"><g:message code="acctgPeriod.acctgPeriodNum.label" default="Acctg Period Num" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'acctgPeriodNum', 'errors')}">
@@ -41,7 +41,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="month"><g:message code="acctgPeriod.month.label" default="Month" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'month', 'errors')}">
@@ -50,7 +50,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="status"><g:message code="acctgPeriod.status.label" default="Status" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'status', 'errors')}">
@@ -59,7 +59,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="fromDate"><g:message code="acctgPeriod.fromDate.label" default="From Date" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'fromDate', 'errors')}">
@@ -68,7 +68,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="thruDate"><g:message code="acctgPeriod.thruDate.label" default="Thru Date" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'thruDate', 'errors')}">
@@ -77,7 +77,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="year"><g:message code="acctgPeriod.year.label" default="Year" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'year', 'errors')}">
@@ -86,7 +86,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="organization"><g:message code="acctgPeriod.organization.label" default="Organization" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'organization', 'errors')}">
@@ -95,7 +95,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                   <label for="periodTypeId"><g:message code="acctgPeriod.periodTypeId.label" default="Period Type Id" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: acctgPeriodInstance, field: 'periodTypeId', 'errors')}">

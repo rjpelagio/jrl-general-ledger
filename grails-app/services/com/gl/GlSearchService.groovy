@@ -147,21 +147,9 @@ class GlSearchService {
         if (params.approvalStatus != '' && params.approvalStatus != null) {
             sqlString = sqlString + " AND a.approval_status = '" + params.approvalStatus + "'"
         }
-
-        if (params.transactionDate_value != '' && params.transactionDate_value != null) {
-            sqlString = sqlString + " AND a.transaction_date = '" + params.transactionDate_value + "'"
-        }
         
         if (params.dateCreated_value != '' && params.dateCreated_value != null) {
             sqlString = sqlString + " AND a.date_created = '" + params.dateCreated_value + "'"
-        }
-
-        if (params.entryDate_value != '' && params.entryDate_value != null) {
-            sqlString = sqlString + " AND a.entry_date = '" + params.entryDate_value + "'"
-        }
-
-        if (params.postedDate_value != '' && params.postedDate_value != null) {
-            sqlString = sqlString + " AND a.posted_date = '" + params.postedDate_value + "'"
         }
 
         //params.transactionDate = (params.transactionDate) ? params.transactionDate : null

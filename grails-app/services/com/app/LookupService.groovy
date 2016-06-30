@@ -24,7 +24,8 @@ class LookupService {
         "ON org.gl_account_id = glAcct.id " + 
         "WHERE org.organization_id = " + organization + " " +
         "AND (glAcct.gl_account LIKE '%" + params.term + "%' " +
-        "OR glAcct.description LIKE '%" + params.term + "%')"
+        "OR glAcct.description LIKE '%" + params.term + "%')" +
+        "ORDER BY glAcct.id ASC"
 
       def result = db.rows(nwquery);
 
@@ -33,7 +34,8 @@ class LookupService {
 
         glAccountMap.put("id", result.get(i).getProperty('id'))
         glAccountMap.put("label", result.get(i).getProperty('glAccount') + " : " + result.get(i).getProperty('description'))
-        glAccountMap.put("value", result.get(i).getProperty('glAccount') + " : " + result.get(i).getProperty('description'))
+        //glAccountMap.put("value", result.get(i).getProperty('glAccount') + " : " + result.get(i).getProperty('description'))
+        glAccountMap.put("value", result.get(i).getProperty('description'))
 
 
         glAccountList.add(glAccountMap) // add to the arraylist

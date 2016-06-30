@@ -10,7 +10,7 @@
     </head>
     <body>
         <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
+            <span class="menuButton"><a class="home" href="${createLink(uri: '/dashBoard/list')}"><g:message code="default.home.label"/></a></span>
             <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
         </div>
         <div class="body">
@@ -29,7 +29,7 @@
                         <tbody>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="roleCode"><g:message code="appRole.roleCode.label" default="Role Code" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appRoleInstance, field: 'roleCode', 'errors')}">
@@ -38,7 +38,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="roleName"><g:message code="appRole.roleName.label" default="Role Name" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appRoleInstance, field: 'roleName', 'errors')}">
@@ -47,7 +47,7 @@
                             </tr>
                         
                             <tr class="prop">
-                                <td  class="name">
+                                <td  class="sub">
                                     <label for="parent"><g:message code="appRole.parent.label" default="Parent" /></label>
                                 </td>
                                 <td  class="value ${hasErrors(bean: appRoleInstance, field: 'parent', 'errors')}">

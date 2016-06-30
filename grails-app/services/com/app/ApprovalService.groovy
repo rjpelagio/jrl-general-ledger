@@ -3,12 +3,17 @@ package com.app
 import groovy.sql.Sql
 import com.gl.*
 import com.cash.*
+import org.codehaus.groovy.grails.commons.ApplicationHolder
+import org.springframework.context.*
 
 class ApprovalService {
 
 	static transactional = true
 
     def dataSource
+
+    //Utility Services for different modules after approval is done processing
+    def cashApprovalService
 
     def serviceMethod() {
 
@@ -20,6 +25,7 @@ class ApprovalService {
 
         def approvalFeature = Approval.createCriteria()
 
+
         def result = approvalFeature {
           and {
             eq ("position", position)
@@ -27,6 +33,7 @@ class ApprovalService {
             eq ("approvalFeature", feature)
           }
         }
+
 
         if (result.size() > 0){
             def approvalSeq = ApprovalSeq.findByApproval(result.get(0))
@@ -45,6 +52,10 @@ class ApprovalService {
     		case 'voucher' : createVoucherApproval(session, transaction)
     						break;
             case 'cash_advance' : createCashVoucherApproval(session, transaction)
+                            break;
+            case 'liquidation' : createLiquidationApproval(session, transaction)
+                            break;
+            case 'replenishment' : createReplenishmentApproval(session, transaction)
                             break;
     		default : break; 
     	}
@@ -113,6 +124,45 @@ class ApprovalService {
                                 }
                              }
                              break;
+            case 'liquidation' : def transaction = Liquidation.get(trans.id)
+                             if (transaction) {
+                                if (formAction != 'updateSubmitted') {
+                                    transaction.approvalStatus = 'Approved'
+                                    //getCashVoucherService().processLiquidationChange(transaction)
+                                    //cashVoucherService.processLiquidationChange(transaction)
+                                    cashApprovalService.processLiquidationChange(transaction)
+                                }
+                                transaction.save(flush:true)
+                             }
+                             def result = LiquidationApproval.findAllByTransaction(trans)
+                             if (result) {
+                                for (int i = 0; i < result.size(); i++) {
+                                    if (result.get(i).remarks == '') {
+                                        result.get(i).remarks = 'No remarks.'
+                                        result.get(i).save(flush:true)
+                                    }
+                                }
+                             }
+                             break;
+            case 'replenishment' : def transaction = Replenishment.get(trans.id)
+                             if (transaction) {
+                                if (formAction != 'updateSubmitted') {
+                                    transaction.approvalStatus = 'Approved'
+                                    cashApprovalService.closeReplenishedTransactions(transaction)
+                                    cashApprovalService.postReplenishmentRequest(transaction)
+                                }
+                                transaction.save(flush:true)
+                             }
+                             def result = ReplenishmentApproval.findAllByTransaction(trans)
+                             if (result) {
+                                for (int i = 0; i < result.size(); i++) {
+                                    if (result.get(i).remarks == '') {
+                                        result.get(i).remarks = 'No remarks.'
+                                        result.get(i).save(flush:true)
+                                    }
+                                }
+                             }
+                             break;              
     		default : break; 
     	}
     }
@@ -179,8 +229,81 @@ class ApprovalService {
                     map.printErrors
                 }
 
+                def formAction = "save"
                 if (session.employee.position == map.position && map.sequence == 1) {
-                    approveTransaction (map.transaction, 'cash_advance') 
+                    approveTransaction (map.transaction, 'cash_advance', formAction) 
+                }
+            }
+        }
+    }
+
+    def createLiquidationApproval (def session, def transaction) {
+
+        //Retrive Approval Template
+        def result = retrieveApprovalTemplate(session.employee.department, session.employee.position, 'liquidation')
+
+        def map; 
+        if (result) {
+            for (int i = 0; i < result.size(); i++) {
+                map = new LiquidationApproval();
+                map.transaction = transaction
+                map.sequence = result.get(i).sequence
+                map.position = result.get(i).position
+                if (result.get(i).position == session.employee.position) {
+                    map.updatedBy = session.party
+                    map.lastUpdated = new Date()
+                    map.remarks = 'Prepared and submitted by ' + session.party.name
+                    map.status = 'Submitted'
+                } else {
+                    map.remarks = ''
+                    map.status = 'Active'
+                    map.lastUpdated = null
+                }
+
+                map.save(flush:true)
+                if (map.hasErrors()) {
+                    map.printErrors
+                }
+
+                def formAction = "save"
+                if (session.employee.position == map.position && map.sequence == 1) {
+                    approveTransaction (map.transaction, 'liquidation', formAction) 
+                }
+            }
+        }
+    }
+
+    def createReplenishmentApproval (def session, def transaction) {
+
+        //Retrive Approval Template
+        def result = retrieveApprovalTemplate(session.employee.department, session.employee.position, 'replenishment')
+
+        def map; 
+        if (result) {
+            for (int i = 0; i < result.size(); i++) {
+                map = new ReplenishmentApproval();
+                map.transaction = transaction
+                map.sequence = result.get(i).sequence
+                map.position = result.get(i).position
+                if (result.get(i).position == session.employee.position) {
+                    map.updatedBy = session.party
+                    map.lastUpdated = new Date()
+                    map.remarks = 'Prepared and submitted by ' + session.party.name
+                    map.status = 'Submitted'
+                } else {
+                    map.remarks = ''
+                    map.status = 'Active'
+                    map.lastUpdated = null
+                }
+
+                map.save(flush:true)
+                if (map.hasErrors()) {
+                    map.printErrors
+                }
+
+                def formAction = "save"
+                if (session.employee.position == map.position && map.sequence == 1) {
+                    approveTransaction (map.transaction, 'replenishment', formAction) 
                 }
             }
         }
