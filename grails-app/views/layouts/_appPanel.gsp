@@ -86,6 +86,15 @@
           </ul>
         </li>
         <li><g:link controller="replenishment" action="list">Replenishment</g:link></li>
+        <li><g:link controller="cashReports" action="cashVoucher">Reports</g:link>
+          <ul>
+              <li><g:link controller="cashReports" action="cashVoucher">Petty Cash Voucher</g:link>
+              <li><g:link controller="cashReports" action="replenishmentSummary">Replenishment Summary</g:link>
+              <li><g:link controller="cashReports" action="liquidationSummary">Liquidation Summary</g:link>
+              <li><g:link controller="cashReports" action="cashAdvanceSummary">Cash Advance Summary</g:link>
+              <li><g:link controller="cashReports" action="reimbursementSummary">Reimbursement Summary</g:link>
+          </ul>
+        </li>
       </ul>
     </li>
 

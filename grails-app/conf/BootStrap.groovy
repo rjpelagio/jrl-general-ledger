@@ -117,6 +117,7 @@ class BootStrap {
             }
         }
         
+        /*
         def glAcctOrg1 = new GlAccountOrganization(glAccount : GlAccount.get(1),
             organization : AppOrganization.get(1),
             startDate : "01/01/2011",
@@ -169,7 +170,7 @@ class BootStrap {
             if(glAcctOrg3.hasErrors()){
                 println glAcctOrg3.errors
             }
-        }
+        }**/
 
         def acctgTransType = new AcctgTransType(
                 acctgTransCode : 'JV',

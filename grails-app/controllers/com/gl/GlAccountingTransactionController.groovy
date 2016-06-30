@@ -35,12 +35,21 @@ class GlAccountingTransactionController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        def glAccountingTransactionInstance = new GlAccountingTransaction()
-        def offset = 0
+
+        def disableCreate = 'no';
+        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
+        if (approvalStatus == false) { 
+            flash.errors = "${message(code : 'approval.notFound')}"
+            disableCreate = 'yes';
+        }
+        
+        def map = new GlAccountingTransaction(params)
         
         def result = glSearchService.getAcctgTrans(session.organization, params)
         
+
+        params.max = Math.min(params.max ? params.int('max') : 10, 10)
+        def offset = 0
 
         if(params.offset){
             offset = Math.min(params.offset ? params.int('offset') : 0, result.size())
@@ -50,14 +59,11 @@ class GlAccountingTransactionController {
             toIndex=result.size()
         }
 
-        def disableCreate = 'no';
-        def approvalStatus = approvalService.checkApproval(session.employee.department, session.employee.position, 'VOUCHER')
-        if (approvalStatus == false) { 
-            flash.errors = "${message(code : 'approval.notFound')}"
-            disableCreate = 'yes';
-        }
-
-        [glAccountingTransactionInstanceList: result.subList(offset, toIndex), glAccountingTransactionInstanceTotal: result.size(), glAccountingTransactionInstance: glAccountingTransactionInstance, offset : toIndex, disableCreate : disableCreate]
+        [glAccountingTransactionInstanceList: result.subList(offset, toIndex), 
+        glAccountingTransactionInstanceTotal: result.size(), 
+        glAccountingTransactionInstance: map,
+        offset : toIndex, 
+        disableCreate : disableCreate]
     }
 
     def create = {

@@ -143,9 +143,6 @@ class CashVoucherService  {
         CashVoucherItems.executeUpdate("delete \
             CashVoucherItems items \
             WHERE items.cashVoucher = ?", [trans]);
-        
-
-        if (payeeIds.size() > 1) {
 
           for (int i = 0; i < payeeIds.size(); i++) { 
               def item = new CashVoucherItems();
@@ -163,22 +160,7 @@ class CashVoucherService  {
                   println item.errors
               }
           }
-        } else {
-          def item = new CashVoucherItems();
-          item.description = descriptions
-          item.referenceDoc = refDocs
-          item.amount = Float.parseFloat(amounts)
-          item.cashVoucher = trans
-          item.payee = Party.get(payeeIds)
-          if (department == 'Finance') {
-            item.glAccount = GlAccount.get(glAccountIds);
-          }
-          item.save(flush:true)
-          if (item.hasErrors()) {
-              println item.errors
-          }
-        }
-
+        
     }
 
     def disburseVouchers (def params, def list) {
@@ -223,7 +205,7 @@ class CashVoucherService  {
             LiquidationItems items \
             WHERE items.liquidation = ?", [trans]);
         
-        if (payeeIds.size() > 1) {
+        
 
           for (int i = 0; i < payeeIds.size(); i++) { 
               def item = new LiquidationItems();
@@ -239,19 +221,6 @@ class CashVoucherService  {
                   println item.errors
               }
           }
-        } else {
-          def item = new LiquidationItems();
-          item.description = descriptions
-          item.amount = Float.parseFloat(amounts)
-          item.liquidation = trans
-          item.payee = Party.get(payeeIds)
-          item.glAccount = GlAccount.get(glAccountIds);
-          item.refDoc = refDocs
-          item.save(flush:true)
-          if (item.hasErrors()) {
-              println item.errors
-          }
-        }
 
     }     
 

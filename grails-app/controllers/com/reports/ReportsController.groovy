@@ -17,6 +17,7 @@ class ReportsController {
     def incomeSheet = {
         
     }
+    
     def showjson = {
         def acctgPeriod = AcctgPeriod.get(params.id)
         render acctgPeriod as JSON

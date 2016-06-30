@@ -566,3 +566,16 @@ input.load {
     border-color: 1.5px solid #3C5326;
     padding-left: 28px;
 }
+
+a.pdfButton {
+    background-color: #3C5326;
+    color: white;
+    padding: 14px 25px;
+    text-align: center; 
+    text-decoration: none;
+    display:inline-table;
+    border : 1px solid #3C5326;
+}
+
+
+

@@ -41,7 +41,7 @@
                                     <g:textField id="cashVoucherAcctTitle" name="cashVoucherAcctTitle" size="50"
                                         value="${setup?.cashVoucherAcctTitle}"/>
                                     <input type="hidden" id="cashVoucherAcctTitleId" name="cashVoucherAcctTitleId"
-                                        value="${setup?.cashVoucherAcctTitle.id}"/>
+                                        value="${setup?.cashVoucherAcctTitle?.id}"/>
                                 </td>
                             </tr>
                         
@@ -53,7 +53,7 @@
                                     <g:textField id="liquidationAcctTitle" name="liquidationAcctTitle" size="50"
                                         value="${setup?.liquidationAcctTitle}"/>
                                     <input type="hidden" id="liquidationAcctTitleId" name="liquidationAcctTitleId"
-                                        value="${setup?.liquidationAcctTitle.id}"/>
+                                        value="${setup?.liquidationAcctTitle?.id}"/>
                                 </td>
                             </tr>
 
@@ -71,7 +71,7 @@
                                     <g:textField id="reimbursementAcctTitle" name="reimbursementAcctTitle" size="50"
                                         value="${setup?.reimbursementAcctTitle}"/>
                                     <input type="hidden" id="reimbursementAcctTitleId" name="reimbursementAcctTitleId"
-                                        value="${setup?.reimbursementAcctTitle.id}"/>
+                                        value="${setup?.reimbursementAcctTitle?.id}"/>
                                 </td>
                             </tr>
                         
@@ -83,7 +83,7 @@
                                     <g:textField id="reimbursementCreditAccount" name="reimbursementCreditAccount" size="50"
                                         value="${setup?.reimbursementCreditAccount}"/>
                                     <input type="hidden" id="reimbursementCreditAccountId" name="reimbursementCreditAccountId"
-                                        value="${setup?.reimbursementCreditAccount.id}"/>
+                                        value="${setup?.reimbursementCreditAccount?.id}"/>
                                 </td>
                             </tr>
                         
@@ -95,7 +95,7 @@
                                     <g:textField id="reimbursementDebitAccount" name="reimbursementDebitAccount" size="50"
                                         value="${setup?.reimbursementDebitAccount}"/>
                                     <input type="hidden" id="reimbursementDebitAccountId" name="reimbursementDebitAccountId"
-                                        value="${setup?.reimbursementDebitAccount.id}"/>
+                                        value="${setup?.reimbursementDebitAccount?.id}"/>
                                 </td>
                             </tr>
                             
@@ -113,7 +113,7 @@
                                     <g:textField id="replenishmentAcctTitle" name="replenishmentAcctTitle" size="50"
                                         value="${setup?.replenishmentAcctTitle}"/>
                                     <input type="hidden" id="replenishmentAcctTitleId" name="replenishmentAcctTitleId"
-                                        value="${setup?.replenishmentAcctTitle.id}"/>
+                                        value="${setup?.replenishmentAcctTitle?.id}"/>
                                 </td>
                             </tr>
                             -->

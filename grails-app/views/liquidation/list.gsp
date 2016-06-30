@@ -76,7 +76,7 @@
                                     <label for="approvalStatus"><g:message code="dateCreated.label"/>
                                 </td>
                                 <td  class="value ${hasErrors(bean: trans, field: 'dateCreated', 'errors')}">
-                                    <calendar:datePicker name="dateCreated" precision="day" value="${params?.dateCreated}"  />
+                                    <calendar:datePicker name="dateCreated" precision="day" value="${params?.dateCreated}"  onChange="javascript:passDate(this.value)"/>
                                 </td>
                             </tr>
                         

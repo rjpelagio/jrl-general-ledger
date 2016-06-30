@@ -44,6 +44,7 @@ class CashApprovalService  {
 
       		def amountForCashHistory = 0.00
       		for (int i = 0; i < items.size(); i++) {
+
         		if (items[i].liquidation != null) {
           			def liquidation = Liquidation.get(items[i].liquidation.id)
           			liquidation.status = 'Closed'
@@ -53,7 +54,9 @@ class CashApprovalService  {
           			postLiquidationRequest(liquidation)
         		}
 
+
         		if (items[i].cashVoucher != null) {
+
           			def cashVoucher = CashVoucher.get(items[i].cashVoucher.id)
           			cashVoucher.status = 'Closed'
           			cashVoucher.save(flush:true)
@@ -134,7 +137,7 @@ class CashApprovalService  {
 			
 		}
 
-		def postReimbursementRequest (Liquidation trans) {
+		def postReimbursementRequest (CashVoucher trans) {
 
 			def setup = CashSetup.get(1)
 
@@ -218,9 +221,9 @@ class CashApprovalService  {
 
 				varianceGlEntry.glAccountingTransaction = glEntry
 				varianceGlEntry.sequenceId = 1
-				varianceGlEntry.amount = trans.total
 				def transCash = ReplenishmentCashItems.findByReplenishment(trans)
-				def cashSetup = CashSetup.get(0)
+				varianceGlEntry.amount = transCash.variance
+				def cashSetup = CashSetup.get(1)
 				if (transCash.variance > 0) {
 					varianceGlEntry.glAccount = cashSetup.replenishmentNegVariance
 					varianceGlEntry.debitCreditFlag = 'Debit'

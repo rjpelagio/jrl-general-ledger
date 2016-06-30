@@ -207,14 +207,23 @@ class LiquidationController {
         params.total = trans.total
         trans.organization = session.organization
 
-        def glAccountIds = params.glAccountIds
-        def glAccounts = params.glAccounts
-        def descriptions = params.descriptions;
-        def payees = params.payees;
-        def payeeIds = params.payeeIds;
-        def refDocs = params.refDocs;
-        def tintexts = params.tintexts;
-        def amounts = params.amounts;
+
+        def glAccountIds = params.list('glAccountIds')
+        def glAccounts = params.list('glAccounts')
+        def descriptions = params.list('descriptions')
+        def payees = params.list('payees')
+        def payeeIds = params.list('payeeIds')
+        def refDocs = params.list('refDocs')
+        def tintexts = params.list('tintexts')
+        def amounts = params.list('amounts')
+        params.glAccountIds = glAccountIds
+        params.glAccounts = glAccounts
+        params.descriptions = descriptions
+        params.payees = payees
+        params.payeeIds = payeeIds
+        params.refDocs = refDocs
+        params.tintexts = tintexts
+        params.amounts = amounts
 
         def cashVoucherInstance = CashVoucher.get(params.cashVoucher)
         trans.change = cashVoucherInstance.total - trans.total
@@ -333,14 +342,22 @@ class LiquidationController {
         }
         params.total = trans.total
 
-        def glAccountIds = params.glAccountIds
-        def glAccounts = params.glAccounts
-        def descriptions = params.descriptions;
-        def payees = params.payees;
-        def payeeIds = params.payeeIds;
-        def refDocs = params.refDocs;
-        def tintexts = params.tintexts;
-        def amounts = params.amounts;
+        def glAccountIds = params.list('glAccountIds')
+        def glAccounts = params.list('glAccounts')
+        def descriptions = params.list('descriptions')
+        def payees = params.list('payees')
+        def payeeIds = params.list('payeeIds')
+        def refDocs = params.list('refDocs')
+        def tintexts = params.list('tintexts')
+        def amounts = params.list('amounts')
+        params.glAccountIds = glAccountIds
+        params.glAccounts = glAccounts
+        params.descriptions = descriptions
+        params.payees = payees
+        params.payeeIds = payeeIds
+        params.refDocs = refDocs
+        params.tintexts = tintexts
+        params.amounts = amounts
 
         def cashVoucherInstance = CashVoucher.get(trans.cashVoucher.id)
         trans.change = cashVoucherInstance.total - trans.total

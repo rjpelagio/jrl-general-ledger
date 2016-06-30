@@ -28,10 +28,14 @@ class CashSetupController {
     def save = {
 
         def setup = CashSetup.get(1)
+        if (!setup) {
+            setup = new CashSetup()
+            setup.organization = session.organization
+        }
         setup.cashVoucherAcctTitle = GlAccount.get(params.cashVoucherAcctTitleId)
         setup.reimbursementAcctTitle = GlAccount.get(params.reimbursementAcctTitleId)
         setup.liquidationAcctTitle = GlAccount.get(params.liquidationAcctTitleId)
-        //setup.replenishmentAcctTitle = GlAccount.get(params.replenishmentAcctTitleId)
+        setup.replenishmentAcctTitle = GlAccount.get(params.reimbursementAcctTitleId)
         setup.reimbursementCreditAccount = GlAccount.get(params.reimbursementCreditAccountId)
         setup.reimbursementDebitAccount = GlAccount.get(params.reimbursementDebitAccountId)
         setup.replenishmentNegVariance = GlAccount.get(params.replenishmentNegVarianceId)
